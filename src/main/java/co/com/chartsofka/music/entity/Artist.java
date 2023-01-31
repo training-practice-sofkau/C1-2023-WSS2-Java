@@ -15,5 +15,4 @@ public class Artist {
     LocalDate debutDate;
     String enterprise;
     String type;
-
 }

@@ -15,5 +15,4 @@ public class Song {
     LocalTime duration;
     String albumID;
     Integer played;
-
 }
