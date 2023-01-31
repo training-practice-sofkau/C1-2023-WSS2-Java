@@ -1,4 +1,4 @@
-package co.com.chartsofka.music.dto;
+package java.co.com.chartsofka.music.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

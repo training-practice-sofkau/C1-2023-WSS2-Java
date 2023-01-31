@@ -1,10 +1,9 @@
-package co.com.chartsofka.music.service.impl;
+package java.co.com.chartsofka.music.service.impl;
 
-import co.com.chartsofka.music.dto.AlbumDTO;
-import co.com.chartsofka.music.entity.Album;
-import co.com.chartsofka.music.service.IAlbumService;
 import org.springframework.stereotype.Service;
-
+import java.co.com.chartsofka.music.dto.AlbumDTO;
+import java.co.com.chartsofka.music.entity.Album;
+import java.co.com.chartsofka.music.service.IAlbumService;
 import java.util.List;
 
 @Service

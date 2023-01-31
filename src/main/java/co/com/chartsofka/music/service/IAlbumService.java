@@ -1,8 +1,7 @@
-package co.com.chartsofka.music.service;
+package java.co.com.chartsofka.music.service;
 
-import co.com.chartsofka.music.dto.AlbumDTO;
-import co.com.chartsofka.music.entity.Album;
-
+import java.co.com.chartsofka.music.dto.AlbumDTO;
+import java.co.com.chartsofka.music.entity.Album;
 import java.util.List;
 
 public interface IAlbumService {
