@@ -1,6 +1,7 @@
 package java.co.com.chartsofka.music.service.impl;
 
 import org.springframework.stereotype.Service;
+
 import java.co.com.chartsofka.music.dto.AlbumDTO;
 import java.co.com.chartsofka.music.entity.Album;
 import java.co.com.chartsofka.music.service.IAlbumService;
@@ -8,15 +9,10 @@ import java.util.List;
 
 @Service
 public class AlbumServiceImpl implements IAlbumService {
+
     @Override
     public Album dtoToEntity(AlbumDTO albumDTO) {
-        Album r = new Album();
-
-        r.setAlbumID(albumDTO.getAlbumID());
-        r.setTitle(albumDTO.getTitle());
-
-        return r;
-
+        return new Album(albumDTO.getAlbumID(), albumDTO.getTitle(), albumDTO.getTotalSongs(), albumDTO.getYearRelease(), albumDTO.getGenre(), albumDTO.getArtistID());
     }
 
     @Override

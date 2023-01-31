@@ -12,4 +12,6 @@ public class AlbumDTO {
     private String yearRelease;
     private String genre;
     private String artistID;
+
+
 }
