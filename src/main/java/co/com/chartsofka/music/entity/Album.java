@@ -14,6 +14,4 @@ public class Album {
     private String yearRelease;
     private String genre;
     private String artistID;
-
-
 }
