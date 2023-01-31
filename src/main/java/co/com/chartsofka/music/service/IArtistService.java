@@ -15,12 +15,12 @@ public interface IArtistService {
     //CRUD
     List<ArtistDTO> findAllArtist();
 
-    ArtistDTO findArtistById();
+    ArtistDTO findArtistById(String idArtist);
 
-    String saveArtist();
+    String saveArtist(ArtistDTO artistDTO);
 
-    ArtistDTO updateArtist();
+    ArtistDTO updateArtist(ArtistDTO artistDTO);
 
-    String deleteAlbum();
+    String deleteAlbum(String idArtist);
 
 }

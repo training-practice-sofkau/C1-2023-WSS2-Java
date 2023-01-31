@@ -11,18 +11,26 @@ import java.util.List;
 public class AlbumServiceImpl implements IAlbumService {
     @Override
     public Album dtoToEntity(AlbumDTO albumDTO) {
-        Album r = new Album();
-
-        r.setAlbumID(albumDTO.getAlbumID());
-        r.setTitle(albumDTO.getTitle());
-
-        return r;
-
+        Album result = new Album();
+        result.setAlbumID(albumDTO.getAlbumID());
+        result.setTitle(albumDTO.getTitle());
+        result.setGenre(albumDTO.getGenre());
+        result.setArtistID(albumDTO.getArtistID());
+        result.setTotalSongs(albumDTO.getTotalSongs());
+        result.setYearRelease(albumDTO.getYearRelease());
+        return result;
     }
 
     @Override
     public AlbumDTO entityToDTO(Album album) {
-        return null;
+        AlbumDTO result = new AlbumDTO();
+        result.setAlbumID(album.getAlbumID());
+        result.setTitle(album.getTitle());
+        result.setGenre(album.getGenre());
+        result.setArtistID(album.getArtistID());
+        result.setTotalSongs(album.getTotalSongs());
+        result.setYearRelease(album.getYearRelease());
+        return result;
     }
 
     @Override

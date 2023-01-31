@@ -11,12 +11,24 @@ import java.util.List;
 public class ArtistServiceImpl implements IArtistService {
     @Override
     public Artist dtoToEntity(ArtistDTO artistDTO) {
-        return null;
+        Artist result = new Artist();
+        result.setArtistID(artistDTO.getArtistID());
+        result.setType(artistDTO.getType());
+        result.setCountry(artistDTO.getCountry());
+        result.setEnterprise(artistDTO.getEnterprise());
+        result.setDebutDate(artistDTO.getDebutDate());
+        return result;
     }
 
     @Override
     public ArtistDTO entityToDTO(Artist artist) {
-        return null;
+        ArtistDTO result = new ArtistDTO();
+        result.setArtistID(artist.getArtistID());
+        result.setType(artist.getType());
+        result.setCountry(artist.getCountry());
+        result.setEnterprise(artist.getEnterprise());
+        result.setDebutDate(artist.getDebutDate());
+        return result;
     }
 
     @Override
@@ -25,22 +37,22 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
-    public ArtistDTO findArtistById() {
+    public ArtistDTO findArtistById(String IdArtist) {
         return null;
     }
 
     @Override
-    public String saveArtist() {
+    public String saveArtist(ArtistDTO artistDTO) {
         return null;
     }
 
     @Override
-    public ArtistDTO updateArtist() {
+    public ArtistDTO updateArtist(ArtistDTO artistDTO) {
         return null;
     }
 
     @Override
-    public String deleteAlbum() {
+    public String deleteAlbum(String idArtist) {
         return null;
     }
 }
