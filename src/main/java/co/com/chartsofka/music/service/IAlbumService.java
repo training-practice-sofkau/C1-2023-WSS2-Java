@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface IAlbumService {
 
-    //To manage the DTO's - Entity dynamic
+    //To manage the DTOs - Entity dynamic
     Album dtoToEntity (AlbumDTO albumDTO);
     AlbumDTO entityToDTO(Album album);
 
     //Basic operate
     List<AlbumDTO> getAlbums();
 
-    AlbumDTO findAlbumById(String idAlbum);
+    AlbumDTO findAlbumById(String albumID);
 
     String saveAlbum(AlbumDTO albumDTO);
 
     AlbumDTO updateAlbum(AlbumDTO albumDTO);
 
-    String deleteAlbum(String idAlbum);
+    String deleteAlbum(String albumID);
 
 }
