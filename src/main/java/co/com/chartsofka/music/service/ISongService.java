@@ -13,13 +13,13 @@ public interface ISongService {
     SongDTO entityToDTO(Song song);
 
     //Basic operate
-    List<SongDTO> getAlbums();
+    List<SongDTO> getSongs();
 
-    SongDTO findAlbumById(String songID);
+    SongDTO findSongById(String songID);
 
-    String saveAlbum(SongDTO songDTO);
+    String saveSong(SongDTO songDTO);
 
-    SongDTO updateAlbum(SongDTO songDTO);
+    SongDTO updateSong(SongDTO songDTO);
 
-    String deleteAlbum(String songID);
+    String deleteSong(String songID);
 }
