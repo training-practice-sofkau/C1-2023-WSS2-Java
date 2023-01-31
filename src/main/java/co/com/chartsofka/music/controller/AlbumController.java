@@ -1,6 +1,7 @@
 package java.co.com.chartsofka.music.controller;
 
 import java.co.com.chartsofka.music.dto.AlbumDTO;
+import java.co.com.chartsofka.music.entity.Album;
 import java.co.com.chartsofka.music.service.impl.AlbumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class AlbumController {
     AlbumServiceImpl service;
 
     @GetMapping("/album")
-    private List<AlbumDTO> obtenerAlbumnes(){
+    private List<Album> obtenerAlbumnes(){
         return service.getAlbums();
     }
 }

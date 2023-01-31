@@ -9,13 +9,13 @@ public interface IArtistService {
     Artist dtoToEntity(ArtistDTO artistDTO);
     ArtistDTO entityToDTO(Artist artist);
 
-    List<ArtistDTO> getArtist();
+    List<Artist> getArtist();
 
-    ArtistDTO findArtistById(String artistId);
+    Artist findArtistById(String artistId);
 
     String saveArtist(ArtistDTO artistDTO);
 
-    ArtistDTO updateArtist(ArtistDTO artistDTO);
+    Artist updateArtist(ArtistDTO artistDTO);
 
     String deleteArtist(String artistId);
 

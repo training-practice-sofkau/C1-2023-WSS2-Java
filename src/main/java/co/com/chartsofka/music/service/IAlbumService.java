@@ -11,13 +11,13 @@ public interface IAlbumService {
     AlbumDTO entityToDTO(Album album);
 
     //Basic operate
-    List<AlbumDTO> getAlbums();
+    List<Album> getAlbums();
 
-    AlbumDTO findAlbumById(String albumId);
+    Album findAlbumById(String albumId);
 
     String saveAlbum(AlbumDTO albumDTO);
 
-    AlbumDTO updateAlbum(AlbumDTO albumDTO);
+    Album updateAlbum(AlbumDTO albumDTO);
 
     String deleteAlbum(String albumId);
 
