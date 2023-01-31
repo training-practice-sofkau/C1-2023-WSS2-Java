@@ -15,6 +15,10 @@ public class AlbumServiceImpl implements IAlbumService {
 
         r.setAlbumID(albumDTO.getAlbumID());
         r.setTitle(albumDTO.getTitle());
+        r.setGenre(albumDTO.getGenre());
+        r.setArtistID(albumDTO.getArtistID());
+        r.setTotalSongs(albumDTO.getTotalSongs());
+        r.setYearRelease(albumDTO.getYearRelease());
 
         return r;
 
@@ -22,7 +26,16 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDTO entityToDTO(Album album) {
-        return null;
+        AlbumDTO r = new AlbumDTO();
+
+        r.setAlbumID(album.getAlbumID());
+        r.setTitle(album.getTitle());
+        r.setGenre(album.getGenre());
+        r.setArtistID(album.getArtistID());
+        r.setTotalSongs(album.getTotalSongs());
+        r.setYearRelease(album.getYearRelease());
+
+        return r;
     }
 
     @Override
