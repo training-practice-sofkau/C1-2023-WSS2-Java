@@ -1,4 +1,4 @@
-package co.com.chartsofka.music.service.impl;
+package co.com.chartsofka.music.service;
 
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
