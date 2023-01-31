@@ -16,12 +16,12 @@ public class AlbumController {
     AlbumServiceImpl service;
 
     @GetMapping("/test")
-    private String testing(){
+    private String testing() {
         return "Hello working";
     }
 
     @GetMapping("/album")
-    private List<AlbumDTO> returnAlbums(){
+    private List<AlbumDTO> returnAlbums() {
         return service.getAlbums();
     }
 }
