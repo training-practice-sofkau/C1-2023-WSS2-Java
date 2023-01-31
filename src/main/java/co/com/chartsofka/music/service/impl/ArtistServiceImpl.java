@@ -53,7 +53,7 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
-    public String deleteAlbumArtist(String idArtist) {
+    public String deleteArtist(String idArtist) {
         return null;
     }
 }
