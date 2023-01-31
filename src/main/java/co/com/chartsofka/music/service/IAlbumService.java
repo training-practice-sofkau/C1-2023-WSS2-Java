@@ -13,12 +13,12 @@ public interface IAlbumService {
     //Basic operate
     List<AlbumDTO> getAlbums();
 
-    AlbumDTO findAlbumById(String idAlbum);
+    AlbumDTO findAlbumById(String albumId);
 
     String saveAlbum(AlbumDTO albumDTO);
 
     AlbumDTO updateAlbum(AlbumDTO albumDTO);
 
-    String deleteAlbum(String idAlbum);
+    String deleteAlbum(String albumId);
 
 }
