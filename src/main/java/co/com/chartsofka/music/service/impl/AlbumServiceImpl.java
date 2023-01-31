@@ -56,10 +56,8 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
-    public String saveAlbum(AlbumDTO albumDTO) {
-        
-        return ("Album saved");
-    }
+    public String saveAlbum(AlbumDTO albumDTO) {return null;}
+
 
     @Override
     public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
