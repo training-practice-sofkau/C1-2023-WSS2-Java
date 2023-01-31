@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Album {
     private String albumID;
     private String title;
@@ -14,6 +14,5 @@ public class Album {
     private String yearRelease;
     private String genre;
     private String artistID;
-
 
 }
