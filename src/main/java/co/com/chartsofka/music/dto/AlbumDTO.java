@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AlbumDTO {
     private String albumID;
-    private String title;
+    private String name;
     private Integer totalSongs;
     private String yearRelease;
-    private String genre;
     private String artistID;
+    private String genre;
 }
