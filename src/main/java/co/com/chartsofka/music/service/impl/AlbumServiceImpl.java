@@ -15,6 +15,9 @@ public class AlbumServiceImpl implements IAlbumService {
 
         r.setAlbumID(albumDTO.getAlbumID());
         r.setTitle(albumDTO.getTitle());
+        r.setGenre(albumDTO.getGenre());
+        r.setYearRelease(albumDTO.getYearRelease());
+        r.setArtistID(albumDTO.getArtistID());
 
         return r;
 
