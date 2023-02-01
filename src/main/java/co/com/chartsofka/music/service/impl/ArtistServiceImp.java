@@ -3,9 +3,11 @@ package co.com.chartsofka.music.service.impl;
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.service.IArtistService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ArtistServiceImp implements IArtistService {
 
     @Override

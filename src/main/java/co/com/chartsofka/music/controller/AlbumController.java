@@ -14,6 +14,7 @@ import java.util.List;
 public class AlbumController {
     @Autowired
     AlbumServiceImpl service;
+    //AlbumServiceImpl service = new AlbumServiceImp();
 
     @GetMapping("/album")
     private List<AlbumDTO> obtenerAlbumnes(){
