@@ -27,14 +27,14 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
-    public List<Album> getAlbums() {
-        // return albumRepository.findAll().stream.map(albumDTO -> dtoToEntity(albumDTO)).collect(Collectors.toList());
+    public List<AlbumDTO> getAlbums() {
+        // return albumRepository.findAll().stream.map(album -> entityToDTO(album)).collect(Collectors.toList());
         return null;
     }
 
     @Override
-    public Album findAlbumById(String albumId) {
-        // return dtoToEntity(albumRepository.findById(albumId));
+    public AlbumDTO findAlbumById(String albumId) {
+        // return entityToDTO(albumRepository.findById(albumId));
         return null;
     }
 
@@ -45,8 +45,8 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
-    public Album updateAlbum(AlbumDTO albumDTO) {
-        // return dtoToEntity(albumRepository.update(albumDTO));
+    public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
+        // return entityToDTO(albumRepository.update(dtoToEntity(albumDTO)));
         return null;
     }
 

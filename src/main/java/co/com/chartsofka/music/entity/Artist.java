@@ -9,10 +9,18 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Artist {
+//@Table(name = "currentplayers")
+public class Artist /*implements Serializable*/ {
+    //private static final long serialVersionUID = 1L;
+    //@Id
+    // @Column ("artistID")
     private String artistID;
+    // @Column ("country")
     private String country;
+    // @Column ("debutDate")
     private LocalDate debutDate;
+    // @Column ("enterprise")
     private String enterprise;
+    // @Column ("type")
     private String type;
 }

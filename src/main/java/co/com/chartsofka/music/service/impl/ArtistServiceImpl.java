@@ -27,27 +27,27 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
-    public List<Artist> getArtist() {
-        // return artistRepository.findAll().stream.map(artistDTO -> dtoToEntity(artistDTO)).collect(Collectors.toList());
+    public List<ArtistDTO> getArtist() {
+        // return artistRepository.findAll().stream.map(artist -> entityToDTO(artist)).collect(Collectors.toList());
 
         return null;
     }
 
     @Override
-    public Artist findArtistById(String artistId) {
-        // return dtoToEntity(artistRepository.findById(artistId));
+    public ArtistDTO findArtistById(String artistId) {
+        // return entityToDTO(artistRepository.findById(artistId));
         return null;
     }
 
     @Override
-    public String saveArtist(ArtistDTO artistDTO) {
-        //  return artistRepository.save(artistDTO).toString();
+    public String saveArtist(Artist artist) {
+        //  return artistRepository.save(dtoToEntity(artist)).toString();
         return null;
     }
 
     @Override
-    public Artist updateArtist(ArtistDTO artistDTO) {
-        // return dtoToEntity(artistRepository.update(artistDTO));
+    public ArtistDTO updateArtist(ArtistDTO artistDTO) {
+        // return entityToDTO(artistRepository.update(dtoToEntity(artistDTO)));
         return null;
     }
 

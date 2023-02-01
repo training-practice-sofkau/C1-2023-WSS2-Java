@@ -27,14 +27,14 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public List<Song> getSong() {
-        // return songsRepository.findAll().stream.map(songDTO -> dtoToEntity(songDTO)).collect(Collectors.toList());
+    public List<SongDTO> getSong() {
+        // return songsRepository.findAll().stream.map(song -> entityToDTO(song)).collect(Collectors.toList());
         return null;
     }
 
     @Override
-    public Song findSongById(String songId) {
-        // return dtoToEntity(songsRepository.findById(songId));
+    public SongDTO findSongById(String songId) {
+        // return entityToDTO(songsRepository.findById(songId));
         return null;
     }
 
@@ -45,8 +45,8 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public Song updateSong(SongDTO songDTO) {
-        // return dtoToEntity(songsRepository.update(songDTO));
+    public SongDTO updateSong(SongDTO songDTO) {
+        // return entityToDTO(songsRepository.update(dtoToEntity(songDTO)));
         return null;
     }
 

@@ -9,13 +9,13 @@ public interface ISongService {
     Song dtoToEntity(SongDTO songDTO);
     SongDTO entityToDTO(Song song);
 
-    List<Song> getSong();
+    List<SongDTO> getSong();
 
-    Song findSongById(String songId);
+    SongDTO findSongById(String songId);
 
     String saveSong(SongDTO songDTO);
 
-    Song updateSong(SongDTO songDTO);
+    SongDTO updateSong(SongDTO songDTO);
 
     String deleteSong(String songID);
 }

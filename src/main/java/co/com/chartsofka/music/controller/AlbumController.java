@@ -17,7 +17,7 @@ public class AlbumController {
     AlbumServiceImpl service;
 
     @GetMapping("/album")
-    private List<Album> obtenerAlbumnes(){
+    private List<AlbumDTO> obtenerAlbumnes(){
         return service.getAlbums();
     }
 }
