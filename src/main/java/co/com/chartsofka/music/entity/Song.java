@@ -19,8 +19,14 @@ public class Song {
     @GeneratedValue(generator = "UUID")
     @Id
     private String songID;
+
+    @Column
     private String name;
+
+    @Column
     private LocalTime duration;
+
+    @Column
     private Integer played;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Album.class)

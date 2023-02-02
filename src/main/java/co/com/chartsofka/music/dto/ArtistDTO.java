@@ -1,7 +1,5 @@
 package co.com.chartsofka.music.dto;
 
-import co.com.chartsofka.music.entity.Album;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,15 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArtistDTO {
-    private String artistID;
-    private String name;
-    private String country;
+    private String artistIDDTO;
+    private String nameDTO;
+    private String countryDTO;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate debutDate;
+    private LocalDate debutDateDTO;
 
-    private String enterprise;
-    private String type;
+    private String enterpriseDTO;
+    private String typeDTO;
 
     private List<AlbumDTO> albumsDTO = new ArrayList<>();
 

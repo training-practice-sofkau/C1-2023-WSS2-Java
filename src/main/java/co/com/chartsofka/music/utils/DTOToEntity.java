@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 public class DTOToEntity {
     public static Album album(AlbumDTO albumDTO){
         Album r = new Album();
-        r.setAlbumID(albumDTO.getAlbumID());
-        r.setTitle(albumDTO.getTitle());
-        r.setTotalSongs(albumDTO.getTotalSongs());
-        r.setYearRelease(albumDTO.getYearRelease());
-        r.setGenre(albumDTO.getGenre());
+        r.setAlbumID(albumDTO.getAlbumIDDTO());
+        r.setTitle(albumDTO.getTitleDTO());
+        r.setTotalSongs(albumDTO.getTotalSongsDTO());
+        r.setYearRelease(albumDTO.getYearReleaseDTO());
+        r.setGenre(albumDTO.getGenreDTO());
         r.setArtist(artist(albumDTO.getArtistDTO()));
         r.setSongs(albumDTO
                 .getSongsDTO()
@@ -30,12 +30,12 @@ public class DTOToEntity {
 
     public static Artist artist(ArtistDTO artistDTO){
         Artist r = new Artist();
-        r.setArtistID(artistDTO.getArtistID());
-        r.setName(artistDTO.getName());
-        r.setCountry(artistDTO.getCountry());
-        r.setDebutDate(artistDTO.getDebutDate());
-        r.setEnterprise(artistDTO.getEnterprise());
-        r.setType(artistDTO.getType());
+        r.setArtistID(artistDTO.getArtistIDDTO());
+        r.setName(artistDTO.getNameDTO());
+        r.setCountry(artistDTO.getCountryDTO());
+        r.setDebutDate(artistDTO.getDebutDateDTO());
+        r.setEnterprise(artistDTO.getEnterpriseDTO());
+        r.setType(artistDTO.getTypeDTO());
         r.setAlbums(artistDTO
                 .getAlbumsDTO()
                 .stream()
@@ -48,11 +48,11 @@ public class DTOToEntity {
     public static Song song(SongDTO songDTO) {
         Song r = new Song();
 
-        r.setSongID(songDTO.getSongID());
-        r.setName(songDTO.getName());
-        r.setDuration(songDTO.getDuration());
+        r.setSongID(songDTO.getSongIDDTO());
+        r.setName(songDTO.getNameDTO());
+        r.setDuration(songDTO.getDurationDTO());
         r.setAlbum(album(songDTO.getAlbumDTO()));
-        r.setPlayed(songDTO.getPlayed());
+        r.setPlayed(songDTO.getPlayedDTO());
         return r;
     }
 }

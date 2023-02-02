@@ -42,7 +42,7 @@ public class Album {
     @JsonBackReference
     private Artist artist;
 
-    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL,
             targetEntity = Song.class)
     @JsonManagedReference
     private List<Song> songs = new ArrayList<>();
