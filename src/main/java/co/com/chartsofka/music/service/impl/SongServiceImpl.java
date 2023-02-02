@@ -2,13 +2,19 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
+import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class SongServiceImpl implements ISongService {
+
+    @Autowired
+    SongRepository songRepository;
+
     @Override
     public Song dtoToEntity(SongDTO songDTO) {
         Song result = new Song();
