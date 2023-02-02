@@ -2,8 +2,10 @@ package co.com.chartsofka.music.utils;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.ArtistDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Artist;
+import co.com.chartsofka.music.entity.Song;
 
 import java.util.stream.Collectors;
 
@@ -31,4 +33,17 @@ public class DTOToEntity {
         r.setAlbums(artistDTO.getAlbumsDTO().stream().map(DTOToEntity::album).collect(Collectors.toList()));
         return r;
     }
+
+    public static Song song(SongDTO song){
+        Song s = new Song();
+        s.setSongID(song.getSongID());
+        s.setName(song.getName());
+        s.setDuration(song.getDuration());
+        s.setPlayed(song.getPlayed());
+        s.setAlbumID(song.getAlbumID());
+        s.setAlbumID(song.getAlbumID());
+
+        return s;
+    }
+
 }
