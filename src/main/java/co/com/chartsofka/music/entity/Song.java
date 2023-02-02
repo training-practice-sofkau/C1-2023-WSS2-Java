@@ -14,7 +14,7 @@ public class Song {
     private String songID;
     private String name;
     private LocalTime duration;
-    private String albumID;
+    private Album albumID;
     private int played;
 
 }
