@@ -14,7 +14,7 @@
 	<name>music</name>
 	<description>RESTful API to simulate a music chart</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

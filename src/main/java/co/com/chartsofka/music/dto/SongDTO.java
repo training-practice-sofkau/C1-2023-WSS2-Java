@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlbumDTO {
-    private String albumID;
+public class SongDTO {
+    private String songID;
     private String name;
-    private Integer totalSongs;
-    private String yearRelease;
-    private String artistID;
-    private String genre;
+    private LocalTime duration;
+    private String albumID;
+    private Integer played;
 }
