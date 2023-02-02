@@ -6,12 +6,19 @@ import co.com.chartsofka.music.entity.Artist;
 import java.util.List;
 
 public interface IArtistService {
-    Artist dtoToEntity (ArtistDTO artistDTO);
-    ArtistDTO entityToDTO (Artist artist);
 
+    //To manage the DTO's - Entity dynamic
+    Artist dtoToEntity (ArtistDTO artistDTO);
+    ArtistDTO entityToDTO(Artist artist);
+
+    //Basic operate
     List<ArtistDTO> getArtists();
+
     ArtistDTO findArtistById(String idArtist);
-    String saveArtist(ArtistDTO artistDTO);
+
+    ArtistDTO saveArtist(ArtistDTO artistDTO);
+
     ArtistDTO updateArtist(ArtistDTO artistDTO);
+
     String deleteArtist(String idArtist);
 }

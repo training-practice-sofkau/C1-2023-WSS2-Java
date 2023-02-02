@@ -2,52 +2,47 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
+import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
+import co.com.chartsofka.music.utils.DTOToEntity;
+import co.com.chartsofka.music.utils.EntityToDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArtistServiceImpl implements IArtistService {
+    @Autowired
+    ArtistRepository artistRepository;
+
+
     @Override
     public Artist dtoToEntity(ArtistDTO artistDTO) {
-        Artist artist = new Artist();
-
-        artist.setArtistID(artistDTO.getArtistID());
-        artist.setCountry(artistDTO.getCountry());
-        artist.setDebutDate(artistDTO.getDebutDate());
-        artist.setEnterprise(artistDTO.getEnterprise());
-        artist.setType(artistDTO.getType());
-
-        return artist;
+        return DTOToEntity.artist(artistDTO);
     }
 
     @Override
     public ArtistDTO entityToDTO(Artist artist) {
-        ArtistDTO artistDTO = new ArtistDTO();
-
-        artistDTO.setArtistID(artist.getArtistID());
-        artistDTO.setCountry(artist.getCountry());
-        artistDTO.setDebutDate(artist.getDebutDate());
-        artistDTO.setEnterprise(artist.getEnterprise());
-        artistDTO.setType(artist.getType());
-
-        return artistDTO;
+        return EntityToDTO.artist(artist);
     }
 
     @Override
     public List<ArtistDTO> getArtists() {
-        return null;
+        return artistRepository.findAll()
+                .stream().map(this::entityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public ArtistDTO findArtistById(String idArtist) {
-        return null;
+        return entityToDTO(artistRepository.findById(idArtist).orElse(new Artist()));
     }
 
     @Override
-    public String saveArtist(ArtistDTO artistDTO) {
-        return null;
+    public ArtistDTO saveArtist(ArtistDTO artistDTO) {
+        return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
     }
 
     @Override
