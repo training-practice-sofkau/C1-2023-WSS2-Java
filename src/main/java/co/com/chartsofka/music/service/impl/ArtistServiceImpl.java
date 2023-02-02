@@ -2,6 +2,7 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
+import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,13 @@ import java.util.List;
 
 @Service
 public class ArtistServiceImpl implements IArtistService {
+
+
+    private ArtistRepository repository;
+
+    public ArtistServiceImpl(ArtistRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Artist dtoToEntity(ArtistDTO artistDTO) {
@@ -44,9 +52,9 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public String saveArtist(ArtistDTO artistDTO) {
-        return null;
+        repository.save(dtoToEntity(artistDTO));
+        return "Ok";
     }
-
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO) {
         return null;

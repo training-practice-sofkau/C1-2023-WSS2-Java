@@ -1,25 +1,30 @@
 package co.com.chartsofka.music.controller;
 
-import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.dto.SongDTO;
-import co.com.chartsofka.music.service.impl.ArtistServiceImpl;
 import co.com.chartsofka.music.service.impl.SongServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/chart")
+@RequestMapping("/charts")
 public class SongController {
-    @Autowired
-    SongServiceImpl service;
 
-    @GetMapping("/song")
-    private List<SongDTO> getSongs(){
+    private SongServiceImpl service;
+
+    public SongController(SongServiceImpl service) {
+        this.service = service;
+    }
+
+    @GetMapping("/songs")
+    public List<SongDTO> getSongs(){
         return service.getSongs();
+    }
+
+    @PostMapping("/songs")
+    public String createSong(@RequestBody SongDTO songDTO){
+        service.saveSong(songDTO);
+        return "Ok";
     }
 
 }

@@ -2,6 +2,7 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
+import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
 import org.springframework.stereotype.Service;
 
@@ -9,13 +10,20 @@ import java.util.List;
 
 @Service
 public class SongServiceImpl implements ISongService {
+
+    private SongRepository songRepository;
+
+    public SongServiceImpl(SongRepository songRepository) {
+        this.songRepository = songRepository;
+    }
+
     @Override
     public Song dtoToEntity(SongDTO songDTO) {
         Song song = new Song();
-        song.setSongId(songDTO.getSongId());
-        song.setName(songDTO.getName());
+        song.setSongID(songDTO.getSongID());
+        song.setTitle(songDTO.getTitle());
         song.setDuration(songDTO.getDuration());
-        song.setAlbumID(songDTO.getAlbumID());
+        song.setAlbum(songDTO.getAlbum());
         song.setPlayed(songDTO.getPlayed());
         return song;
     }
@@ -23,10 +31,10 @@ public class SongServiceImpl implements ISongService {
     @Override
     public SongDTO entityToDTO(Song song) {
         SongDTO songDTO = new SongDTO();
-        songDTO.setSongId(song.getSongId());
-        songDTO.setName(song.getName());
+        songDTO.setSongID(song.getSongID());
+        songDTO.setTitle(song.getTitle());
         songDTO.setDuration(song.getDuration());
-        songDTO.setAlbumID(song.getAlbumID());
+        songDTO.setAlbum(song.getAlbum());
         songDTO.setPlayed(song.getPlayed());
         return songDTO;
     }
@@ -43,7 +51,9 @@ public class SongServiceImpl implements ISongService {
 
     @Override
     public String saveSong(SongDTO songDTO) {
-        return null;
+
+        songRepository.save(dtoToEntity(songDTO));
+        return "Ok";
     }
 
     @Override

@@ -2,6 +2,7 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.entity.Album;
+import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.service.IAlbumService;
 import org.springframework.stereotype.Service;
 
@@ -9,16 +10,23 @@ import java.util.List;
 
 @Service
 public class AlbumServiceImpl implements IAlbumService {
+
+    private AlbumRepository albumRepository;
+
+    public AlbumServiceImpl(AlbumRepository albumRepository) {
+        this.albumRepository = albumRepository;
+    }
+
     @Override
     public Album dtoToEntity(AlbumDTO albumDTO) {
         Album album = new Album();
 
         album.setAlbumID(albumDTO.getAlbumID());
-        album.setTitle(albumDTO.getTitle());
+        album.setName(albumDTO.getName());
         album.setTotalSongs(albumDTO.getTotalSongs());
         album.setYearRelease(albumDTO.getYearRelease());
         album.setGenre(albumDTO.getGenre());
-        album.setArtistID(albumDTO.getArtistID());
+        album.setArtist(albumDTO.getArtist());
         return album;
     }
 
@@ -27,11 +35,11 @@ public class AlbumServiceImpl implements IAlbumService {
         AlbumDTO albumDTO = new AlbumDTO();
 
         albumDTO.setAlbumID(album.getAlbumID());
-        albumDTO.setTitle(album.getTitle());
+        albumDTO.setName(album.getName());
         albumDTO.setTotalSongs(album.getTotalSongs());
         albumDTO.setYearRelease(album.getYearRelease());
         albumDTO.setGenre(album.getGenre());
-        albumDTO.setArtistID(album.getArtistID());
+        albumDTO.setArtist(album.getArtist());
         return albumDTO;
     }
 
@@ -47,7 +55,8 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public String saveAlbum(AlbumDTO albumDTO) {
-        return null;
+        albumRepository.save(dtoToEntity(albumDTO));
+        return "ok";
     }
 
     @Override
