@@ -52,11 +52,27 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+        Optional<Album> a = albumRepository.findById(albumDTO.getAlbumID());
+
+        if(a.isEmpty()) return null;
+
+        a.get().setTitle(albumDTO.getTitle());
+        a.get().setArtist(DTOToEntity.artist(albumDTO.getArtistDTO()));
+        a.get().setTotalSongs(albumDTO.getTotalSongs());
+        a.get().setYearRelease(albumDTO.getYearRelease());
+        a.get().setTitle(albumDTO.getGenre());
+
+        return entityToDTO(albumRepository.save(a.get()));
     }
 
     @Override
     public String deleteAlbum(String idAlbum) {
-        return null;
+        Optional<Album> a = albumRepository.findById(idAlbum);
+
+        if(a.isEmpty()) return null;
+
+        albumRepository.delete(a.get());
+
+        return "Album "+a.get().getTitle()+" was deleted successfully";
     }
 }
