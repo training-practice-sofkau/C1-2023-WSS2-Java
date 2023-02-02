@@ -1,7 +1,9 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.SongDTO;
+import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Song;
+import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
 import co.com.chartsofka.music.utils.DTOToEntity;
@@ -17,6 +19,8 @@ public class SongServiceImpl implements ISongService {
 
     @Autowired
     SongRepository songRepository;
+    @Autowired
+    AlbumRepository albumRepository;
 
     @Override
     public Song dtoToEntity(SongDTO songDTO) {
@@ -43,20 +47,21 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public Song saveSong(SongDTO songDTO) {
+    public SongDTO saveSong(SongDTO songDTO) {
 
-        return songRepository.save(dtoToEntity(songDTO));
+        return entityToDTO(songRepository.save(dtoToEntity(songDTO)));
 
     }
 
     @Override
-    public SongDTO updateArtist(SongDTO songDTO) {
+    public SongDTO updateSong(SongDTO songDTO) {
         Optional<Song> s = songRepository.findById(songDTO.getSongID());
+        Optional<Album> album = albumRepository.findById(songDTO.getAlbumID().getAlbumID());
 
-        if(s.isEmpty()) return null;
+        if(s.isEmpty() || album.isEmpty()) return null;
 
         s.get().setName(songDTO.getName());
-        s.get().setAlbumID(DTOToEntity.album(songDTO.getAlbumID()));
+        s.get().setAlbumID(album.get());
         s.get().setDuration(songDTO.getDuration());
         s.get().setPlayed(songDTO.getPlayed());
 
