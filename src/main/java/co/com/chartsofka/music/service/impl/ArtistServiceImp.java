@@ -2,37 +2,48 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
+import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
+import co.com.chartsofka.music.utils.DTOToEntity;
+import co.com.chartsofka.music.utils.EntityToDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArtistServiceImp implements IArtistService {
 
+    @Autowired
+    ArtistRepository artistRepository;
+
+
     @Override
     public Artist dtoToEntity(ArtistDTO artistDTO) {
-        return null;
+        return DTOToEntity.artist(artistDTO);
     }
 
     @Override
     public ArtistDTO entityToDTO(Artist artist) {
-        return null;
+        return EntityToDTO.artist(artist);
     }
 
     @Override
-    public List<ArtistDTO> getArtist() {
-        return null;
+    public List<ArtistDTO> getArtists() {
+        return artistRepository.findAll()
+                .stream().map(this::entityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public ArtistDTO findArtistById(String idArtist) {
-        return null;
+        return entityToDTO(artistRepository.findById(idArtist).orElse(new Artist()));
     }
 
     @Override
-    public String saveArtist(ArtistDTO artistDTO) {
-        return null;
+    public ArtistDTO saveArtist(ArtistDTO artistDTO) {
+        return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
     }
 
     @Override
