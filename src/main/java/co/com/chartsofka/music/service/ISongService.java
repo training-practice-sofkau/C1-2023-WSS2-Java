@@ -16,9 +16,9 @@ public interface ISongService {
 
     SongDTO findSongById(String idSong);
 
-    String saveSong(SongDTO SongDTO);
+    Song saveSong(SongDTO songDTO);
 
-    SongDTO updateArtist(SongDTO SongDTO);
+    SongDTO updateArtist(SongDTO songDTO);
 
     String deleteSong(String idSong);
 

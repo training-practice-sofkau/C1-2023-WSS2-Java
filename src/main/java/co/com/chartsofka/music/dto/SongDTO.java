@@ -17,7 +17,7 @@ public class SongDTO {
     private String songID;
     private String name;
     private LocalTime duration;
-    private Album albumID;
+    private AlbumDTO albumID;
     private int played;
 
 }
