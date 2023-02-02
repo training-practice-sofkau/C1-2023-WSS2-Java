@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.dto;
 
+import co.com.chartsofka.music.entity.Album;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,9 +9,9 @@ import java.time.LocalTime;
 @Data
 @AllArgsConstructor
 public class SongDTO {
-    String songID;
-    String name;
-    LocalTime duration;
-    String albumID;
-    Integer played;
+    private String songID;
+    private String title;
+    private LocalTime duration;
+    private Integer played;
+    private Album album;
 }
