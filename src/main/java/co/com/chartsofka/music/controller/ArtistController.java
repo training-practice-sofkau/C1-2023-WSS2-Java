@@ -31,4 +31,16 @@ public class ArtistController {
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
     }
 
+    @PutMapping("/artists")
+    private ResponseEntity<ArtistDTO> actualizarArtista(@RequestBody ArtistDTO artistDTO){
+        ArtistDTO artistSaved = artistService.updateArtist(artistDTO);
+        return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.ok().body(artistSaved);
+    }
+
+    @DeleteMapping("/artists/{id}")
+    private ResponseEntity<String> borrarArtista(@PathVariable("id") String idArtist){
+        String s = artistService.deleteArtist(idArtist);
+        return  s == null ? ResponseEntity.status(400).body("Artist is not in our system") : ResponseEntity.ok().body(s);
+    }
+
 }

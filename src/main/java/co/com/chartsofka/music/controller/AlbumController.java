@@ -37,4 +37,18 @@ public class AlbumController {
         AlbumDTO albumDTO1 = albumService.saveAlbum(albumDTO);
         return  albumDTO1 == null ? ResponseEntity.status(400).body(albumDTO) : ResponseEntity.status(201).body(albumDTO1);
     }
+
+    @PutMapping("/albums")
+    private ResponseEntity<AlbumDTO> actualizarAlbum(@RequestBody AlbumDTO albumDTO){
+        AlbumDTO albumDTO1 = albumService.updateAlbum(albumDTO);
+        return  albumDTO1 == null ? ResponseEntity.status(400).body(albumDTO) : ResponseEntity.ok().body(albumDTO1);
+    }
+
+    @DeleteMapping("/albums/{id}")
+    private ResponseEntity<String> borrarAlbum(@PathVariable("id") String idAlbum){
+        String s = albumService.deleteAlbum(idAlbum);
+        return  s == null ? ResponseEntity.status(400).body("Album not exist in our system") : ResponseEntity.status(201).body(s);
+    }
+
+
 }

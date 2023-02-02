@@ -40,8 +40,7 @@ public class DTOToEntity {
         s.setName(song.getName());
         s.setDuration(song.getDuration());
         s.setPlayed(song.getPlayed());
-        s.setAlbumID(song.getAlbumID());
-        s.setAlbumID(song.getAlbumID());
+        s.setAlbumID(album(song.getAlbumID()));
 
         return s;
     }
