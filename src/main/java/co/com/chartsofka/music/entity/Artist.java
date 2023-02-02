@@ -46,4 +46,6 @@ public class Artist {
     private List<Album> albums = new ArrayList<>();
 
 
+
+
 }
