@@ -18,16 +18,16 @@ public class SongController {
     SongServiceImpl songService;
 
     @PostMapping
-    private ResponseEntity<Song> saveSong(@RequestBody SongDTO songDTO){
-        Song song = songService.saveSong(songDTO);
-        return song == null ? ResponseEntity.status(400).body(song) : ResponseEntity.status(201).body(song);
+    private ResponseEntity<SongDTO> saveSong(@RequestBody SongDTO songDTO){
+        SongDTO song = songService.saveSong(songDTO);
+        return song == null ? ResponseEntity.status(400).body(songDTO) : ResponseEntity.status(201).body(song);
     }
 
     @GetMapping
-    private ResponseEntity<List<Song>> findAll(){
+    private ResponseEntity<List<SongDTO>> findAll(){
         return songService.getAllSongs().isEmpty() ?
-//                ResponseEntity.status(204).body(Collections.emptyList()) :
-                ResponseEntity.noContent().build():
+                ResponseEntity.status(204).body(Collections.emptyList()) :
+//                ResponseEntity.noContent().build():
                 ResponseEntity.ok(songService.getAllSongs());
     }
 

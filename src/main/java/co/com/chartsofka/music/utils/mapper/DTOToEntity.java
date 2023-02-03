@@ -35,10 +35,11 @@ public class DTOToEntity {
     }
     public static Song song(SongDTO songDTO) {
         Song s = new Song();
+        s.setSongID(songDTO.getSongID());
         s.setName(songDTO.getName());
         s.setDuration(songDTO.getDuration());
-//        s.setAlbum(songDTO.getAlbum());
         s.setPlayed(songDTO.getPlayed());
+        s.setAlbum(album(songDTO.getAlbumDTO()));
 
         return s;
     }

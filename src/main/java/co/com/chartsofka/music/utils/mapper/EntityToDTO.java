@@ -7,8 +7,6 @@ import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.entity.Song;
 
-import java.util.stream.Collectors;
-
 public class EntityToDTO {
     public static AlbumDTO album(Album album){
         AlbumDTO r = new AlbumDTO();
@@ -40,6 +38,7 @@ public class EntityToDTO {
         r.setDuration(song.getDuration());
         r.setName(song.getName());
         r.setPlayed(song.getPlayed());
+        r.setAlbumDTO(album(song.getAlbum()));
         return r;
     }
 }

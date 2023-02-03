@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SongServiceImpl implements ISongService {
@@ -29,18 +30,20 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public List<Song> getAllSongs() {
-        return this.songRepository.findAll();
+    public List<SongDTO> getAllSongs() {
+        return songRepository.findAll()
+                .stream().map(this::entityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<SongDTO> findSongById(String idSong) {
-        return this.songRepository.findById(idSong).map(EntityToDTO::song);
+        return songRepository.findById(idSong).map(EntityToDTO::song);
     }
 
     @Override
-    public Song saveSong(SongDTO songDTO) {
-        return this.songRepository.save(dtoToEntity(songDTO));
+    public SongDTO saveSong(SongDTO songDTO) {
+        return entityToDTO(songRepository.save(dtoToEntity(songDTO)));
     }
 
     @Override

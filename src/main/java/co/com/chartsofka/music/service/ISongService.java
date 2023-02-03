@@ -10,11 +10,11 @@ import java.util.Optional;
 public interface ISongService {
     Song dtoToEntity (SongDTO songDTO);
     SongDTO entityToDTO(Song song);
-    List<Song> getAllSongs();
+    List<SongDTO> getAllSongs();
 
     Optional<SongDTO> findSongById(String idSong);
 
-    Song saveSong(SongDTO songDTO);
+    SongDTO saveSong(SongDTO songDTO);
 
     SongDTO updateSong(SongDTO artistDTO);
 

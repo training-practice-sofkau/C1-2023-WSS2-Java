@@ -1,7 +1,7 @@
 package co.com.chartsofka.music.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +20,15 @@ public class Song {
     @GeneratedValue(generator = "UUID")
     @Id
     private String songID;
+    @Column
     private String name;
+    @Column
     private LocalDateTime duration;
-//    @Column
-//    private Album album;
+    @Column
     private Integer played;
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Album.class)
+    @JoinColumn(name="album_id", foreignKey = @ForeignKey(name = "FK_album_id"))
+    @JsonBackReference
+    private Album album;
 }
