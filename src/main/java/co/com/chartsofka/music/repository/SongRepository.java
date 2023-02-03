@@ -1,4 +1,7 @@
 package co.com.chartsofka.music.repository;
 
-public interface SongRepository {
+import co.com.chartsofka.music.entity.Song;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SongRepository extends JpaRepository<Song, String> {
 }
