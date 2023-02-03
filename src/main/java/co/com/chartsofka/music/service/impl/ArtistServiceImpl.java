@@ -17,9 +17,6 @@ import java.util.stream.Collectors;
 public class ArtistServiceImpl implements IArtistService {
     @Autowired
     ArtistRepository artistRepository;
-    @Autowired
-    private AlbumRepository albumRepository;
-
 
     @Override
     public Artist dtoToEntity(ArtistDTO artistDTO) {
@@ -49,13 +46,21 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
-    public ArtistDTO updateArtist(ArtistDTO artistDTO) {
-        return null;
+    public ArtistDTO updateArtist(String id, ArtistDTO artistDTO) {
+        Artist artistToUpdate = artistRepository.findById(id).orElse(new Artist());
+
+        artistToUpdate.setCountry(artistDTO.getCountry());
+        artistToUpdate.setDebutDate(artistDTO.getDebutDate());
+        artistToUpdate.setEnterprise(artistDTO.getEnterprise());
+        artistToUpdate.setName(artistDTO.getName());
+        artistToUpdate.setType(artistDTO.getType());
+
+        return entityToDTO(artistRepository.save(artistToUpdate));
     }
 
     @Override
     public String deleteArtist(String idArtist) {
-        Artist artistToDelete = artistRepository.findById(idArtist).orElse(new Artist());
+        Artist artistToDelete = artistRepository.findById(idArtist).orElseThrow();
         artistRepository.delete(artistToDelete);
         return idArtist;
     }

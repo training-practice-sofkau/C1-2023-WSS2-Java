@@ -31,9 +31,19 @@ public class ArtistController {
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
     }
 
+    @PutMapping("/{id}")
+    private ResponseEntity<ArtistDTO> actualizarAtista(
+            @PathVariable("id") String id,
+            @RequestBody ArtistDTO artistDTO
+    ){
+        return artistService.updateArtist(id, artistDTO) == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(artistService.updateArtist(id, artistDTO));
+    }
+
     @DeleteMapping("/{id}")
     private ResponseEntity<String> eliminarArtista(@PathVariable("id") String idArtist){
-        return artistService.deleteArtist(idArtist) == null ? ResponseEntity.status(404).build() : ResponseEntity.ok("Artist:" + artistService.deleteArtist(idArtist) + " deleted");
+        return artistService.deleteArtist(idArtist) == null ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok("Artist:" + artistService.deleteArtist(idArtist) + " deleted");
     }
 
 }
