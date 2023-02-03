@@ -8,7 +8,8 @@ import java.util.List;
 public interface IAlbumService {
 
     //To manage the DTO's - Entity dynamic
-    Album dtoToEntity (AlbumDTO albumDTO);
+    Album dtoToEntity(AlbumDTO albumDTO);
+
     AlbumDTO entityToDTO(Album album);
 
     //Basic operate

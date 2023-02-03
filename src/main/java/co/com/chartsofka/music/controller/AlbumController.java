@@ -15,8 +15,13 @@ public class AlbumController {
     @Autowired
     AlbumServiceImpl service;
 
+    @GetMapping("/test")
+    private String testing() {
+        return "Hello working";
+    }
+
     @GetMapping("/album")
-    private List<AlbumDTO> obtenerAlbumnes(){
+    private List<AlbumDTO> returnAlbums() {
         return service.getAlbums();
     }
 }
