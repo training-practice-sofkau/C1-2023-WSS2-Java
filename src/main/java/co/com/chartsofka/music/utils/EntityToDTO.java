@@ -18,11 +18,11 @@ public class EntityToDTO {
         r.setYearReleaseDTO(album.getYearRelease());
         r.setGenreDTO(album.getGenre());
         r.setArtistDTO(artist(album.getArtist()));
-        r.setSongsDTO(album
+        /*r.setSongsDTO(album
                 .getSongs()
                 .stream()
                 .map(EntityToDTO::song)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
 
         return r;
     }
@@ -35,11 +35,11 @@ public class EntityToDTO {
         r.setDebutDateDTO(artist.getDebutDate());
         r.setEnterpriseDTO(artist.getEnterprise());
         r.setTypeDTO(artist.getType());
-        r.setAlbumsDTO(artist
+        /*r.setAlbumsDTO(artist
                 .getAlbums()
                 .stream()
                 .map(EntityToDTO::album)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
         return r;
     }
 

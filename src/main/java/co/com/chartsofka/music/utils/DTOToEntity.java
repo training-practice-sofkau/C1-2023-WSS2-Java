@@ -7,6 +7,7 @@ import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.entity.Song;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DTOToEntity {

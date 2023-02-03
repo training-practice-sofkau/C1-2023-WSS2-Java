@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/charts")
 public class ArtistController {
     @Autowired
     ArtistServiceImpl artistService;
