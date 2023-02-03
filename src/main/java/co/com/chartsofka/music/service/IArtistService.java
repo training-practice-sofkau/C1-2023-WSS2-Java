@@ -6,6 +6,7 @@ import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IArtistService {
 
@@ -16,7 +17,7 @@ public interface IArtistService {
     //Basic operate
     List<ArtistDTO> getArtists();
 
-    ArtistDTO findArtistById(String idArtist);
+    Optional<ArtistDTO> findArtistById(String idArtist);
 
     ArtistDTO saveArtist(ArtistDTO artistDTO);
 

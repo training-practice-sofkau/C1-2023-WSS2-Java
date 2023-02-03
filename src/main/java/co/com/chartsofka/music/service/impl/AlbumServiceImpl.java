@@ -61,14 +61,18 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        Optional<Album> albumUpdate = albumRepository.findById(albumDTO.getAlbumIDDTO());
-        Optional<Artist> artistUpdate = artistRepository.findById(albumDTO.getArtistDTO().getArtistIDDTO());
+        Optional<Album> albumUpdate = albumRepository
+                .findById(albumDTO.getAlbumIDDTO());
+        Optional<Artist> artistUpdate = artistRepository
+                .findById(albumDTO.getArtistDTO().getArtistIDDTO());
         if (albumUpdate.isEmpty() || artistUpdate.isEmpty()) return null;
         else {
             albumUpdate.get().setTitle(albumDTO.getTitleDTO());
             albumUpdate.get().setTotalSongs(albumDTO.getTotalSongsDTO());
             albumUpdate.get().setYearRelease(albumDTO.getYearReleaseDTO());
             albumUpdate.get().setGenre(albumDTO.getGenreDTO());
+            // Me deja cambiar datos del artista, pero al final con el id se sabra que no cambia
+            // nd en el registro de artista
             albumUpdate.get().setArtist(DTOToEntity.artist(albumDTO.getArtistDTO()));
             albumUpdate.get().setSongs(albumDTO.getSongsDTO()
                     .stream()

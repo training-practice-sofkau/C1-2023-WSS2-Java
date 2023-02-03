@@ -48,7 +48,7 @@ public class AlbumController {
     private ResponseEntity<AlbumDTO> actualizarAlbum(@RequestBody AlbumDTO albumDTO){
         AlbumDTO albumDTO1 = albumService.updateAlbum(albumDTO);
         return  albumDTO1 == null ?
-                ResponseEntity.status(400).body(albumDTO) :
+                ResponseEntity.status(400).body(albumDTO1) :
                 ResponseEntity.status(201).body(albumDTO1);
     }
 
