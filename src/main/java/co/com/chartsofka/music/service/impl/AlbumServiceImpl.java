@@ -31,29 +31,39 @@ public class AlbumServiceImpl implements IAlbumService {
     @Override
     public List<AlbumDTO> getAlbums() {
         return albumRepository.findAll()
-                .stream().map(this::entityToDTO)
+                .stream()
+                .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional<AlbumDTO> findAlbumById(String idAlbum) {
-        //return entityToDTO(albumRepository.findById(idAlbum).orElseThrow(NoSuchElementException::new));
         return albumRepository.findById(idAlbum).map(EntityToDTO::album);
     }
 
     @Override
     public AlbumDTO saveAlbum(AlbumDTO albumDTO) {
-
         return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override
-    public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+    public AlbumDTO updateAlbum(String id, AlbumDTO albumDTO) {
+        Album albumToUpdate = albumRepository.findById(id).orElse(new Album());
+
+        albumToUpdate.setTitle(albumDTO.getTitle());
+        albumToUpdate.setTotalSongs(albumDTO.getTotalSongs());
+        albumToUpdate.setYearRelease(albumDTO.getYearRelease());
+        albumToUpdate.setGenre(albumDTO.getGenre());
+        albumToUpdate.setArtist(albumDTO.getArtist());
+        albumToUpdate.setSongs(albumDTO.getSongs());
+
+        return entityToDTO(albumRepository.save(albumToUpdate));
     }
 
     @Override
     public String deleteAlbum(String idAlbum) {
-        return null;
+        Album albumToDelete = albumRepository.findById(idAlbum).orElseThrow();
+        albumRepository.delete(albumToDelete);
+        return idAlbum;
     }
 }

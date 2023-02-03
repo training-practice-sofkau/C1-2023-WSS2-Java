@@ -8,23 +8,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
-@RequestMapping("/charts")
+@RequestMapping("/charts/albums")
 public class AlbumController {
+
     @Autowired
     AlbumServiceImpl albumService;
 
-    @GetMapping("/albums")
+    @GetMapping("/")
     private ResponseEntity<List<AlbumDTO>> obtenerAlbumnes(){
         return albumService.getAlbums().isEmpty() ?
                 ResponseEntity.status(204).body(Collections.emptyList()) :
-                //ResponseEntity.noContent().build():
                 ResponseEntity.ok(albumService.getAlbums());
     }
 
-    @GetMapping("/albums/{id}")
+    @GetMapping("/{id}")
     private ResponseEntity<AlbumDTO> obtenerAlbumPorId(@PathVariable("id") String idAlbum){
         var result = albumService.findAlbumById(idAlbum);
         return result.isEmpty() ?
@@ -32,9 +32,24 @@ public class AlbumController {
                 ResponseEntity.ok(result.get());
     }
 
-    @PostMapping("/albums")
+    @PostMapping("/")
     private ResponseEntity<AlbumDTO> guardarAlbum(@RequestBody AlbumDTO albumDTO){
         AlbumDTO albumDTO1 = albumService.saveAlbum(albumDTO);
         return  albumDTO1 == null ? ResponseEntity.status(400).body(albumDTO) : ResponseEntity.status(201).body(albumDTO1);
+    }
+
+    @PutMapping("/{id}")
+    private ResponseEntity<AlbumDTO> actualizarAlbum(
+            @PathVariable("id") String id,
+            @RequestBody AlbumDTO albumDTO
+    ){
+        return albumService.updateAlbum(id, albumDTO) == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(albumService.updateAlbum(id, albumDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<String> eliminarAlbum(@PathVariable("id") String idAlbum){
+        return albumService.deleteAlbum(idAlbum) == null ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok("Album:" + albumService.deleteAlbum(idAlbum) + " deleted");
     }
 }
