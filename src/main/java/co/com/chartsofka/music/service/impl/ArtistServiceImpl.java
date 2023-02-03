@@ -2,7 +2,6 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
-import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
 import co.com.chartsofka.music.utils.DTOToEntity;

@@ -28,9 +28,6 @@ public class Song {
     private LocalTime duration;
 
     @Column
-    private String albumID;
-
-    @Column
     private Integer played;
 
     @ManyToOne(
