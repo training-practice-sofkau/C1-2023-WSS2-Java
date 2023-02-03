@@ -9,6 +9,7 @@ import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +71,9 @@ public class SongServiceImpl implements ISongService {
         return songRepository.findAll().stream().sorted(Comparator.comparing(Song::getPlayed).reversed()).limit(10).collect(Collectors.toList());
     }
     @Override
-    public List<Song> getSongsByAlbumID(String albumID) {
-        return songRepository.findAllById(albumID));
-    }
+    public List<SongDTO> getByAlbum(String albumID) {
+        List<SongDTO> songs = new ArrayList<>();
+        songRepository.findAll().stream().map(EntityToDTO::song).collect(Collectors.toList()).stream().forEach(i ->{if (i.getAlbumID().equals(albumID)) songs.add(i);
+
+    });return songs;}
 }
