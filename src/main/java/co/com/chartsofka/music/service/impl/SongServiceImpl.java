@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,8 +36,8 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public Optional<SongDTO> findSongById(String idSong) {
-        return songRepository.findById(idSong).map(EntityToDTO::song);
+    public SongDTO findSongById(String idSong) {
+        return entityToDTO(songRepository.findById(idSong).orElse(new Song()));
     }
 
     @Override
@@ -47,12 +46,12 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public SongDTO updateSong(SongDTO artistDTO) {
-        return null;
+    public SongDTO updateSong(SongDTO songDTO) {
+        return entityToDTO(songRepository.save(dtoToEntity(songDTO)));
     }
 
     @Override
-    public String deleteSong(String idArtist) {
-        return null;
+    public void deleteSong(String idArtist) {
+        songRepository.deleteById(idArtist);
     }
 }
