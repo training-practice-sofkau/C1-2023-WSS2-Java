@@ -19,7 +19,7 @@ public interface IAlbumService {
 
     AlbumDTO saveAlbum(AlbumDTO albumDTO);
 
-    AlbumDTO updateAlbum(AlbumDTO albumDTO);
+    AlbumDTO updateAlbum(String id, AlbumDTO albumDTO);
 
     String deleteAlbum(String idAlbum);
 

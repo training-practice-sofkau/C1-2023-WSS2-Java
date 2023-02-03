@@ -1,17 +1,16 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.service.IAlbumService;
 import co.com.chartsofka.music.utils.DTOToEntity;
 import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,7 +22,6 @@ public class AlbumServiceImpl implements IAlbumService {
     @Override
     public Album dtoToEntity(AlbumDTO albumDTO) {
         return DTOToEntity.album(albumDTO);
-
     }
 
     @Override
@@ -33,30 +31,45 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public List<AlbumDTO> getAlbums() {
-        return albumRepository.findAll()
-                .stream().map(this::entityToDTO)
+        return albumRepository.findAll().stream()
+                .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional<AlbumDTO> findAlbumById(String idAlbum) {
-        //return entityToDTO(albumRepository.findById(idAlbum).orElseThrow(NoSuchElementException::new));
         return albumRepository.findById(idAlbum).map(EntityToDTO::album);
     }
 
     @Override
     public AlbumDTO saveAlbum(AlbumDTO albumDTO) {
-
         return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override
-    public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+    public AlbumDTO updateAlbum(String id, AlbumDTO albumDTO) {
+        Album albumToUpdate = albumRepository.findById(id).orElse(new Album());
+
+        albumToUpdate.setTitle(albumDTO.getTitle());
+        albumToUpdate.setTotalSongs(albumDTO.getTotalSongs());
+        albumToUpdate.setYearRelease(albumDTO.getYearRelease());
+        albumToUpdate.setGenre(albumDTO.getGenre());
+        albumToUpdate.setArtist(albumDTO.getArtist());
+        albumToUpdate.setSongs(albumDTO.getSongs().stream().map(DTOToEntity::song).toList());
+
+        return entityToDTO(albumRepository.save(albumToUpdate));
     }
 
     @Override
     public String deleteAlbum(String idAlbum) {
-        return null;
+        Album albumToDelete = albumRepository.findById(idAlbum).orElseThrow();
+        albumRepository.delete(albumToDelete);
+        return idAlbum;
+    }
+
+    public List<SongDTO> findAllAlbumSongs(String idAlbum){
+        Album album = albumRepository.findById(idAlbum).orElseThrow();
+
+        return album.getSongs().stream().map(EntityToDTO::song).toList();
     }
 }

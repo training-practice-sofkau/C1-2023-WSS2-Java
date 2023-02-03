@@ -1,7 +1,5 @@
 package co.com.chartsofka.music.service;
 
-
-
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
 
@@ -20,7 +18,7 @@ public interface IArtistService {
 
     ArtistDTO saveArtist(ArtistDTO artistDTO);
 
-    ArtistDTO updateArtist(ArtistDTO artistDTO);
+    ArtistDTO updateArtist(String id, ArtistDTO artistDTO);
 
     String deleteArtist(String idArtist);
 }

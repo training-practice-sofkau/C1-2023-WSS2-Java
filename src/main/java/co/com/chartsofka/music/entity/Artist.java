@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -40,10 +42,11 @@ public class Artist {
     @Column
     private String type;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL,
-            targetEntity = Album.class)
+    @OneToMany(
+            mappedBy = "artist",
+            cascade = CascadeType.ALL,
+            targetEntity = Album.class
+    )
     @JsonManagedReference
     private List<Album> albums = new ArrayList<>();
-
-
 }
