@@ -40,7 +40,7 @@ public class ArtistController {
                 ResponseEntity.status(201).body(artistSaved);
     }
 
-    @PutMapping("/artisits")
+    @PutMapping("/artists")
     private ResponseEntity<ArtistDTO> actualizarArtista(@RequestBody ArtistDTO artistDTO){
         ArtistDTO artistDTO1 = artistService.updateArtist(artistDTO);
         return artistDTO1 == null ?

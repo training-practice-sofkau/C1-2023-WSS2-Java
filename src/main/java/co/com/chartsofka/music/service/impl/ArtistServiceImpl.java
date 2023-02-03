@@ -12,17 +12,21 @@ import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ArtistServiceImpl implements IArtistService {
-    @Autowired
-    ArtistRepository artistRepository;
-    @Autowired
+
+    private ArtistRepository artistRepository;
     private AlbumRepository albumRepository;
 
+    public ArtistServiceImpl(ArtistRepository artistRepository, AlbumRepository albumRepository) {
+        this.artistRepository = artistRepository;
+        this.albumRepository = albumRepository;
+    }
 
     @Override
     public Artist dtoToEntity(ArtistDTO artistDTO) {
@@ -46,12 +50,27 @@ public class ArtistServiceImpl implements IArtistService {
         return artistRepository.findById(idArtist).map(EntityToDTO::artist);
     }
 
+    /*@Override
+    public List<ArtistDTO> findArtistByName(String artistName) {
+        return artistRepository.findByName(artistName);
+    }*/
+
     @Override
     public ArtistDTO saveArtist(ArtistDTO artistDTO) {
-        List<AlbumDTO> dtoList = artistDTO.getAlbumsDTO();
-        if (dtoList.stream().anyMatch(i->albumRepository.findById(i.getAlbumIDDTO()).isEmpty()))
-            return null;
-        else return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
+        /*List<ArtistDTO> artistDTO1 = this.findArtistByName(artistDTO.getNameDTO());
+        return artistDTO1.isEmpty() ? entityToDTO(artistRepository.save(dtoToEntity(artistDTO))):
+                null;*/
+        List<AlbumDTO> albumDTOS = artistDTO.getAlbumsDTO();
+        if (!albumDTOS.isEmpty()){
+            List<Integer> albumDTONotFound = new ArrayList<>();
+            albumDTOS.stream().forEach(i->{
+                Optional<AlbumDTO> albumDTO = albumRepository.findById(i.getAlbumIDDTO()).map(EntityToDTO::album);
+                if (albumDTO.isEmpty()) albumDTONotFound.add(1);
+
+            });
+            if (!albumDTONotFound.isEmpty()) return null;
+        }
+        return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
     }
 
     @Override
@@ -59,20 +78,29 @@ public class ArtistServiceImpl implements IArtistService {
         Optional<Artist> artistUpdate =
                 artistRepository.findById(artistDTO.getArtistIDDTO());
         List<AlbumDTO> albumDTOS = artistDTO.getAlbumsDTO();
-        if (artistUpdate.isEmpty() || albumDTOS.stream()
-                .anyMatch(i->albumRepository.findById(i.getAlbumIDDTO()).isEmpty()))
-        return null;
+        if (artistUpdate.isEmpty()) return null;
+        else if (!albumDTOS.isEmpty()) {
+            List<Integer> albumDTONotFound = new ArrayList<>();
+            albumDTOS.stream().forEach(i->{
+                Optional<AlbumDTO> albumDTO = albumRepository.findById(i.getAlbumIDDTO())
+                        .map(EntityToDTO::album); if (albumDTO.isEmpty()) albumDTONotFound.add(1);
+
+            });
+            if (!albumDTONotFound.isEmpty()) return null;
+        }
         else {
             artistUpdate.get().setName(artistDTO.getNameDTO());
             artistUpdate.get().setCountry(artistDTO.getCountryDTO());
             artistUpdate.get().setDebutDate(artistDTO.getDebutDateDTO());
             artistUpdate.get().setEnterprise(artistDTO.getEnterpriseDTO());
             artistUpdate.get().setType(artistDTO.getTypeDTO());
-            artistUpdate.get().setAlbums(artistDTO.getAlbumsDTO().stream()
-                    .map(i->DTOToEntity.album(i))
-                    .collect(Collectors.toList()));
-            return entityToDTO(artistRepository.save(artistUpdate.get()));
+            artistUpdate.get().
+                    setAlbums(artistDTO
+                            .getAlbumsDTO()
+                            .stream().map(DTOToEntity::album)
+                            .collect(Collectors.toList()));
         }
+        return entityToDTO(artistRepository.save(artistUpdate.get()));
     }
 
     @Override
