@@ -1,18 +1,28 @@
 package co.com.chartsofka.music.service.impl;
 
-import co.com.chartsofka.music.dto.ArtistDTO;
-import co.com.chartsofka.music.entity.Artist;
-import co.com.chartsofka.music.service.IArtistService;
-import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import co.com.chartsofka.music.exceptions.ToDoExceptions;
+import org.modelmapper.ModelMapper;
+import co.com.chartsofka.music.dto.ArtistDTO;
+import co.com.chartsofka.music.entity.Artist;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import co.com.chartsofka.music.service.IArtistService;
+import co.com.chartsofka.music.repository.ArtistRepository;
+
+@Service
 public class ArtistServiceImpl implements IArtistService{
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+    private final ArtistRepository artistRepository;
 
-    public ArtistServiceImpl(ModelMapper modelMapper) {
+    public ArtistServiceImpl(ModelMapper modelMapper, ArtistRepository artistRepository) {
         this.modelMapper = modelMapper;
+        this.artistRepository = artistRepository;
     }
 
     @Override
@@ -26,27 +36,41 @@ public class ArtistServiceImpl implements IArtistService{
     }
 
     @Override
+    public ArtistDTO getArtistById(String artistID) {
+        Optional<Artist> response = artistRepository.findById(artistID);
+        if (response.isEmpty()) {
+            throw new ToDoExceptions("Artist not found", HttpStatus.NOT_FOUND);
+        }
+        return entityToDTO(response.get());
+    }
+
+    @Override
     public List<ArtistDTO> getArtists() {
-        return null;
+        return artistRepository.findAll().stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public ArtistDTO findArtistById(String artistID) {
-        return null;
-    }
-
-    @Override
-    public String saveArtist(ArtistDTO artistDTO) {
-        return null;
+    public void saveArtist(ArtistDTO artistDTO) {
+        artistRepository.save(dtoToEntity(artistDTO));
     }
 
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO) {
-        return null;
+        String artistID = artistDTO.getArtistID();
+        Optional<Artist> response = artistRepository.findById(artistID);
+        if (response.isEmpty()) {
+            throw new ToDoExceptions("Artist not found", HttpStatus.NOT_FOUND);
+        }
+        artistRepository.save(dtoToEntity(artistDTO));
+        return artistDTO;
     }
 
     @Override
-    public String deleteArtist(String artistID) {
-        return null;
+    public void deleteArtist(String artistID) {
+        Optional<Artist> response = artistRepository.findById(artistID);
+        if (response.isEmpty()) {
+            throw new ToDoExceptions("Artist not found", HttpStatus.NOT_FOUND);
+        }
+        artistRepository.deleteById(artistID);
     }
 }

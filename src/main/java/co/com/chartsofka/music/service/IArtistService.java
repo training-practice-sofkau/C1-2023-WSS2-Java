@@ -14,11 +14,11 @@ public interface IArtistService {
     //Basic operate
     List<ArtistDTO> getArtists();
 
-    ArtistDTO findArtistById(String artistID);
+    ArtistDTO getArtistById(String artistID);
 
-    String saveArtist(ArtistDTO artistDTO);
+    void saveArtist(ArtistDTO artistDTO);
 
     ArtistDTO updateArtist(ArtistDTO artistDTO);
 
-    String deleteArtist(String artistID);
+    void deleteArtist(String artistID);
 }
