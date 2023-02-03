@@ -38,8 +38,21 @@ public class ArtistController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    @GetMapping("/artists/{id}")
+    public ResponseEntity<Response> getArtists(@PathVariable String id){
+        response.restart();
+        try {
+            response.data = service.findArtistById(id);
+            httpStatus = HttpStatus.CREATED;
+        } catch (DataAccessException exception) {
+            getErrorMessageForResponse(exception);
+        } catch (Exception exception) {
+            getErrorMessageInternal(exception);
+        }
+        return new ResponseEntity<>(response, httpStatus);
+    }
 
-    @GetMapping("/artists/{type}")
+    @GetMapping("/artists/type/{type}")
     public ResponseEntity<Response> getArtistsByType(@PathVariable String type){
         response.restart();
         try {
@@ -52,9 +65,6 @@ public class ArtistController {
         }
         return new ResponseEntity<>(response, httpStatus);
     }
-
-
-
 
     @PostMapping("/artists")
     public ResponseEntity<Response> createArtist(@RequestBody ArtistDTO artistDTO){

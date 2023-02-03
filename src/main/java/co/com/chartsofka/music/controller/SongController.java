@@ -37,6 +37,19 @@ public class SongController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    @GetMapping("/songs/{id}")
+    public ResponseEntity<Response> getSongsByID(@PathVariable String id){
+        try {
+            response.data = service.findSongById(id);
+            httpStatus = HttpStatus.CREATED;
+        } catch (DataAccessException exception) {
+            getErrorMessageForResponse(exception);
+        } catch (Exception exception) {
+            getErrorMessageInternal(exception);
+        }
+        return new ResponseEntity<>(response, httpStatus);
+    }
+
 
     @GetMapping("/songs/top10")
     public ResponseEntity<Response> getTopSongs(){
@@ -51,8 +64,6 @@ public class SongController {
         }
         return new ResponseEntity<>(response, httpStatus);
     }
-
-
 
     @PostMapping("/songs")
     public ResponseEntity<Response> createAlbum(@RequestBody SongDTO songDTO){

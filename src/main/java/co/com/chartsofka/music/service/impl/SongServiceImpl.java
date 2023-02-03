@@ -58,8 +58,8 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public SongDTO findSongById(String idSong) {
-        return null;
+    public SongDTO findSongById(String songID) {
+        return songRepository.findById(songID).map(this::entityToDTO).get();
     }
 
     @Override

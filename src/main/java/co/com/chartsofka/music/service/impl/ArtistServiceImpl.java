@@ -70,8 +70,8 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
-    public ArtistDTO findArtistById(String idArtist) {
-        return null;
+    public ArtistDTO findArtistById(String artistID) {
+        return artistRepository.findById(artistID).map(this::entityToDTO).get();
     }
 
     @Override
@@ -79,8 +79,6 @@ public class ArtistServiceImpl implements IArtistService {
         return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
 
     }
-
-
 
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO, String artistID) {
