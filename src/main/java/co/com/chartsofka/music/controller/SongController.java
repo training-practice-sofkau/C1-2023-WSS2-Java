@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.controller;
 
 import co.com.chartsofka.music.dto.SongDTO;
+import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.service.impl.SongServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,13 +11,13 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/charts")
 public class SongController {
     @Autowired
     SongServiceImpl songService;
 
     @GetMapping("/songs")
-    private ResponseEntity<List<SongDTO>> obtenerCanciones(){
+    private ResponseEntity<List<Song>> obtenerCanciones(){
         return songService.getSongs().isEmpty() ? ResponseEntity.status(204).body(Collections.emptyList()) :
         ResponseEntity.ok(songService.getSongs());
     }
@@ -45,6 +46,16 @@ public class SongController {
     private ResponseEntity<String> eliminarCancion(@PathVariable("id") String idSong){
         String msg = songService.deleteSong(idSong);
         return msg == null? ResponseEntity.status(404).body("Song non-existent") : ResponseEntity.status(201).body(msg);   }
+
+    @GetMapping("/songs/Top")
+    private ResponseEntity<List<Song>> obtenerTop(){
+        return ResponseEntity.ok(songService.getSongsTop());
+    }
+
+    @GetMapping("/songs/filter")
+    private ResponseEntity<List<Song>> obtenerCancionesAlbum(@RequestParam String id){
+        return ResponseEntity.ok(songService.getSongsByAlbumID(id));
+    }
 
 
 }
