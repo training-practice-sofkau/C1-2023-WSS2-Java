@@ -2,6 +2,7 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
+import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
 import co.com.chartsofka.music.utils.DTOToEntity;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 public class ArtistServiceImpl implements IArtistService {
     @Autowired
     ArtistRepository artistRepository;
+    @Autowired
+    private AlbumRepository albumRepository;
 
 
     @Override
@@ -52,6 +55,8 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public String deleteArtist(String idArtist) {
-        return null;
+        Artist artistToDelete = artistRepository.findById(idArtist).orElse(new Artist());
+        artistRepository.delete(artistToDelete);
+        return idArtist;
     }
 }
