@@ -9,6 +9,7 @@ import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,10 +30,9 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public List<SongDTO> getSongs() {
+    public List<Song> getSongs() {
         return songRepository.findAll()
-                .stream().map(this::entityToDTO)
-                .collect(Collectors.toList());
+                ;
     }
 
     @Override
@@ -54,10 +54,23 @@ public class SongServiceImpl implements ISongService {
     @Override
     public String deleteSong(String idSong) {
         Optional<Song> d = songRepository.findById(idSong);
-        if(d.isPresent()){
-            songRepository.delete(d.get());
+        if(d.isEmpty())return null;
+
+
+        else {
+            songRepository.deleteById(idSong);
             return "Song deleted";
+
+
+        //return songRepository.delete(songRepository.findById(idSong));
         }
-        else return null;
+    }
+    @Override
+    public List<Song> getSongsTop() {
+        return songRepository.findAll().stream().sorted(Comparator.comparing(Song::getPlayed).reversed()).limit(10).collect(Collectors.toList());
+    }
+    @Override
+    public List<Song> getSongsByAlbumID(String albumID) {
+        return songRepository.findAllById(albumID));
     }
 }

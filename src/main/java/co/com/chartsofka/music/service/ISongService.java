@@ -11,7 +11,8 @@ public interface ISongService {
 
     SongDTO entityToDTO(Song song);
 
-    List<SongDTO> getSongs();
+    //List<SongDTO> getSongs();
+    List<Song> getSongs();
 
     SongDTO findSongById(String idSong);
 
@@ -20,4 +21,9 @@ public interface ISongService {
     SongDTO updateSong(SongDTO songDTO);
 
     String deleteSong(String idSong);
+
+    List<Song> getSongsTop();
+
+
+    List<Song> getSongsByAlbumID(String title);
 }

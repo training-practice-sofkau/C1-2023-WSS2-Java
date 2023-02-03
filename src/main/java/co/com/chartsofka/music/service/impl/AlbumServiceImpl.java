@@ -2,7 +2,9 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.entity.Album;
+import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.repository.AlbumRepository;
+import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IAlbumService;
 import co.com.chartsofka.music.utils.DTOToEntity;
 import co.com.chartsofka.music.utils.EntityToDTO;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class AlbumServiceImpl implements IAlbumService {
     @Autowired
     AlbumRepository albumRepository;
+    @Autowired
+    ArtistRepository artistRepository;
 
     @Override
     public Album dtoToEntity(AlbumDTO albumDTO) {
@@ -46,8 +50,12 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDTO saveAlbum(AlbumDTO albumDTO) {
+        AlbumDTO artist = entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
+        if(artist.getAlbumID()!=null){
+            return artist;
+        }
+        else return null;
 
-        return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override

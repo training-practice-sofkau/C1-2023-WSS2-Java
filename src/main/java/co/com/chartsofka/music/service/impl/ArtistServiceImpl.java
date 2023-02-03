@@ -44,6 +44,7 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public ArtistDTO saveArtist(ArtistDTO artistDTO) {
+        //artistDTO.setAlbumsDTO(artistDTO);
         return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
     }
 

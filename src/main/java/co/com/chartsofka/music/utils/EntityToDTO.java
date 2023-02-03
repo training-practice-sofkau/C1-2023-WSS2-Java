@@ -40,7 +40,7 @@ public class EntityToDTO {
         r.setTitle(song.getTitle());
         r.setDuration(song.getDuration());
         r.setPlayed(song.getPlayed());
-        r.setAlbum(album(song.getAlbum()));
+        r.setAlbumID(song.getAlbum());
 
         return r;
     }

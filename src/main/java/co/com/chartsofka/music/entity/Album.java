@@ -47,7 +47,7 @@ public class Album {
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL,
             targetEntity = Song.class)
     @JsonManagedReference
-    private List<Song> songs = new ArrayList<>();
+    private List<Song> songs;
 
 
 }
