@@ -27,6 +27,11 @@ public class SongController {
         return songService.findSongById(idSong) == null ? ResponseEntity.status(404).body(EntityToDTO.song(new Song())) : ResponseEntity.ok(songService.findSongById(idSong));
     }
 
+    @GetMapping("/played")
+    private ResponseEntity<List<SongDTO>> obtenerCancionesMasReproducidas(){
+        return songService.getMostReproducedSongs() == null ? ResponseEntity.status(404).body(Collections.emptyList()) : ResponseEntity.ok(songService.getMostReproducedSongs());
+    }
+
     @PostMapping("/")
     private ResponseEntity<SongDTO> guardarCancion(@RequestBody SongDTO songDTO){
         SongDTO songSaved = songService.saveSong(songDTO);

@@ -64,7 +64,8 @@ public class SongServiceImpl implements ISongService {
         return idSong;
     }
 
-    public List<Song> getMostReproducedSongs(){
-        return songRepository.findAll(Sort.by(Sort.Direction.DESC, "played"));
+    public List<SongDTO> getMostReproducedSongs(){
+        return (songRepository.findAll(Sort.by(Sort.Direction.DESC, "played"))).stream()
+                .map(EntityToDTO::song).toList().subList(0, 10);
     }
 }
