@@ -14,12 +14,12 @@ public interface ISongService {
     //Basic operate
     List<SongDTO> getSongs();
 
-    SongDTO findSongById(String songID);
+    SongDTO getSongById(String songID);
 
-    String saveSong(SongDTO songDTO);
+    void saveSong(SongDTO songDTO);
 
     SongDTO updateSong(SongDTO songDTO);
 
-    String deleteSong(String songID);
+    void deleteSong(String songID);
 
 }

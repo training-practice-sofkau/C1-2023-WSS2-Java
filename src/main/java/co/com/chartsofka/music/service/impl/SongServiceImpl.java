@@ -1,18 +1,26 @@
 package co.com.chartsofka.music.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import org.modelmapper.ModelMapper;
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import co.com.chartsofka.music.service.ISongService;
-import org.modelmapper.ModelMapper;
+import co.com.chartsofka.music.exceptions.ToDoExceptions;
+import co.com.chartsofka.music.repository.SongRepository;
 
-import java.util.List;
-
+@Service
 public class SongServiceImpl implements ISongService {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+    private final SongRepository songRepository;
 
-    public SongServiceImpl(ModelMapper modelMapper) {
+    public SongServiceImpl(ModelMapper modelMapper, SongRepository songRepository) {
         this.modelMapper = modelMapper;
+        this.songRepository = songRepository;
     }
 
     @Override
@@ -26,27 +34,41 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
+    public SongDTO getSongById(String songID) {
+        Optional<Song> response = songRepository.findById(songID);
+        if (response.isEmpty()) {
+            throw new ToDoExceptions("Song not found", HttpStatus.NOT_FOUND);
+        }
+        return entityToDTO(response.get());
+    }
+
+    @Override
     public List<SongDTO> getSongs() {
-        return null;
+        return songRepository.findAll().stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public SongDTO findSongById(String songID) {
-        return null;
-    }
-
-    @Override
-    public String saveSong(SongDTO songDTO) {
-        return null;
+    public void saveSong(SongDTO songDTO) {
+        songRepository.save(dtoToEntity(songDTO));
     }
 
     @Override
     public SongDTO updateSong(SongDTO songDTO) {
-        return null;
+        String songID = songDTO.getSongID();
+        Optional<Song> response = songRepository.findById(songID);
+        if (response.isEmpty()) {
+            throw new ToDoExceptions("Song not found", HttpStatus.NOT_FOUND);
+        }
+        songRepository.save(dtoToEntity(songDTO));
+        return songDTO;
     }
 
     @Override
-    public String deleteSong(String songID) {
-        return null;
+    public void deleteSong(String songID) {
+        Optional<Song> response = songRepository.findById(songID);
+        if (response.isEmpty()) {
+            throw new ToDoExceptions("Song not found", HttpStatus.NOT_FOUND);
+        }
+        songRepository.deleteById(songID);
     }
 }
