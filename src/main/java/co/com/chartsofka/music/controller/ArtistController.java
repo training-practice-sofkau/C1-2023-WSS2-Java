@@ -10,24 +10,36 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/charts")
+@RequestMapping("/charts/artists")
 public class ArtistController {
     @Autowired
     ArtistServiceImpl artistService;
 
-    @GetMapping("/artists")
+    @GetMapping
     private ResponseEntity<List<ArtistDTO>> getArtists(){
         return artistService.getArtists().isEmpty() ? ResponseEntity.status(204).body(Collections.emptyList()) : ResponseEntity.ok(artistService.getArtists());
     }
 
-    @GetMapping("/artists/{id}")
-    private ResponseEntity<ArtistDTO> getArtist(@PathVariable("id") String idArtist){
-        return artistService.findArtistById(idArtist) == null ? ResponseEntity.status(404).body(new ArtistDTO()) : ResponseEntity.ok(artistService.findArtistById(idArtist));
+    @GetMapping("/{id}")
+    private ResponseEntity<ArtistDTO> getArtist(@PathVariable("id") String albumId){
+        return artistService.findArtistById(albumId) == null ? ResponseEntity.status(404).body(new ArtistDTO()) : ResponseEntity.ok(artistService.findArtistById(albumId));
     }
 
-    @PostMapping("/artists")
+    @PostMapping
     private ResponseEntity<ArtistDTO> saveArtist(@RequestBody ArtistDTO artistDTO){
         ArtistDTO artistSaved = artistService.saveArtist(artistDTO);
+        return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<String> deleteArtist(@PathVariable("id") String albumId){
+        artistService.deleteArtist(albumId);
+        return ResponseEntity.ok("Artist deleted successfully");
+    }
+
+    @PatchMapping
+    private ResponseEntity<ArtistDTO> updateArtist(@RequestBody ArtistDTO artistDTO){
+        ArtistDTO artistSaved = artistService.updateArtist(artistDTO);
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
     }
 

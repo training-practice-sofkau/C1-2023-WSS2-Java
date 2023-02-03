@@ -45,17 +45,16 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDTO saveAlbum(AlbumDTO albumDTO) {
-
         return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override
     public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+        return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override
-    public String deleteAlbum(String idAlbum) {
-        return null;
+    public void deleteAlbum(String albumId) {
+        albumRepository.deleteById(albumId);
     }
 }

@@ -17,5 +17,5 @@ public interface ISongService {
 
     SongDTO updateSong(SongDTO songDTO);
 
-    String deleteSong(String songID);
+    void deleteSong(String songID);
 }

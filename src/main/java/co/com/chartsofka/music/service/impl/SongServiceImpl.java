@@ -59,13 +59,11 @@ public class SongServiceImpl implements ISongService {
 
     @Override
     public SongDTO updateSong(SongDTO songDTO) {
-        // return entityToDTO(songsRepository.update(dtoToEntity(songDTO)));
-        return null;
+        return entityToDTO(songRepository.save(dtoToEntity(songDTO)));
     }
 
     @Override
-    public String deleteSong(String songID) {
-        // songsRepository.deleteById(songID);
-        return null;
+    public void deleteSong(String songID) {
+        songRepository.deleteById(songID);
     }
 }

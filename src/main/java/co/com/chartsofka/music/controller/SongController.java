@@ -35,4 +35,14 @@ public class SongController {
         SongDTO responseSong = songService.saveSong(songDTO);
         return responseSong.getSongID() != null ? ResponseEntity.ok(responseSong) : ResponseEntity.status(400).build();
     }
+    @DeleteMapping("/{id}")
+    private ResponseEntity<String> deleteSong (@PathVariable("id") String songId){
+        songService.deleteSong(songId);
+        return ResponseEntity.ok("Song deleted successfully");
+    }
+    @PatchMapping
+    private ResponseEntity<SongDTO> updateSong (@RequestBody SongDTO songDTO){
+        SongDTO responseSong = songService.updateSong(songDTO);
+        return responseSong.getSongID() != null ? ResponseEntity.ok(responseSong) : ResponseEntity.status(400).build();
+    }
 }

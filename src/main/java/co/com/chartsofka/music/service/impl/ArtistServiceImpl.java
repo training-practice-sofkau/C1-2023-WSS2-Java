@@ -32,9 +32,9 @@ public class ArtistServiceImpl implements IArtistService {
     public List<ArtistDTO> getArtists() {
         return artistRepository.findAll()
                 .stream().map(artist -> {
-                            artist.getAlbums().forEach(album -> album.setArtist(null));
-                            return entityToDTO(artist);
-                        })
+                    artist.getAlbums().forEach(album -> album.setArtist(null));
+                    return entityToDTO(artist);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -50,11 +50,20 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO) {
-        return null;
+        return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
     }
 
     @Override
-    public String deleteArtist(String idArtist) {
-        return null;
+    public void deleteArtist(String artistId) {
+        artistRepository.deleteById(artistId);
+    }
+
+    @Override
+    public List<ArtistDTO> findAllByType (String type){
+        return artistRepository.findAllByType(type).stream().map(artist -> {
+                    artist.getAlbums().forEach(album -> album.setArtist(null));
+                    return entityToDTO(artist);
+                })
+                .collect(Collectors.toList());
     }
 }

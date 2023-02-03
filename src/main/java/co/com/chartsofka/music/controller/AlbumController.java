@@ -17,7 +17,7 @@ public class AlbumController {
     AlbumServiceImpl albumService;
 
     @GetMapping
-    private ResponseEntity<List<AlbumDTO>> getAlbums(){
+    private ResponseEntity<List<AlbumDTO>> getAlbums() {
         return albumService.getAlbums().isEmpty() ?
                 ResponseEntity.status(204).body(Collections.emptyList()) :
                 //ResponseEntity.noContent().build():
@@ -25,14 +25,25 @@ public class AlbumController {
     }
 
     @GetMapping("{id}")
-    private ResponseEntity<AlbumDTO> getAlbum(@PathVariable("id") String albumId){
+    private ResponseEntity<AlbumDTO> getAlbum(@PathVariable("id") String albumId) {
         AlbumDTO album = albumService.findAlbumById(albumId);
-        return album.getAlbumID()!=null ? ResponseEntity.ok(album):ResponseEntity.status(404).build();
+        return album.getAlbumID() != null ? ResponseEntity.ok(album) : ResponseEntity.status(404).build();
     }
 
     @PostMapping
-    private ResponseEntity<AlbumDTO> saveAlbum(@RequestBody AlbumDTO albumDTO){
+    private ResponseEntity<AlbumDTO> saveAlbum(@RequestBody AlbumDTO albumDTO) {
         AlbumDTO responseAlbum = albumService.saveAlbum(albumDTO);
-        return  responseAlbum.getAlbumID() != null ? ResponseEntity.status(201).body(responseAlbum) : ResponseEntity.status(400).body(albumDTO);
+        return responseAlbum.getAlbumID() != null ? ResponseEntity.status(201).body(responseAlbum) : ResponseEntity.status(400).body(albumDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<String> deleteAlbum(@PathVariable("id") String albumId) {
+        albumService.deleteAlbum(albumId);
+        return ResponseEntity.ok("Album deleted successfully");
+    }
+    @PatchMapping
+    private ResponseEntity<AlbumDTO> updateAlbum(@RequestBody AlbumDTO albumDTO) {
+        AlbumDTO responseAlbum = albumService.updateAlbum(albumDTO);
+        return responseAlbum.getAlbumID() != null ? ResponseEntity.status(201).body(responseAlbum) : ResponseEntity.status(400).body(albumDTO);
     }
 }
