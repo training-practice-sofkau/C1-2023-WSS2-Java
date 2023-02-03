@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.controller;
 
+import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.service.impl.SongServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class SongController {
 
     @GetMapping
     private ResponseEntity<List<SongDTO>> getSongs() {
-        List<SongDTO> songs = songService.getSong();
+        List<SongDTO> songs = songService.getSongs();
         return songs.isEmpty() ?
                 ResponseEntity.status(204).body(Collections.emptyList()) :
                 ResponseEntity.ok(songs);
@@ -45,4 +46,19 @@ public class SongController {
         SongDTO responseSong = songService.updateSong(songDTO);
         return responseSong.getSongID() != null ? ResponseEntity.ok(responseSong) : ResponseEntity.status(400).build();
     }
+    @GetMapping("/top")
+    private ResponseEntity<List<SongDTO>> getTopSongs() {
+        List<SongDTO> songs = songService.getTopSongs();
+        return songs.isEmpty()
+                ? ResponseEntity.status(204).body(Collections.emptyList())
+                : ResponseEntity.ok(songs);
+    }
+    @GetMapping("/albums")
+    private ResponseEntity<List<SongDTO>> getSongsFromAlbum(@RequestBody AlbumDTO albumDTO) {
+        List<SongDTO> songs = songService.getSongsFromAlbum(albumDTO);
+        return songs.isEmpty()
+                ? ResponseEntity.status(204).body(Collections.emptyList())
+                : ResponseEntity.ok(songs);
+    }
+
 }

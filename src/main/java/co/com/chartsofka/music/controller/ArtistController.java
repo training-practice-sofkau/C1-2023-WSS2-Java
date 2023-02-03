@@ -43,4 +43,12 @@ public class ArtistController {
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
     }
 
+    @GetMapping("/type/{type}")
+    private ResponseEntity<List<ArtistDTO>> getByType(@PathVariable("type") String albumType){
+        List<ArtistDTO> artistDTOs = artistService.findAllByType(albumType);
+        return artistDTOs.isEmpty()
+                ? ResponseEntity.status(204).body(Collections.emptyList())
+                : ResponseEntity.ok(artistDTOs);
+    }
+
 }

@@ -29,7 +29,7 @@ public class Song {
     private Integer duration;
 
     @Column
-    private Integer played;
+    private Long played;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Album.class)
     @JoinColumn(name="album_id", foreignKey = @ForeignKey(name = "FK_album_id"))

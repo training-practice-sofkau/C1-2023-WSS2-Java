@@ -21,7 +21,6 @@ public class ArtistDTO {
     private String enterprise;
     private String type;
     private List<AlbumDTO> albumsDTO = new ArrayList<>();
-
     public void addAlbumDTO(AlbumDTO albumDTO){
         this.albumsDTO.add(albumDTO);
     }

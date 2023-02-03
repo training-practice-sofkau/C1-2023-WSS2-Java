@@ -14,7 +14,7 @@ public class SongDTO {
     private String songID;
     private String name;
     private Integer duration;
-    private Integer played;
+    private Long played;
     private AlbumDTO albumDTO;
 
 

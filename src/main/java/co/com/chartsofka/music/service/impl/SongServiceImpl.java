@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.service.impl;
 
+import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.utils.DTOToEntity;
@@ -12,6 +13,7 @@ import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,7 +39,7 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public List<SongDTO> getSong() {
+    public List<SongDTO> getSongs() {
         return songRepository.findAll()
                 .stream()
                 .map(this::entityToDTO)
@@ -65,5 +67,21 @@ public class SongServiceImpl implements ISongService {
     @Override
     public void deleteSong(String songID) {
         songRepository.deleteById(songID);
+    }
+    @Override
+    public List<SongDTO> getTopSongs(){
+        List<SongDTO> songs = getSongs();
+        if(songs.size()>10) {
+            return songs.stream().sorted(Comparator.comparingLong(SongDTO::getPlayed)).toList().subList(0, 10);
+        }else{
+            return songs.stream().sorted(Comparator.comparingLong(SongDTO::getPlayed)).toList();
+        }
+    }
+    @Override
+    public List<SongDTO> getSongsFromAlbum(AlbumDTO albumDTO){
+        return songRepository.findAllByAlbum(DTOToEntity.partialAlbum(albumDTO))
+                .stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
     }
 }

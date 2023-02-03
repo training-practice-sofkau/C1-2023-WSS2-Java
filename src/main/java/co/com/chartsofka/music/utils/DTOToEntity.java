@@ -43,4 +43,9 @@ public class DTOToEntity {
         r.setAlbum(album(songDTO.getAlbumDTO()));
         return r;
     }
+    public static Album partialAlbum(AlbumDTO albumDTO){
+        Album r = new Album();
+        r.setAlbumID(albumDTO.getAlbumID());
+        return r;
+    }
 }
