@@ -26,7 +26,6 @@ public class SongController {
     private ResponseEntity<List<SongDTO>> findAll(){
         return songService.getAllSongs().isEmpty() ?
                 ResponseEntity.status(204).body(Collections.emptyList()) :
-//                ResponseEntity.noContent().build():
                 ResponseEntity.ok(songService.getAllSongs());
     }
 
@@ -34,8 +33,14 @@ public class SongController {
     private ResponseEntity<List<SongDTO>> findTenMostPlayed(){
         return songService.getTenMostSongs().isEmpty() ?
                 ResponseEntity.status(204).body(Collections.emptyList()) :
-//                ResponseEntity.noContent().build():
                 ResponseEntity.ok(songService.getTenMostSongs());
+    }
+
+    @GetMapping("/album-songs/{id}")
+    private ResponseEntity<List<SongDTO>> findSongByAlbum(@PathVariable("id") String idAlbum){
+        return songService.getAllSongOfAlbum(idAlbum).isEmpty() ?
+                ResponseEntity.status(204).body(Collections.emptyList()) :
+                ResponseEntity.ok(songService.getAllSongOfAlbum(idAlbum));
     }
 
     @GetMapping("{id}")

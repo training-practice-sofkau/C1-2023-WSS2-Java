@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,4 +63,13 @@ public class SongServiceImpl implements ISongService {
                 .stream().sorted(Comparator.comparing(Song::getPlayed).reversed())
                 .limit(10).map(this::entityToDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public List<SongDTO> getAllSongOfAlbum(String idAlbum) {
+        return songRepository.findAll()
+                .stream().filter(s -> Objects.equals(s.getAlbum().getAlbumID(), idAlbum))
+                .map(this::entityToDTO).collect(Collectors.toList());
+    }
+
+
 }

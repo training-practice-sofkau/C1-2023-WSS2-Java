@@ -20,4 +20,5 @@ public interface ISongService {
     void deleteSong(String idArtist);
 
     List<SongDTO> getTenMostSongs();
+    List<SongDTO> getAllSongOfAlbum(String idAlbum) ;
 }
