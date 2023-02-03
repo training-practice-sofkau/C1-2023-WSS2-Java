@@ -1,9 +1,6 @@
 package co.com.chartsofka.music.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +22,7 @@ public class Song {
     private String songID;
     private String name;
     private LocalDateTime duration;
-    private Album album;
+//    @Column
+//    private Album album;
     private Integer played;
 }
