@@ -31,7 +31,10 @@ public class ArtistServiceImpl implements IArtistService {
     @Override
     public List<ArtistDTO> getArtists() {
         return artistRepository.findAll()
-                .stream().map(this::entityToDTO)
+                .stream().map(artist -> {
+                            artist.getAlbums().forEach(album -> album.setArtist(null));
+                            return entityToDTO(artist);
+                        })
                 .collect(Collectors.toList());
     }
 
