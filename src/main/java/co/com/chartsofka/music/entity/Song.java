@@ -33,7 +33,6 @@ public class Song {
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Album.class)
     @JoinColumn(name="album_id", foreignKey = @ForeignKey(name = "FK_album_id"))
-    @JsonBackReference
-    @JsonIgnoreProperties({"song"})
+    @JsonIgnoreProperties("song")
     private Album album;
 }

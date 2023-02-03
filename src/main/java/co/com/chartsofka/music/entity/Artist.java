@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,9 +41,9 @@ public class Artist {
     @Column
     private String type;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "artist",
             targetEntity = Album.class)
-    @JsonManagedReference
+    @JsonIgnoreProperties("artist")
     private List<Album> albums = new ArrayList<>();
 
 }

@@ -43,13 +43,12 @@ public class Album {
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Artist.class)
     @JoinColumn(name="artist_id", foreignKey = @ForeignKey(name = "FK_artist_id"))
-    @JsonBackReference
-    @JsonIgnoreProperties({"albums"})
+    @JsonIgnoreProperties("albums")
     private Artist artist;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "album",
             targetEntity = Song.class)
-    @JsonManagedReference
+    @JsonIgnoreProperties("album")
     private List<Song> song = new ArrayList<>();
 
 }
