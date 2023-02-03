@@ -15,11 +15,11 @@ public interface IAlbumService {
     //Basic operate
     List<AlbumDTO> getAlbums();
 
-    Optional<AlbumDTO> findAlbumById(String idAlbum);
+    AlbumDTO findAlbumById(String idAlbum);
 
     AlbumDTO saveAlbum(AlbumDTO albumDTO);
 
-    AlbumDTO updateAlbum(AlbumDTO albumDTO);
+    AlbumDTO updateAlbum(AlbumDTO albumDTO, String albumID);
 
     String deleteAlbum(String idAlbum);
 
