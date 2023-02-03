@@ -15,7 +15,8 @@ public class DTOToEntity {
         r.setTotalSongs(albumDTO.getTotalSongs());
         r.setYearRelease(albumDTO.getYearRelease());
         r.setGenre(albumDTO.getGenre());
-        r.setArtist(artist(albumDTO.getArtistDTO()));
+        r.setArtist(albumDTO.getArtistDTO());
+        r.setSongs(albumDTO.getSongs());
 
         return r;
     }
