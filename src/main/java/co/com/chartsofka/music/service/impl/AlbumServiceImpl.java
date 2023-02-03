@@ -60,6 +60,7 @@ public class AlbumServiceImpl implements IAlbumService {
             album.setYearRelease(albumDTO.getYearRelease());
             album.setGenre(albumDTO.getGenre());
             album.setArtistDTO(albumDTO.getArtistDTO());
+            album.setSongsDTO(albumDTO.getSongsDTO());
 
             albumRepository.save(dtoToEntity(album));
 

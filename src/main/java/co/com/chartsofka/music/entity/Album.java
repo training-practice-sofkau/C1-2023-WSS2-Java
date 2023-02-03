@@ -2,11 +2,14 @@ package co.com.chartsofka.music.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.*;
 
 
 @Data
@@ -38,5 +41,9 @@ public class Album {
     @JsonBackReference
     private Artist artist;
 
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL,
+    targetEntity = Song.class)
+    @JsonManagedReference
+    private List<Song> songs = new ArrayList<>();
 
 }
