@@ -1,6 +1,8 @@
 package co.com.chartsofka.music.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +16,9 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Table(name = "songs")
 public class Song {
 
@@ -30,11 +35,10 @@ public class Song {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalTime duration;
 
-    @Column
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Album.class)
-    @JoinColumn(name="album_id", foreignKey = @ForeignKey(name = "FK_album_id"))
+    @JoinColumn(name="albumID", foreignKey = @ForeignKey(name = "FK_album_id"))
     @JsonBackReference
-    private String albumID;
+    private Album album;
 
     @Column
     private Integer played;

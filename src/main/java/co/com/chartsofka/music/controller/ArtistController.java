@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.controller;
 
+import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.service.impl.ArtistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,18 @@ public class ArtistController {
     private ResponseEntity<ArtistDTO> guardarArtista(@RequestBody ArtistDTO artistDTO){
         ArtistDTO artistSaved = artistService.saveArtist(artistDTO);
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
+    }
+
+    @PutMapping("/artists")
+    private ResponseEntity<ArtistDTO> updateAlbum(@RequestBody ArtistDTO artistDTO){
+        return artistService.findArtistById(artistDTO.getArtistID()) == null ? ResponseEntity.status(204).body(artistDTO) :
+                ResponseEntity.ok().body(artistService.updateArtist(artistDTO));
+    }
+
+    @DeleteMapping("/artists/{id}")
+    private ResponseEntity<ArtistDTO> deleteAlbum(@PathVariable("id") String idArtist){
+        return artistService.findArtistById(idArtist) == null ? ResponseEntity.status(204).build():
+                ResponseEntity.status(200).build();
     }
 
 }

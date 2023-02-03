@@ -1,3 +1,4 @@
+/*
 package co.com.chartsofka.music.utils;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
@@ -6,8 +7,6 @@ import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.entity.Song;
-
-import java.util.stream.Collectors;
 
 public class EntityToDTO {
     public static AlbumDTO album(Album album){
@@ -44,3 +43,4 @@ public class EntityToDTO {
         return result;
     }
 }
+*/
