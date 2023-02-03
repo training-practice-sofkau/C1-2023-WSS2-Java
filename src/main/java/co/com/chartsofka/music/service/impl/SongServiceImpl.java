@@ -7,6 +7,8 @@ import co.com.chartsofka.music.service.ISongService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SongServiceImpl implements ISongService {
@@ -41,7 +43,7 @@ public class SongServiceImpl implements ISongService {
 
     @Override
     public List<SongDTO> getSongs() {
-        return null;
+        return songRepository.findAll().stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -64,5 +66,24 @@ public class SongServiceImpl implements ISongService {
     @Override
     public String deleteSong(String idSong) {
         return null;
+    }
+
+    @Override
+    public List<SongDTO> getSongsTop() {
+        return songRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .sorted((song1, song2)->song2.getPlayed().compareTo(song1.getPlayed()))
+                .limit(3)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SongDTO> getSongsByAlbum(String albumID){
+        return songRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .filter(song -> song.getAlbum().getAlbumID() == albumID)
+                .collect(Collectors.toList());
     }
 }

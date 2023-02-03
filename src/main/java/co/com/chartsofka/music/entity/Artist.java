@@ -34,7 +34,7 @@ public class Artist {
     @Column
     private String type;
 
-    @OneToMany(mappedBy = "artist", targetEntity = Album.class)
+    @OneToMany(mappedBy = "artist", targetEntity = Album.class, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Album> albums = new ArrayList<>();
 }

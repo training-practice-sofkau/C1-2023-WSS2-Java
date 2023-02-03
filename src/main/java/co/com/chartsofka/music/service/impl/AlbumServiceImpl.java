@@ -54,9 +54,8 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
-    public String saveAlbum(AlbumDTO albumDTO) {
-        albumRepository.save(dtoToEntity(albumDTO));
-        return "ok";
+    public AlbumDTO saveAlbum(AlbumDTO albumDTO) {
+        return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override

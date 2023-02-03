@@ -4,11 +4,12 @@ import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.service.impl.ArtistServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RestController
 @RequestMapping("/charts")
-public class ArtistController {
+public class ArtistController implements Serializable {
 
     private ArtistServiceImpl service;
 

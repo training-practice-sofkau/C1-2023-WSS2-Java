@@ -32,11 +32,10 @@ public class Album {
     private String genre;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Artist.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Artist.class)
     @JoinColumn(name="artist_id", foreignKey = @ForeignKey(name = "FK_artist_id"))
     @JsonBackReference
     private Artist artist;
-
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, targetEntity = Song.class)
     @JsonManagedReference

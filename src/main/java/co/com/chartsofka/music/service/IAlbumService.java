@@ -16,7 +16,7 @@ public interface IAlbumService {
 
     AlbumDTO findAlbumById(String idAlbum);
 
-    String saveAlbum(AlbumDTO albumDTO);
+    AlbumDTO saveAlbum(AlbumDTO albumDTO);
 
     AlbumDTO updateAlbum(AlbumDTO albumDTO);
 

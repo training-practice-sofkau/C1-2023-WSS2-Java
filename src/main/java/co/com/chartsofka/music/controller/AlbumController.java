@@ -4,11 +4,12 @@ import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.service.impl.AlbumServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RestController
 @RequestMapping("/charts")
-public class AlbumController {
+public class AlbumController implements Serializable {
 
     private AlbumServiceImpl service;
 
@@ -26,4 +27,6 @@ public class AlbumController {
         service.saveAlbum(albumDTO);
         return "Ok";
     }
+
+
 }
