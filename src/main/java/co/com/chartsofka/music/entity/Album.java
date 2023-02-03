@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Set;
+
 
 @Data
 @AllArgsConstructor
@@ -40,6 +42,9 @@ public class Album {
     @JoinColumn(name="artist_id", foreignKey = @ForeignKey(name = "FK_artist_id"))
     @JsonBackReference
     private Artist artist;
+
+    @OneToMany(mappedBy = "albumID", fetch = FetchType.LAZY)
+    private Set<Song> mySongs;
 
 
 }

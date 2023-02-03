@@ -2,7 +2,9 @@ package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.entity.Album;
+import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.repository.AlbumRepository;
+import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IAlbumService;
 import co.com.chartsofka.music.utils.DTOToEntity;
 import co.com.chartsofka.music.utils.EntityToDTO;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class AlbumServiceImpl implements IAlbumService {
     @Autowired
     AlbumRepository albumRepository;
+    @Autowired
+    ArtistRepository artistRepository;
 
     @Override
     public Album dtoToEntity(AlbumDTO albumDTO) {
@@ -47,16 +51,37 @@ public class AlbumServiceImpl implements IAlbumService {
     @Override
     public AlbumDTO saveAlbum(AlbumDTO albumDTO) {
 
+        Optional<Artist> a = artistRepository.findById(albumDTO.getArtistDTO().getArtistID());
+
+        if(a.isEmpty()) return null;
+
         return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override
     public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+        Optional<Album> a = albumRepository.findById(albumDTO.getAlbumID());
+        Optional<Artist> artist = artistRepository.findById(albumDTO.getArtistDTO().getArtistID());
+
+        if(a.isEmpty() || artist.isEmpty()) return null;
+
+        a.get().setTitle(albumDTO.getTitle());
+        a.get().setArtist(DTOToEntity.artist(albumDTO.getArtistDTO()));
+        a.get().setTotalSongs(albumDTO.getTotalSongs());
+        a.get().setYearRelease(albumDTO.getYearRelease());
+        a.get().setGenre(albumDTO.getGenre());
+
+        return entityToDTO(albumRepository.save(a.get()));
     }
 
     @Override
     public String deleteAlbum(String idAlbum) {
-        return null;
+        Optional<Album> a = albumRepository.findById(idAlbum);
+
+        if(a.isEmpty()) return null;
+
+        albumRepository.delete(a.get());
+
+        return "Album "+a.get().getTitle()+" was deleted successfully";
     }
 }

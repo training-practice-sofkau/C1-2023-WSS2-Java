@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,11 +49,34 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO) {
-        return null;
+
+        Optional<Artist> a = artistRepository.findById(artistDTO.getArtistID());
+
+        if(a.isEmpty()) return null;
+
+        a.get().setName(artistDTO.getName());
+        a.get().setCountry(artistDTO.getCountry());
+        a.get().setDebutDate(artistDTO.getDebutDate());
+        a.get().setEnterprise(artistDTO.getEnterprise());
+        a.get().setType(artistDTO.getType());
+
+        return entityToDTO(artistRepository.save(a.get()));
     }
 
     @Override
     public String deleteArtist(String idArtist) {
-        return null;
+
+        Optional<Artist> a = artistRepository.findById(idArtist);
+
+        if(a.isEmpty()) return null;
+
+        artistRepository.delete(a.get());
+
+        return "Artis "+a.get().getName()+" was deleted from our system";
+    }
+
+    @Override
+    public List<ArtistDTO> findArtistsByType(String type) {
+        return artistRepository.findAll().stream().filter(s-> s.getType().equalsIgnoreCase(type)).map(this::entityToDTO).toList();
     }
 }
