@@ -20,5 +20,9 @@ public class AlbumDTO {
     private LocalDate yearRelease;
     private String genre;
     private ArtistDTO artistDTO;
-    private List<SongDTO> songsDTO = new ArrayList();
+    private List<SongDTO> songsDTO = new ArrayList<>();
+
+    public void addSongDTO(SongDTO songDTO) {
+        songsDTO.add(songDTO);
+    }
 }

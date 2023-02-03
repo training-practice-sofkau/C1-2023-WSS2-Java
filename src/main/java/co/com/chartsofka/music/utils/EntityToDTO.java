@@ -12,20 +12,20 @@ import java.util.stream.Collectors;
 public class EntityToDTO {
 
     public static AlbumDTO album(Album album) {
-        System.out.println("entered the album");
         AlbumDTO r = new AlbumDTO();
         r.setAlbumID(album.getAlbumID());
         r.setTitle(album.getTitle());
         r.setTotalSongs(album.getTotalSongs());
         r.setYearRelease(album.getYearRelease());
         r.setGenre(album.getGenre());
-        r.setArtistDTO(artist(album.getArtist()));
-        //r.setSongsDTO(album.getSong().stream().map(EntityToDTO::song).collect(Collectors.toList()));
+        r.setArtistDTO(EntityToDTO.partialArtist(album.getArtist()));
+        for (Song song : album.getSong()) {
+            r.addSongDTO(EntityToDTO.partialSong(song));
+        }
         return r;
     }
 
     public static ArtistDTO artist(Artist artist) {
-        System.out.println("entered the artist");
         ArtistDTO r = new ArtistDTO();
         r.setArtistID(artist.getArtistID());
         r.setName(artist.getName());
@@ -33,7 +33,9 @@ public class EntityToDTO {
         r.setDebutDate(artist.getDebutDate());
         r.setEnterprise(artist.getEnterprise());
         r.setType(artist.getType());
-        //r.setAlbumsDTO(artist.getAlbums().stream().map(EntityToDTO::album).collect(Collectors.toList()));
+        for (Album album : artist.getAlbums()) {
+            r.addAlbumDTO(EntityToDTO.partialAlbum(album));
+        }
         return r;
     }
 
@@ -43,7 +45,37 @@ public class EntityToDTO {
         r.setName(song.getName());
         r.setDuration(song.getDuration());
         r.setPlayed(song.getPlayed());
-        r.setAlbumDTO(album(song.getAlbum()));
+        r.setAlbumDTO(EntityToDTO./*partialAlbum*/partialAlbum(song.getAlbum()));
+        return r;
+    }
+
+    public static SongDTO partialSong(Song song) {
+        SongDTO r = new SongDTO();
+        r.setSongID(song.getSongID());
+        r.setName(song.getName());
+        r.setDuration(song.getDuration());
+        r.setPlayed(song.getPlayed());
+        return r;
+    }
+
+    public static ArtistDTO partialArtist(Artist artist) {
+        ArtistDTO r = new ArtistDTO();
+        r.setArtistID(artist.getArtistID());
+        r.setName(artist.getName());
+        r.setCountry(artist.getCountry());
+        r.setDebutDate(artist.getDebutDate());
+        r.setEnterprise(artist.getEnterprise());
+        r.setType(artist.getType());
+        return r;
+    }
+
+    public static AlbumDTO partialAlbum(Album album) {
+        AlbumDTO r = new AlbumDTO();
+        r.setAlbumID(album.getAlbumID());
+        r.setTitle(album.getTitle());
+        r.setTotalSongs(album.getTotalSongs());
+        r.setYearRelease(album.getYearRelease());
+        r.setGenre(album.getGenre());
         return r;
     }
 }

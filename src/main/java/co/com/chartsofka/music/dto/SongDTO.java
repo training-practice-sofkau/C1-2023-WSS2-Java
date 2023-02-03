@@ -16,4 +16,6 @@ public class SongDTO {
     private Integer duration;
     private Integer played;
     private AlbumDTO albumDTO;
+
+
 }

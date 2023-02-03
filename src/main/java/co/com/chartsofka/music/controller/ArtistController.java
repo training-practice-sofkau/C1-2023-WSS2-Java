@@ -16,17 +16,17 @@ public class ArtistController {
     ArtistServiceImpl artistService;
 
     @GetMapping("/artists")
-    private ResponseEntity<List<ArtistDTO>> obtenerArtistas(){
+    private ResponseEntity<List<ArtistDTO>> getArtists(){
         return artistService.getArtists().isEmpty() ? ResponseEntity.status(204).body(Collections.emptyList()) : ResponseEntity.ok(artistService.getArtists());
     }
 
     @GetMapping("/artists/{id}")
-    private ResponseEntity<ArtistDTO> obtenerArtistaPorId(@PathVariable("id") String idArtist){
+    private ResponseEntity<ArtistDTO> getArtist(@PathVariable("id") String idArtist){
         return artistService.findArtistById(idArtist) == null ? ResponseEntity.status(404).body(new ArtistDTO()) : ResponseEntity.ok(artistService.findArtistById(idArtist));
     }
 
     @PostMapping("/artists")
-    private ResponseEntity<ArtistDTO> guardarArtista(@RequestBody ArtistDTO artistDTO){
+    private ResponseEntity<ArtistDTO> saveArtist(@RequestBody ArtistDTO artistDTO){
         ArtistDTO artistSaved = artistService.saveArtist(artistDTO);
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
     }
