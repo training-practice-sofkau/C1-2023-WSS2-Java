@@ -25,7 +25,7 @@ public interface ISongService {
     List<Song> getSongsTop();
 
 
-    List<Song> getSongsByAlbumID(String title);
+    List<SongDTO> findAllByAlbum(String albumID);
 
-    List<SongDTO> getByAlbum(String albumID);
+
 }

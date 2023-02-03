@@ -52,9 +52,10 @@ public class SongController {
         return ResponseEntity.ok(songService.getSongsTop());
     }
 
-    @GetMapping("/songs/filter")
-    private ResponseEntity<List<Song>> obtenerCancionesAlbum(@RequestParam String id){
-        return ResponseEntity.ok(songService.getSongsByAlbumID(id));
+    @GetMapping("/songs/filter/{albumID}")
+    private ResponseEntity<List<SongDTO>> obtenerCancionesAlbum(@PathVariable("albumID") String albumID){
+        var r  = songService.findAllByAlbum(albumID);
+        return r == null? ResponseEntity.status(404).build():ResponseEntity.ok(r);
     }
 
 

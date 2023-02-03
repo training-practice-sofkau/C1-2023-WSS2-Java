@@ -70,10 +70,11 @@ public class SongServiceImpl implements ISongService {
     public List<Song> getSongsTop() {
         return songRepository.findAll().stream().sorted(Comparator.comparing(Song::getPlayed).reversed()).limit(10).collect(Collectors.toList());
     }
-    @Override
-    public List<SongDTO> getByAlbum(String albumID) {
-        List<SongDTO> songs = new ArrayList<>();
-        songRepository.findAll().stream().map(EntityToDTO::song).collect(Collectors.toList()).stream().forEach(i ->{if (i.getAlbumID().equals(albumID)) songs.add(i);
 
-    });return songs;}
+
+    @Override
+    public List<SongDTO> findAllByAlbum(String albumID) {
+        return songRepository.findAllByAlbum_albumID(albumID).stream().map(this::entityToDTO).collect(Collectors.toList());
+
+    }
 }
