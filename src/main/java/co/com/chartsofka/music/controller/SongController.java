@@ -30,4 +30,12 @@ public class SongController {
                 ResponseEntity.noContent().build():
                 ResponseEntity.ok(songService.getAllSongs());
     }
+
+    @GetMapping("{id}")
+    private ResponseEntity<SongDTO> findSongById(@PathVariable("id") String idSong){
+        var result = songService.findSongById(idSong);
+        return result.isEmpty() ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok(result.get());
+    }
 }

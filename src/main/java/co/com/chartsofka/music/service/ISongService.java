@@ -5,13 +5,16 @@ import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ISongService {
+    Song dtoToEntity (SongDTO songDTO);
+    SongDTO entityToDTO(Song song);
     List<Song> getAllSongs();
 
-    SongDTO findSongById(String idArtist);
+    Optional<SongDTO> findSongById(String idSong);
 
-    Song saveSong(SongDTO artistDTO);
+    Song saveSong(SongDTO songDTO);
 
     SongDTO updateSong(SongDTO artistDTO);
 

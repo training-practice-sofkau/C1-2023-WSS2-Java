@@ -4,20 +4,29 @@ import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
-import co.com.chartsofka.music.utils.DTOToEntity;
-import co.com.chartsofka.music.utils.mapper.SongDTOToSong;
+import co.com.chartsofka.music.utils.mapper.DTOToEntity;
+import co.com.chartsofka.music.utils.mapper.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SongServiceImpl implements ISongService {
 
     @Autowired
     SongRepository songRepository;
-    @Autowired
-    SongDTOToSong mapper;
+
+    @Override
+    public Song dtoToEntity(SongDTO songDTO) {
+        return DTOToEntity.song(songDTO);
+    }
+
+    @Override
+    public SongDTO entityToDTO(Song song) {
+        return EntityToDTO.song(song);
+    }
 
     @Override
     public List<Song> getAllSongs() {
@@ -25,14 +34,13 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public SongDTO findSongById(String idArtist) {
-        return null;
+    public Optional<SongDTO> findSongById(String idSong) {
+        return this.songRepository.findById(idSong).map(EntityToDTO::song);
     }
 
     @Override
     public Song saveSong(SongDTO songDTO) {
-        Song song = mapper.map(songDTO);
-        return this.songRepository.save(song);
+        return this.songRepository.save(dtoToEntity(songDTO));
     }
 
     @Override

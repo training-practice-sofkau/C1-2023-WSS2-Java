@@ -4,14 +4,12 @@ import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.service.IAlbumService;
-import co.com.chartsofka.music.utils.DTOToEntity;
-import co.com.chartsofka.music.utils.EntityToDTO;
+import co.com.chartsofka.music.utils.mapper.DTOToEntity;
+import co.com.chartsofka.music.utils.mapper.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
