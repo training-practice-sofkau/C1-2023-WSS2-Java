@@ -16,6 +16,8 @@ public interface IArtistService {
     //Basic operations
     List<ArtistDTO> getArtists();
 
+    List<ArtistDTO> getArtistsByType(String type);
+
     ArtistDTO findArtistById(String idArtist);
 
     String saveArtist(ArtistDTO artistDTO);

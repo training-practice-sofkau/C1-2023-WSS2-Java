@@ -7,15 +7,16 @@ import co.com.chartsofka.music.service.IArtistService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArtistServiceImpl implements IArtistService {
 
 
-    private ArtistRepository repository;
+    private ArtistRepository artistRepository;
 
     public ArtistServiceImpl(ArtistRepository repository) {
-        this.repository = repository;
+        this.artistRepository = repository;
     }
 
     @Override
@@ -42,7 +43,19 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public List<ArtistDTO> getArtists() {
-        return null;
+        return artistRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArtistDTO> getArtistsByType(String type){
+        return artistRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .filter(artistDTO -> artistDTO.getType().equalsIgnoreCase(type))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -52,7 +65,7 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public String saveArtist(ArtistDTO artistDTO) {
-        repository.save(dtoToEntity(artistDTO));
+        artistRepository.save(dtoToEntity(artistDTO));
         return "Ok";
     }
     @Override

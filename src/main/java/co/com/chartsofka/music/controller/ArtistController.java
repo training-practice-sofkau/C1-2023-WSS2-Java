@@ -21,10 +21,15 @@ public class ArtistController implements Serializable {
     public List<ArtistDTO> getArtists(){
         return service.getArtists();
     }
+    @GetMapping("/artists/{type}")
+    public List<ArtistDTO> getArtistsByType(@PathVariable String type){
+        return service.getArtistsByType(type);
+    }
 
     @PostMapping("/artists")
     public String createArtist(@RequestBody ArtistDTO artistDTO){
         service.saveArtist(artistDTO);
         return "Ok";
     }
+
 }
