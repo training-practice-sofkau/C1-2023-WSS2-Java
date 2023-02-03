@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,6 +25,13 @@ public class ArtistController {
     @GetMapping("/artists/{id}")
     private ResponseEntity<ArtistDTO> obtenerArtistaPorId(@PathVariable("id") String idArtist){
         return artistService.findArtistById(idArtist) == null ? ResponseEntity.status(404).body(new ArtistDTO()) : ResponseEntity.ok(artistService.findArtistById(idArtist));
+    }
+
+    @GetMapping("/artists/byType/{type}")
+    private ResponseEntity<List<ArtistDTO>> getArtistByType(@PathVariable("type") String type){
+        return artistService.getArtistByType(type) == null ?
+                ResponseEntity.status(404).body(new ArrayList<>()) :
+                ResponseEntity.ok(artistService.getArtistByType(type));
     }
 
     @PostMapping("/artists")

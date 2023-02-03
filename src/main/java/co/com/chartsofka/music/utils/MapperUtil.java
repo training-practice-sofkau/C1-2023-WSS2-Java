@@ -96,7 +96,7 @@ public class MapperUtil {
                 song.getSongID(),
                 song.getName(),
                 song.getDuration(),
-                albumToDTOWithArtist().apply(song.getAlbum()),
+                albumToDTOWithoutArtist().apply(song.getAlbum()),
                 song.getPlayed()
         );
     }

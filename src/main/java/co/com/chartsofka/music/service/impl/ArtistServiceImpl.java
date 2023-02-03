@@ -65,4 +65,12 @@ public class ArtistServiceImpl implements IArtistService {
     public void deleteArtist(String idArtist) {
         artistRepository.deleteById(idArtist);
     }
+
+    @Override
+    public List<ArtistDTO> getArtistByType(String type) {
+        return artistRepository.findAllByType(type)
+                .stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
 }

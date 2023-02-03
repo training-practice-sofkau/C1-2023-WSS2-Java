@@ -32,7 +32,6 @@ public class Song {
     private String name;
 
     @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalTime duration;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Album.class)

@@ -26,6 +26,22 @@ public class SongController {
                 ResponseEntity.ok(songService.findAllSongs());
     }
 
+    @GetMapping("/mostListened")
+    private ResponseEntity<List<SongDTO>> getMostListenedSongs(){
+        return songService.findMostPlayedSongs().isEmpty() ?
+                ResponseEntity.status(204).body(Collections.emptyList()) :
+                //ResponseEntity.noContent().build():
+                ResponseEntity.ok(songService.findMostPlayedSongs());
+    }
+
+    @GetMapping("/byAlbum/{id}")
+    private ResponseEntity<List<SongDTO>> getSongByAlbumId(@PathVariable("id") String albumId){
+        var result = songService.findAllByAlbum(albumId);
+        return result == null ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok(result);
+    }
+
     @GetMapping("/{id}")
     private ResponseEntity<SongDTO> getSongById(@PathVariable("id") String songId){
         var result = songService.findSongById(songId);

@@ -4,6 +4,7 @@ import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface ISongService {
     //DTOs
@@ -21,4 +22,8 @@ public interface ISongService {
     SongDTO updateSong(SongDTO songDTO);
 
     void deleteSong(String idSong);
+
+    List<SongDTO> findMostPlayedSongs();
+
+    List<SongDTO> findAllByAlbum(String albumId);
 }
