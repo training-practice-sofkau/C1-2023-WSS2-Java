@@ -28,8 +28,7 @@ public class SongServiceImpl implements ISongService {
 
     @Override
     public SongDTO entityToDTO(Song song) {
-        return entityToDTO(song);
-
+        return EntityToDTO.song(song);
     }
 
     @Override

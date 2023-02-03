@@ -33,13 +33,8 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public List<AlbumDTO> getAlbums() {
-        List<Album> albums = albumRepository.findAll().stream().peek(album -> album.setArtist(null)).collect(Collectors.toList());
-        System.out.println(albums);
         return albumRepository.findAll()
-                .stream().map(album -> {
-                    album.getSong().forEach(song -> song.setAlbum(null));
-                    return entityToDTO(album);
-                })
+                .stream().map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 

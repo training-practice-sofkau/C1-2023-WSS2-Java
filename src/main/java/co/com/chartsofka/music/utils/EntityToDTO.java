@@ -25,7 +25,7 @@ public class EntityToDTO {
     }
 
     public static ArtistDTO artist(Artist artist) {
-        System.out.println("entered the album");
+        System.out.println("entered the artist");
         ArtistDTO r = new ArtistDTO();
         r.setArtistID(artist.getArtistID());
         r.setName(artist.getName());
