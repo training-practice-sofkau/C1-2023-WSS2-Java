@@ -72,9 +72,9 @@ public class SongServiceImpl implements ISongService {
     public List<SongDTO> getTopSongs(){
         List<SongDTO> songs = getSongs();
         if(songs.size()>10) {
-            return songs.stream().sorted(Comparator.comparingLong(SongDTO::getPlayed)).toList().subList(0, 10);
+            return songs.stream().sorted(Comparator.comparingLong(song->-song.getPlayed())).toList().subList(0, 10);
         }else{
-            return songs.stream().sorted(Comparator.comparingLong(SongDTO::getPlayed)).toList();
+            return songs.stream().sorted(Comparator.comparingLong(song->-song.getPlayed())).toList();
         }
     }
     @Override
