@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.controller;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.service.impl.AlbumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,14 @@ public class AlbumController {
         return result.isEmpty() ?
                 ResponseEntity.status(404).build() :
                 ResponseEntity.ok(result.get());
+    }
+
+    @GetMapping("/{id}/songs")
+    private ResponseEntity<List<SongDTO>> obtenerCancionesAlbum(@PathVariable("id") String idAlbum){
+        var result = albumService.findAllAlbumSongs(idAlbum);
+        return result.isEmpty() ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok(result);
     }
 
     @PostMapping("/")

@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.service.IAlbumService;
@@ -53,8 +54,8 @@ public class AlbumServiceImpl implements IAlbumService {
         albumToUpdate.setTotalSongs(albumDTO.getTotalSongs());
         albumToUpdate.setYearRelease(albumDTO.getYearRelease());
         albumToUpdate.setGenre(albumDTO.getGenre());
-        //albumToUpdate.setArtist(DTOToEntity.artist(albumDTO.getArtistDTO()));
-        //albumToUpdate.setSongs(albumDTO.getSongsDTO().stream().map(DTOToEntity::song).collect(Collectors.toList()));
+        albumToUpdate.setArtist(albumDTO.getArtist());
+        albumToUpdate.setSongs(albumDTO.getSongs().stream().map(DTOToEntity::song).toList());
 
         return entityToDTO(albumRepository.save(albumToUpdate));
     }
@@ -64,5 +65,11 @@ public class AlbumServiceImpl implements IAlbumService {
         Album albumToDelete = albumRepository.findById(idAlbum).orElseThrow();
         albumRepository.delete(albumToDelete);
         return idAlbum;
+    }
+
+    public List<SongDTO> findAllAlbumSongs(String idAlbum){
+        Album album = albumRepository.findById(idAlbum).orElseThrow();
+
+        return album.getSongs().stream().map(EntityToDTO::song).toList();
     }
 }
