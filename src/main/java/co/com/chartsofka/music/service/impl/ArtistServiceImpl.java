@@ -45,8 +45,20 @@ public class ArtistServiceImpl implements IArtistService{
     }
 
     @Override
+    public List<ArtistDTO> getArtistsByType(String artistType) {
+        return artistRepository.findAll()
+                .stream()
+                .filter(artistDTO -> artistDTO.getType().equalsIgnoreCase(artistType))
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ArtistDTO> getArtists() {
-        return artistRepository.findAll().stream().map(this::entityToDTO).collect(Collectors.toList());
+        return artistRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -73,4 +85,5 @@ public class ArtistServiceImpl implements IArtistService{
         }
         artistRepository.deleteById(artistID);
     }
+
 }

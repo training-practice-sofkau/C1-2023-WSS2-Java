@@ -11,7 +11,7 @@ public interface IArtistService {
     Artist dtoToEntity (ArtistDTO artistDTO);
     ArtistDTO entityToDTO(Artist artist);
 
-    //Basic operate
+    //Basic operations
     List<ArtistDTO> getArtists();
 
     ArtistDTO getArtistById(String artistID);
@@ -21,4 +21,7 @@ public interface IArtistService {
     ArtistDTO updateArtist(ArtistDTO artistDTO);
 
     void deleteArtist(String artistID);
+
+    //Customized operations
+    List<ArtistDTO> getArtistsByType(String artistType);
 }
