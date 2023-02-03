@@ -8,8 +8,6 @@ import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.entity.Song;
 import org.modelmapper.ModelMapper;
 
-import java.util.stream.Collectors;
-
 public class DTOToEntity {
 
     static ModelMapper modelMapper = new ModelMapper();

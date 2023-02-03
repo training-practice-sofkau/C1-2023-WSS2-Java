@@ -51,7 +51,7 @@ public class SongServiceImpl implements ISongService {
         songToUpdate.setName(songDTO.getName());
         songToUpdate.setDuration(songDTO.getDuration());
         songToUpdate.setPlayed(songDTO.getPlayed());
-        songToUpdate.setAlbum(DTOToEntity.album(songDTO.getAlbumDTO()));
+        songToUpdate.setAlbum(songDTO.getAlbum());
 
         return entityToDTO(songRepository.save(songToUpdate));
     }

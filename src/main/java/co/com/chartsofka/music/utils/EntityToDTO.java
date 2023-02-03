@@ -8,8 +8,6 @@ import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.entity.Song;
 import org.modelmapper.ModelMapper;
 
-import java.util.stream.Collectors;
-
 public class EntityToDTO {
 
     static ModelMapper modelMapper = new ModelMapper();
@@ -48,14 +46,14 @@ public class EntityToDTO {
     }
 
     public static SongDTO song(Song song){
-        SongDTO songDTO = new SongDTO();
-
-        songDTO.setSongID(song.getSongID());
-        songDTO.setName(song.getName());
-        songDTO.setDuration(song.getDuration());
-        songDTO.setPlayed(song.getPlayed());
+        //SongDTO songDTO = song(new Song());
+//
+        //songDTO.setSongID(song.getSongID());
+        //songDTO.setName(song.getName());
+        //songDTO.setDuration(song.getDuration());
+        //songDTO.setPlayed(song.getPlayed());
         //songDTO.setAlbumDTO(album(song.getAlbum()));
 
-        return songDTO;
+        return null;
     }
 }

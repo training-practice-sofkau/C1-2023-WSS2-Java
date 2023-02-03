@@ -1,7 +1,9 @@
 package co.com.chartsofka.music.controller;
 
 import co.com.chartsofka.music.dto.SongDTO;
+import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.service.impl.SongServiceImpl;
+import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,7 @@ public class SongController {
 
     @GetMapping("/{id}")
     private ResponseEntity<SongDTO> obtenerCancionPorId(@PathVariable("id") String idSong){
-        return songService.findSongById(idSong) == null ? ResponseEntity.status(404).body(new SongDTO()) : ResponseEntity.ok(songService.findSongById(idSong));
+        return songService.findSongById(idSong) == null ? ResponseEntity.status(404).body(EntityToDTO.song(new Song())) : ResponseEntity.ok(songService.findSongById(idSong));
     }
 
     @PostMapping("/")
