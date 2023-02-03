@@ -46,6 +46,16 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
+    public List<ArtistDTO> getArtistsByType(String artistType) {
+        List<ArtistDTO> artistDTOS = new ArrayList<>();
+        artistRepository.findAll().stream().map(EntityToDTO::artist)
+                .collect(Collectors.toList()).stream().forEach(i->{
+                    if (i.getTypeDTO().equals(artistType)) artistDTOS.add(i);
+                });
+        return artistDTOS;
+    }
+
+    @Override
     public Optional<ArtistDTO> findArtistById(String idArtist) {
         return artistRepository.findById(idArtist).map(EntityToDTO::artist);
     }

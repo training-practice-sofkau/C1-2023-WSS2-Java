@@ -36,6 +36,15 @@ public class ArtistController {
                 ResponseEntity.ok(result.get());
     }
 
+    @GetMapping("/artists/byType/{type}")
+    private ResponseEntity<List<ArtistDTO>> obtenerArtistastPorTypo(
+            @PathVariable("type") String artistType){
+        var result = artistService.getArtistsByType(artistType);
+        return result.isEmpty() ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok(result);
+    }
+
     @PostMapping("/artists")
     private ResponseEntity<ArtistDTO> guardarArtista(@RequestBody ArtistDTO artistDTO){
         ArtistDTO artistSaved = artistService.saveArtist(artistDTO);
