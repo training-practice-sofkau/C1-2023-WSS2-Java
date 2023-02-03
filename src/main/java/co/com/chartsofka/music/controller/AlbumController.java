@@ -2,6 +2,7 @@ package co.com.chartsofka.music.controller;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.ArtistDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.service.impl.AlbumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

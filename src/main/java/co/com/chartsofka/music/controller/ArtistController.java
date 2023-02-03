@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.controller;
 
 import co.com.chartsofka.music.dto.ArtistDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.service.impl.ArtistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/artists")
@@ -45,6 +47,25 @@ public class ArtistController {
         }
         else {
             return new ResponseEntity (artist, httpHeaders, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/type/{type}")
+    private ResponseEntity obtenerCancionesPorAlbum(@PathVariable("type") String artistType){
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        List<ArtistDTO> artists = artistService.getArtists();
+
+        if (artists.isEmpty()) {
+            return ResponseEntity.status(204).body(Collections.emptyList());
+        }
+        else {
+            artists = artists.stream()
+                    .filter(a -> a.getType().equals(artistType))
+                    .collect(Collectors.toList());
+
+            return new ResponseEntity (artists, httpHeaders, HttpStatus.OK);
         }
     }
 

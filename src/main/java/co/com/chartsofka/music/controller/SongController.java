@@ -47,6 +47,25 @@ public class SongController {
         }
     }
 
+    @GetMapping("/album/{id}")
+    private ResponseEntity obtenerCancionesPorAlbum(@PathVariable("id") String idAlbum){
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        List<SongDTO> songs = songService.getSongs();
+
+        if (songs.isEmpty()) {
+            return ResponseEntity.status(204).body(Collections.emptyList());
+        }
+        else {
+            songs = songs.stream()
+                    .filter(a -> a.getAlbumDTO().getAlbumID().equals(idAlbum))
+                    .collect(Collectors.toList());
+
+            return new ResponseEntity (songs, httpHeaders, HttpStatus.OK);
+        }
+    }
+
     @GetMapping("/mostplayed")
     private ResponseEntity obtenerCancionesMas(){
         final HttpHeaders httpHeaders = new HttpHeaders();
