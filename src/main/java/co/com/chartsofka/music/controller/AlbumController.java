@@ -1,22 +1,54 @@
 package co.com.chartsofka.music.controller;
 
-import co.com.chartsofka.music.dto.AlbumDTO;
-import co.com.chartsofka.music.service.impl.AlbumServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
+import co.com.chartsofka.music.dto.SongDTO;
+import org.springframework.http.HttpStatus;
+import co.com.chartsofka.music.dto.AlbumDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import co.com.chartsofka.music.service.impl.AlbumServiceImpl;
 
 @RestController
-@RequestMapping("/charts")
+@RequestMapping("/api/albums")
 public class AlbumController {
-    @Autowired
-    AlbumServiceImpl service;
 
-    @GetMapping("/album")
-    private List<AlbumDTO> obtenerAlbumnes(){
-        return service.getAlbums();
+    private final AlbumServiceImpl albumServiceImpl;
+
+    public AlbumController(AlbumServiceImpl albumServiceImpl) {
+        this.albumServiceImpl = albumServiceImpl;
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<AlbumDTO> getAlbumById(@PathVariable("id") String albumID) {
+        return new ResponseEntity<>(albumServiceImpl.getAlbumById(albumID), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AlbumDTO>> getAlbums(){
+        return new ResponseEntity<>(albumServiceImpl.getAlbums(), HttpStatus.OK);
+    }
+
+    @GetMapping("/songs/{albumID}")
+    public ResponseEntity<List<SongDTO>> getSongs(@PathVariable("albumID") String albumID){
+        return new ResponseEntity<>(albumServiceImpl.getSongs(albumID), HttpStatus.OK);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveAlbum(@RequestBody AlbumDTO albumDTO){
+        albumServiceImpl.saveAlbum(albumDTO);
+    }
+
+    @PutMapping
+    public ResponseEntity<AlbumDTO> updateAlbum(@RequestBody AlbumDTO albumDTO){
+        albumServiceImpl.updateAlbum(albumDTO);
+        return new ResponseEntity<>(albumDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAlbum(@PathVariable("id") String albumId){
+        albumServiceImpl.deleteAlbum(albumId);
+    }
+
 }

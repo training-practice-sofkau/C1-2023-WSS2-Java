@@ -1,9 +1,9 @@
 package co.com.chartsofka.music.repository;
 
-import co.com.chartsofka.music.entity.Album;
+import co.com.chartsofka.music.entity.Song;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface AlbumRepository extends JpaRepository<Album, String> {
+public interface SongRepository extends JpaRepository<Song, String> {
 }

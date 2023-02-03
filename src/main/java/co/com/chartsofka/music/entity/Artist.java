@@ -2,40 +2,38 @@ package co.com.chartsofka.music.entity;
 
 import lombok.Data;
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "albums")
-public class Album {
-
+@Table(name = "artists")
+public class Artist {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name="UUID", strategy = "co.com.chartsofka.music.utils.UUIDGeneratorTruncated")
-    private String albumID;
+    private String artistID;
     @Column
     private String name;
     @Column
-    private Integer totalSongs;
+    private String country;
     @Column
-    private String yearRelease;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate debutDate;
     @Column
-    private String genre;
-
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Artist.class)
-    @JoinColumn(name="artist_id", foreignKey = @ForeignKey(name = "FK_artist_id"))
-    private Artist artist;
+    private String enterprise;
+    @Column
+    private String type;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, targetEntity = Song.class)
-    private List<Song> songs = new ArrayList<>();
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, targetEntity = Album.class)
+    private List<Album> albums = new ArrayList<>();
 }
