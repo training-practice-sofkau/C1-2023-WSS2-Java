@@ -22,6 +22,12 @@ public class ArtistController {
     public ResponseEntity<ArtistDTO> getArtistById(@PathVariable("id") String artistID) {
         return new ResponseEntity<>(artistServiceImpl.getArtistById(artistID), HttpStatus.OK);
     }
+
+    @GetMapping("/type/{artistType}")
+    public ResponseEntity<List<ArtistDTO>> getArtistByType(@PathVariable("artistType") String artistType) {
+        return new ResponseEntity<>(artistServiceImpl.getArtistsByType(artistType), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<ArtistDTO>> getArtists(){
         return new ResponseEntity<>(artistServiceImpl.getArtists(), HttpStatus.OK);
