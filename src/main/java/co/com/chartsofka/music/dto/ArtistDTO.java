@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.dto;
 
+import co.com.chartsofka.music.entity.Album;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,5 @@ public class ArtistDTO {
     private String enterprise;
     private String type;
 
-    private List<AlbumDTO> albumsDTO = new ArrayList<>();
+    //private List<AlbumDTO> albumsDTO = new ArrayList<>();
 }

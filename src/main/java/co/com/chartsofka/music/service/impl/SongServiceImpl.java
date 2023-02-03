@@ -4,8 +4,8 @@ import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
-import co.com.chartsofka.music.repository.utils.DTOToEntity;
-import co.com.chartsofka.music.repository.utils.EntityToDTO;
+import co.com.chartsofka.music.utils.DTOToEntity;
+import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +51,7 @@ public class SongServiceImpl implements ISongService {
         songToUpdate.setName(songDTO.getName());
         songToUpdate.setDuration(songDTO.getDuration());
         songToUpdate.setPlayed(songDTO.getPlayed());
-        songToUpdate.setAlbum(songDTO.getAlbum());
+        songToUpdate.setAlbum(DTOToEntity.album(songDTO.getAlbumDTO()));
 
         return entityToDTO(songRepository.save(songToUpdate));
     }

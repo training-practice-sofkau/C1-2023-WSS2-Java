@@ -17,6 +17,6 @@ public class AlbumDTO {
     private Integer totalSongs;
     private String yearRelease;
     private String genre;
-    private Artist artist;
-    private List<Song> songs;
+    //private ArtistDTO artistDTO;
+    //private List<SongDTO> songsDTO;
 }

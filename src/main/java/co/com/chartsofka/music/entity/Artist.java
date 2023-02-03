@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.entity;
 
+import co.com.chartsofka.music.dto.AlbumDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

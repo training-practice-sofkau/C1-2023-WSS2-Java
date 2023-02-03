@@ -4,8 +4,8 @@ import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.service.IAlbumService;
-import co.com.chartsofka.music.repository.utils.DTOToEntity;
-import co.com.chartsofka.music.repository.utils.EntityToDTO;
+import co.com.chartsofka.music.utils.DTOToEntity;
+import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +30,7 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public List<AlbumDTO> getAlbums() {
-        return albumRepository.findAll()
-                .stream()
+        return albumRepository.findAll().stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
@@ -54,8 +53,8 @@ public class AlbumServiceImpl implements IAlbumService {
         albumToUpdate.setTotalSongs(albumDTO.getTotalSongs());
         albumToUpdate.setYearRelease(albumDTO.getYearRelease());
         albumToUpdate.setGenre(albumDTO.getGenre());
-        albumToUpdate.setArtist(albumDTO.getArtist());
-        albumToUpdate.setSongs(albumDTO.getSongs());
+        //albumToUpdate.setArtist(DTOToEntity.artist(albumDTO.getArtistDTO()));
+        //albumToUpdate.setSongs(albumDTO.getSongsDTO().stream().map(DTOToEntity::song).collect(Collectors.toList()));
 
         return entityToDTO(albumRepository.save(albumToUpdate));
     }

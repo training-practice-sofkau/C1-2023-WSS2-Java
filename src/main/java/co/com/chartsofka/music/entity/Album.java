@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.entity;
 
 
+import co.com.chartsofka.music.dto.ArtistDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
