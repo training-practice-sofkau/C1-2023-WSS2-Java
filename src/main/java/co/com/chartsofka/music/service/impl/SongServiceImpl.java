@@ -11,6 +11,7 @@ import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,7 +97,7 @@ public class SongServiceImpl implements ISongService {
 
     @Override
     public List<SongDTO> findMostPlayedSongs(int limit) {
-        return null;
+        return songRepository.findAll().stream().sorted(Comparator.comparing(Song::getPlayed).reversed()).map(this::entityToDTO).toList().subList(0,limit);
     }
 
 }

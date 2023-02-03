@@ -29,6 +29,12 @@ public class SongController {
 
     }
 
+    @GetMapping("/songs/mostplayed")
+    private ResponseEntity<List<SongDTO>> obtenerCancionesMasReproducidas(@RequestParam int limit){
+        List<SongDTO> s =  songService.findMostPlayedSongs(limit);
+        return s == null ? ResponseEntity.status(404).body(null) : ResponseEntity.ok(s);
+    }
+
     @GetMapping("/songs/{id}")
     private ResponseEntity<SongDTO> obtenerCancionPorId(@PathVariable("id") String idSong){
         SongDTO s = songService.findSongById(idSong);
