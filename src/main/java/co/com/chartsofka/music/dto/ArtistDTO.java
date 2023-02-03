@@ -1,14 +1,13 @@
 package co.com.chartsofka.music.dto;
 
 import lombok.Data;
+import java.util.List;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import co.com.chartsofka.music.entity.Album;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +20,5 @@ public class ArtistDTO {
     private LocalDate debutDate;
     private String enterprise;
     private String type;
-    private List<Album> albumsDTO = new ArrayList<>();
+    private List<Album> albums = new ArrayList<>();
 }

@@ -1,9 +1,8 @@
 package co.com.chartsofka.music.service;
 
+import java.util.List;
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
-
-import java.util.List;
 
 public interface ISongService {
 
@@ -11,7 +10,7 @@ public interface ISongService {
     Song dtoToEntity (SongDTO songDTO);
     SongDTO entityToDTO(Song song);
 
-    //Basic operate
+    //Basic operations
     List<SongDTO> getSongs();
 
     SongDTO getSongById(String songID);

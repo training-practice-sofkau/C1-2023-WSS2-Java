@@ -1,17 +1,15 @@
 package co.com.chartsofka.music.service.impl;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import co.com.chartsofka.music.exceptions.ToDoExceptions;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import co.com.chartsofka.music.service.IArtistService;
+import co.com.chartsofka.music.exceptions.ToDoExceptions;
 import co.com.chartsofka.music.repository.ArtistRepository;
 
 @Service

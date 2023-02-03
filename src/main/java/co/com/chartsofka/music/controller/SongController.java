@@ -1,10 +1,10 @@
 package co.com.chartsofka.music.controller;
 
 import co.com.chartsofka.music.dto.SongDTO;
-import co.com.chartsofka.music.service.impl.SongServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import co.com.chartsofka.music.service.impl.SongServiceImpl;
 
 import java.util.List;
 

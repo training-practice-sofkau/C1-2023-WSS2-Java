@@ -1,13 +1,12 @@
 package co.com.chartsofka.music.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
 import java.time.LocalTime;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Data
 @Entity

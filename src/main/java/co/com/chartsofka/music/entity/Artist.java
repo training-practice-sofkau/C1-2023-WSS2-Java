@@ -1,16 +1,15 @@
 package co.com.chartsofka.music.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
-
+import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Data
 @Entity

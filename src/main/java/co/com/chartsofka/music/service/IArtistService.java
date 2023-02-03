@@ -1,9 +1,8 @@
 package co.com.chartsofka.music.service;
 
+import java.util.List;
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
-
-import java.util.List;
 
 public interface IArtistService {
 

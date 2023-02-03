@@ -1,10 +1,9 @@
 package co.com.chartsofka.music.utils;
 
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.IdentifierGenerator;
-
-import java.io.Serializable;
 import java.util.UUID;
+import java.io.Serializable;
+import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 public class UUIDGeneratorTruncated implements IdentifierGenerator {
     @Override

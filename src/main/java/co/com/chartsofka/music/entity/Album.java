@@ -1,14 +1,14 @@
 package co.com.chartsofka.music.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Data
 @Entity
@@ -31,11 +31,11 @@ public class Album {
     private String genre;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Artist.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Artist.class)
     @JoinColumn(name="artist_id", foreignKey = @ForeignKey(name = "FK_artist_id"))
     private Artist artist;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, targetEntity = Song.class)
     private List<Song> songs = new ArrayList<>();
 }
