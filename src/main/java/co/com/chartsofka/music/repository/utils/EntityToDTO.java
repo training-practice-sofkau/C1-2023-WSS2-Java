@@ -1,4 +1,4 @@
-package co.com.chartsofka.music.utils;
+package co.com.chartsofka.music.repository.utils;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.ArtistDTO;

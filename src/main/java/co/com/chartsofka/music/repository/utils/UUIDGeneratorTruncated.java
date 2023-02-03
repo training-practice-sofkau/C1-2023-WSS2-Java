@@ -1,4 +1,4 @@
-package co.com.chartsofka.music.utils;
+package co.com.chartsofka.music.repository.utils;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
