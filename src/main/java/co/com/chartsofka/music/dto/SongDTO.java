@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SongDTO implements Serializable {
+public class SongDTO {
     private String songID;
     private String title;
     private LocalTime duration;

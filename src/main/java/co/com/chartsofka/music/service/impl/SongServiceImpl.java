@@ -1,9 +1,12 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.SongDTO;
+import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
+import co.com.chartsofka.music.utils.ExceptionsHandler;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +28,8 @@ public class SongServiceImpl implements ISongService {
         song.setSongID(songDTO.getSongID());
         song.setTitle(songDTO.getTitle());
         song.setDuration(songDTO.getDuration());
-        song.setAlbum(songDTO.getAlbum());
         song.setPlayed(songDTO.getPlayed());
+        song.setAlbum(songDTO.getAlbum());
         return song;
     }
 
@@ -36,8 +39,8 @@ public class SongServiceImpl implements ISongService {
         songDTO.setSongID(song.getSongID());
         songDTO.setTitle(song.getTitle());
         songDTO.setDuration(song.getDuration());
-        songDTO.setAlbum(song.getAlbum());
         songDTO.setPlayed(song.getPlayed());
+        songDTO.setAlbum(song.getAlbum());
         return songDTO;
     }
 
@@ -52,20 +55,33 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
-    public String saveSong(SongDTO songDTO) {
-
-        songRepository.save(dtoToEntity(songDTO));
-        return "Ok";
+    public SongDTO saveSong(SongDTO songDTO) {
+        return entityToDTO(songRepository.save(dtoToEntity(songDTO))) ;
     }
 
     @Override
-    public SongDTO updateSong(SongDTO songDTO) {
-        return null;
+    public SongDTO updateSong(SongDTO songDTO, String songID) {
+        Optional<Song> response = songRepository.findById(songID);
+        if (response.isEmpty()) {
+            throw new ExceptionsHandler("Album not found", HttpStatus.NOT_FOUND);
+        }
+        SongDTO oldSongDTO = entityToDTO(response.get());
+        oldSongDTO.setTitle(songDTO.getTitle());
+        oldSongDTO.setTitle(songDTO.getTitle());
+        oldSongDTO.setDuration(songDTO.getDuration());
+        oldSongDTO.setPlayed(songDTO.getPlayed());
+        oldSongDTO.setAlbum(songDTO.getAlbum());
+        return entityToDTO(songRepository.save(dtoToEntity(oldSongDTO)));
     }
 
     @Override
-    public String deleteSong(String idSong) {
-        return null;
+    public String deleteSong(String songID) {
+        Optional<Song> response = songRepository.findById(songID);
+        if (response.isEmpty()) {
+            throw new ExceptionsHandler("Song not found", HttpStatus.NOT_FOUND);
+        }
+        songRepository.deleteById(songID);
+        return ("The song with ID: " +songID+ " has been deleted.");
     }
 
     @Override
@@ -78,12 +94,4 @@ public class SongServiceImpl implements ISongService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<SongDTO> getSongsByAlbum(String albumID){
-        return songRepository.findAll()
-                .stream()
-                .map(this::entityToDTO)
-                .filter(song -> song.getAlbum().getAlbumID() == albumID)
-                .collect(Collectors.toList());
-    }
 }

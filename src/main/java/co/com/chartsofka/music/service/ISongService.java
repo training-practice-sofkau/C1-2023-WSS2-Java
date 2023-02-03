@@ -5,7 +5,6 @@ import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ISongService {
 
@@ -18,15 +17,14 @@ public interface ISongService {
 
     SongDTO findSongById(String idSong);
 
-    String saveSong(SongDTO songDTO);
+    SongDTO saveSong(SongDTO songDTO);
 
-    SongDTO updateSong(SongDTO songDTO);
+    SongDTO updateSong(SongDTO songDTO, String songID);
 
     String deleteSong(String idSong);
 
     List<SongDTO> getSongsTop();
 
-    List<SongDTO> getSongsByAlbum(String albumID);
 
 
 }
