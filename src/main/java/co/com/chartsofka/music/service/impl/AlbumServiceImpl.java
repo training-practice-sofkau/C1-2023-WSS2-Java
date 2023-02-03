@@ -1,26 +1,25 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
-import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.AlbumRepository;
-import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.IAlbumService;
+import co.com.chartsofka.music.utils.ExceptionsHandler;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AlbumServiceImpl implements IAlbumService {
 
     private AlbumRepository albumRepository;
-    private SongServiceImpl songService;
 
-    public AlbumServiceImpl(AlbumRepository albumRepository, SongServiceImpl songService) {
+    public AlbumServiceImpl(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
-        this.songService = songService;
     }
 
     @Override
@@ -78,13 +77,33 @@ public class AlbumServiceImpl implements IAlbumService {
         return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
+
     @Override
-    public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+    public AlbumDTO updateAlbum(AlbumDTO albumDTO, String albumID) {
+
+        Optional<Album> response = albumRepository.findById(albumID);
+        if (response.isEmpty()) {
+            throw new ExceptionsHandler("Album not found", HttpStatus.NOT_FOUND);
+        }
+        AlbumDTO oldAlbum = entityToDTO(response.get());
+        oldAlbum.setName(albumDTO.getName());
+        oldAlbum.setTotalSongs(albumDTO.getTotalSongs());
+        oldAlbum.setYearRelease(albumDTO.getYearRelease());
+        oldAlbum.setGenre(albumDTO.getGenre());
+        oldAlbum.setArtist(albumDTO.getArtist());
+        oldAlbum.setSongs(albumDTO.getSongs());
+        return entityToDTO(albumRepository.save(dtoToEntity(oldAlbum)));
+
     }
 
     @Override
     public String deleteAlbum(String idAlbum) {
-        return null;
+        Optional<Album> response = albumRepository.findById(idAlbum);
+        if (response.isEmpty()) {
+            throw new ExceptionsHandler("Album not found", HttpStatus.NOT_FOUND);
+        }
+        albumRepository.deleteById(idAlbum);
+        return ("The album with ID: "+idAlbum+ " has been deleted.");
     }
+
 }

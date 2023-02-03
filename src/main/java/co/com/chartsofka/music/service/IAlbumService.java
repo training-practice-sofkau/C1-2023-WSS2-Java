@@ -1,7 +1,6 @@
 package co.com.chartsofka.music.service;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
-import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Song;
 
@@ -22,7 +21,7 @@ public interface IAlbumService {
 
     AlbumDTO saveAlbum(AlbumDTO albumDTO);
 
-    AlbumDTO updateAlbum(AlbumDTO albumDTO);
+    AlbumDTO updateAlbum(AlbumDTO albumDTO, String albumID);
 
     String deleteAlbum(String idAlbum);
 
