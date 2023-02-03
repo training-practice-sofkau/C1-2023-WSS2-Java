@@ -25,7 +25,7 @@ public class SongServiceImpl implements ISongService {
         this.songRepository = songRepository;
         this.modelMapper = modelMapper;
     }
-    
+
 
     @Override
     public Song dtoToEntity(SongDTO songDTO) {
@@ -98,7 +98,7 @@ public class SongServiceImpl implements ISongService {
                 .stream()
                 .map(this::entityToDTO)
                 .sorted((song1, song2)->song2.getPlayed().compareTo(song1.getPlayed()))
-                .limit(3)
+                .limit(10)
                 .collect(Collectors.toList());
     }
 

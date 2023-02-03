@@ -79,6 +79,9 @@ public class ArtistServiceImpl implements IArtistService {
         return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
 
     }
+
+
+
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO, String artistID) {
         Optional<Artist> response = artistRepository.findById(artistID);
