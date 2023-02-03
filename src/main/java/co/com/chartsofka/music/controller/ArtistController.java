@@ -13,8 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/charts")
 public class ArtistController {
-    @Autowired
+
     ArtistServiceImpl artistService;
+
+    public ArtistController(ArtistServiceImpl artistService) {
+        this.artistService = artistService;
+    }
 
     @GetMapping("/artists")
     private ResponseEntity<List<ArtistDTO>> obtenerArtistas(){
