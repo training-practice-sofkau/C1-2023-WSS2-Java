@@ -44,4 +44,20 @@ public class ArtistController {
         }
     }
 
+    @PutMapping("/artists/{id}")
+    private ResponseEntity<ArtistDTO> updateArtist(@PathVariable("id") String idArtist, @RequestBody ArtistDTO artistDetails ){
+        ArtistDTO artistUpdate = artistService.findArtistById(idArtist);
+
+        artistUpdate.setName(artistDetails.getName());
+        artistUpdate.setType(artistDetails.getType());
+        artistUpdate.setCountry(artistDetails.getCountry());
+        artistUpdate.setEnterprise(artistDetails.getEnterprise());
+        artistUpdate.setDebutDate(artistDetails.getDebutDate());
+
+        artistService.saveArtist(artistUpdate);
+
+        return ResponseEntity.ok(artistUpdate);
+
+    }
+
 }
