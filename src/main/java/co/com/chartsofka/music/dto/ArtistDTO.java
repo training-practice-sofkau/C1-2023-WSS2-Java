@@ -1,7 +1,5 @@
 package co.com.chartsofka.music.dto;
 
-import co.com.chartsofka.music.entity.Album;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

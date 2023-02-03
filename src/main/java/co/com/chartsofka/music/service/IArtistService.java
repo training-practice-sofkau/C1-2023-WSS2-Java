@@ -22,5 +22,7 @@ public interface IArtistService {
 
     ArtistDTO updateArtist(ArtistDTO artistDTO);
 
-    String deleteArtist(String idArtist);
+    void deleteArtist(String idArtist);
+
+    public List<ArtistDTO> findArtistByType(String type);
 }
