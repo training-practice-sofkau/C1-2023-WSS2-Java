@@ -7,6 +7,7 @@ import co.com.chartsofka.music.service.ISongService;
 import co.com.chartsofka.music.utils.DTOToEntity;
 import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,5 +62,9 @@ public class SongServiceImpl implements ISongService {
         Song songToDelete = songRepository.findById(idSong).orElseThrow();
         songRepository.delete(songToDelete);
         return idSong;
+    }
+
+    public List<Song> getMostReproducedSongs(){
+        return songRepository.findAll(Sort.by(Sort.Direction.DESC, "played"));
     }
 }

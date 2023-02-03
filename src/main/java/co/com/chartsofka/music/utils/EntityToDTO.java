@@ -54,6 +54,6 @@ public class EntityToDTO {
         //songDTO.setPlayed(song.getPlayed());
         //songDTO.setAlbumDTO(album(song.getAlbum()));
 
-        return null;
+        return modelMapper.map(song, SongDTO.class);
     }
 }

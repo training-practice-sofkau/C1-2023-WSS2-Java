@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,6 +57,6 @@ public class Album {
             targetEntity =  Song.class
     )
     @JsonManagedReference
-    private List<Song> songs;
+    private List<Song> songs = new ArrayList<>();
 
 }

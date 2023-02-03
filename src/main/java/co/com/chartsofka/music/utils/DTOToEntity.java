@@ -43,14 +43,14 @@ public class DTOToEntity {
     }
 
     public static Song song(SongDTO songDTO){
-        Song song = new Song();
-
-        song.setSongID(songDTO.getSongID());
-        song.setName(songDTO.getName());
-        song.setDuration(songDTO.getDuration());
-        song.setPlayed(songDTO.getPlayed());
+        //Song song = new Song();
+//
+        //song.setSongID(songDTO.getSongID());
+        //song.setName(songDTO.getName());
+        //song.setDuration(songDTO.getDuration());
+        //song.setPlayed(songDTO.getPlayed());
         //song.setAlbum(album(songDTO.getAlbumDTO()));
 
-        return song;
+        return modelMapper.map(songDTO, Song.class);
     }
 }

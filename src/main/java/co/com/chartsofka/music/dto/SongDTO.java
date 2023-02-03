@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.dto;
 
 import co.com.chartsofka.music.entity.Album;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,7 @@ public class SongDTO implements Serializable {
     private String name;
     private LocalTime duration;
     private Integer played;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Album album;
 }
