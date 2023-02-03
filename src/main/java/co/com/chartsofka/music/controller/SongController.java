@@ -25,6 +25,15 @@ public class SongController {
                 ResponseEntity.status(204).body(result) :
                 ResponseEntity.ok(result);
     }
+
+    @GetMapping("/songs/{id}")
+    private ResponseEntity<SongDTO> obtenerSongPorId(@PathVariable("id") String idSong){
+        var result = songService.findSongById(idSong);
+        return result.isEmpty() ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok(result.get());
+    }
+
     @GetMapping("/songs/10MostReproduced")
     private ResponseEntity<List<SongDTO>> obtenerTopTen(){
         var result = songService.tenMostReproduced();
@@ -33,12 +42,13 @@ public class SongController {
                 ResponseEntity.ok(result);
     }
 
-    @GetMapping("/songs/{id}")
-    private ResponseEntity<SongDTO> obtenerSongPorId(@PathVariable("id") String idSong){
-        var result = songService.findSongById(idSong);
+    @GetMapping("/songs/byAlbum/{id}")
+    private ResponseEntity<List<SongDTO>> obtenerCancionesPorAlbum(
+            @PathVariable("id") String idAlbum){
+        var result = songService.getbyAlbum(idAlbum);
         return result.isEmpty() ?
-                ResponseEntity.status(404).build() :
-                ResponseEntity.ok(result.get());
+                ResponseEntity.status(204).body(result) :
+                ResponseEntity.ok(result);
     }
 
     @PostMapping("/songs")

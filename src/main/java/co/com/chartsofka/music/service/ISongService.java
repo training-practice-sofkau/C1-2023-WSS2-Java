@@ -17,6 +17,8 @@ public interface ISongService {
 
     List<SongDTO> tenMostReproduced();
 
+    List<SongDTO> getbyAlbum(String idAlbum);
+
     Optional<SongDTO> findSongById(String idSong);
 
     SongDTO saveSong(SongDTO songDTO);
