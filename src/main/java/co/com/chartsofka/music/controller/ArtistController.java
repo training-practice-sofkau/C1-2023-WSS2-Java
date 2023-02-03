@@ -60,4 +60,10 @@ public class ArtistController {
 
     }
 
+    @GetMapping("/type/{type}")
+    private ResponseEntity<List<ArtistDTO>> findArtistByType(@PathVariable("type") String type){
+        return artistService.findArtistByType(type).isEmpty() ?
+                ResponseEntity.status(204).body(Collections.emptyList()) :
+                ResponseEntity.ok(artistService.findArtistByType(type));
+    }
 }

@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.ArtistDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,5 +55,12 @@ public class ArtistServiceImpl implements IArtistService {
     @Override
     public void deleteArtist(String idArtist) {
         artistRepository.deleteById(idArtist);
+    }
+
+    @Override
+    public List<ArtistDTO> findArtistByType(String type) {
+        return artistRepository.findAll()
+                .stream().filter(s -> Objects.equals(s.getType(), type))
+                .map(this::entityToDTO).collect(Collectors.toList());
     }
 }
