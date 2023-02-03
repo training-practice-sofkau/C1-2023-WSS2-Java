@@ -12,8 +12,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/songs")
@@ -41,6 +44,26 @@ public class SongController {
         catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.status(404).body("No song found with the ID provided");
+        }
+    }
+
+    @GetMapping("/mostplayed")
+    private ResponseEntity obtenerCancionesMas(){
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        List<SongDTO> songs = songService.getSongs();
+
+        if (songs.isEmpty()) {
+            return ResponseEntity.status(204).body(Collections.emptyList());
+        }
+        else {
+            songs = songs.stream()
+                    .sorted(Comparator.comparing(SongDTO::getPlayed).reversed())
+                    .limit(10)
+                    .toList();
+
+            return new ResponseEntity (songs, httpHeaders, HttpStatus.OK);
         }
     }
 
