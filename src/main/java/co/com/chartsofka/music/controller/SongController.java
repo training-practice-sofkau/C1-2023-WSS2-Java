@@ -30,6 +30,14 @@ public class SongController {
                 ResponseEntity.ok(songService.getAllSongs());
     }
 
+    @GetMapping("/most-played")
+    private ResponseEntity<List<SongDTO>> findTenMostPlayed(){
+        return songService.getTenMostSongs().isEmpty() ?
+                ResponseEntity.status(204).body(Collections.emptyList()) :
+//                ResponseEntity.noContent().build():
+                ResponseEntity.ok(songService.getTenMostSongs());
+    }
+
     @GetMapping("{id}")
     private ResponseEntity<SongDTO> findSongById(@PathVariable("id") String idSong){
         return songService.findSongById(idSong) == null ? ResponseEntity.status(404).body(new SongDTO())

@@ -9,6 +9,7 @@ import co.com.chartsofka.music.utils.mapper.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,5 +54,12 @@ public class SongServiceImpl implements ISongService {
     @Override
     public void deleteSong(String idArtist) {
         songRepository.deleteById(idArtist);
+    }
+
+    @Override
+    public List<SongDTO> getTenMostSongs() {
+        return songRepository.findAll()
+                .stream().sorted(Comparator.comparing(Song::getPlayed).reversed())
+                .limit(10).map(this::entityToDTO).collect(Collectors.toList());
     }
 }

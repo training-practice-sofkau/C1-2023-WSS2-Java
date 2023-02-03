@@ -18,4 +18,6 @@ public interface ISongService {
     SongDTO updateSong(SongDTO artistDTO);
 
     void deleteSong(String idArtist);
+
+    List<SongDTO> getTenMostSongs();
 }
