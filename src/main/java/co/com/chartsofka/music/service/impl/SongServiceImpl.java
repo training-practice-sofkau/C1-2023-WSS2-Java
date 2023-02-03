@@ -1,5 +1,6 @@
 package co.com.chartsofka.music.service.impl;
 
+import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Song;
@@ -10,6 +11,7 @@ import co.com.chartsofka.music.utils.DTOToEntity;
 import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,14 +45,29 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
+    public List<SongDTO> tenMostReproduced() {
+        return songRepository.findAll()
+                .stream().sorted(Comparator.comparingInt(Song::getPlayed).reversed())
+                .map(this::entityToDTO)
+                .limit(10).collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<SongDTO> findSongById(String idSong) {
         return songRepository.findById(idSong).map(EntityToDTO::song);
     }
 
     @Override
     public SongDTO saveSong(SongDTO songDTO) {
-        return songDTO.getAlbumDTO() == null ? null:
+        System.out.println(songDTO.getAlbumDTO());
+        Optional<AlbumDTO> albumDTO = albumRepository
+                .findById(songDTO
+                        .getAlbumDTO().getAlbumIDDTO())
+                .map(EntityToDTO::album);
+        System.out.println(albumDTO);
+        return (songDTO.getAlbumDTO() == null || albumDTO==null) ? null:
                 entityToDTO(songRepository.save(dtoToEntity(songDTO)));
+        //return entityToDTO(songRepository.save(dtoToEntity(songDTO)));
     }
 
     @Override

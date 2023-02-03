@@ -25,6 +25,13 @@ public class SongController {
                 ResponseEntity.status(204).body(result) :
                 ResponseEntity.ok(result);
     }
+    @GetMapping("/songs/10MostReproduced")
+    private ResponseEntity<List<SongDTO>> obtenerTopTen(){
+        var result = songService.tenMostReproduced();
+        return result.isEmpty() ?
+                ResponseEntity.status(204).body(result) :
+                ResponseEntity.ok(result);
+    }
 
     @GetMapping("/songs/{id}")
     private ResponseEntity<SongDTO> obtenerSongPorId(@PathVariable("id") String idSong){
@@ -37,8 +44,9 @@ public class SongController {
     @PostMapping("/songs")
     private ResponseEntity<SongDTO> guardarSong(@RequestBody SongDTO songDTO){
         SongDTO songDTO1 = songService.saveSong(songDTO);
+        System.out.println(songDTO1);
         return songDTO1 == null ?
-                ResponseEntity.status(400).body(null) :
+                ResponseEntity.status(400).body(songDTO1) :
                 ResponseEntity.status(201).body(songDTO1);
     }
 
