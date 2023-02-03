@@ -33,9 +33,6 @@ public class Album {
     @Column
     private String genre;
 
-    /*@Column
-    private String artistID;*/
-
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Artist.class)
     @JoinColumn(name="artist_id", foreignKey = @ForeignKey(name = "FK_artist_id"))
     @JsonBackReference
