@@ -4,6 +4,7 @@ import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.entity.Album;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IAlbumService {
 
@@ -14,12 +15,12 @@ public interface IAlbumService {
     //Basic operate
     List<AlbumDTO> getAlbums();
 
-    AlbumDTO findAlbumById(String idAlbum);
+    Optional<AlbumDTO> findAlbumById(String idAlbum);
 
-    String saveAlbum(AlbumDTO albumDTO);
+    AlbumDTO saveAlbum(AlbumDTO albumDTO);
 
-    AlbumDTO updateAlbum(AlbumDTO albumDTO);
+    AlbumDTO updateAlbum(String idArtist, AlbumDTO albumDTO);
 
-    String deleteAlbum(String idAlbum);
+    AlbumDTO deleteAlbum(String idAlbum);
 
 }
