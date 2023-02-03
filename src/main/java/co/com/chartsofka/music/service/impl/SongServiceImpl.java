@@ -1,7 +1,6 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.SongDTO;
-import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
@@ -63,7 +62,7 @@ public class SongServiceImpl implements ISongService {
     public SongDTO updateSong(SongDTO songDTO, String songID) {
         Optional<Song> response = songRepository.findById(songID);
         if (response.isEmpty()) {
-            throw new ExceptionsHandler("Album not found", HttpStatus.NOT_FOUND);
+            throw new ExceptionsHandler("Song not found", HttpStatus.NOT_FOUND);
         }
         SongDTO oldSongDTO = entityToDTO(response.get());
         oldSongDTO.setTitle(songDTO.getTitle());

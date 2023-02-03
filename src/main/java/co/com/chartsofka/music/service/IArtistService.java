@@ -20,9 +20,9 @@ public interface IArtistService {
 
     ArtistDTO findArtistById(String idArtist);
 
-    String saveArtist(ArtistDTO artistDTO);
+    ArtistDTO saveArtist(ArtistDTO artistDTO);
 
-    ArtistDTO updateArtist(ArtistDTO artistDTO);
+    ArtistDTO updateArtist(ArtistDTO artistDTO, String artistID);
 
     String deleteArtist(String idArtist);
 }

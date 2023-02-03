@@ -4,9 +4,12 @@ import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
+import co.com.chartsofka.music.utils.ExceptionsHandler;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +26,7 @@ public class ArtistServiceImpl implements IArtistService {
     public Artist dtoToEntity(ArtistDTO artistDTO) {
         Artist artist = new Artist();
         artist.setArtistID(artistDTO.getArtistID());
+        artist.setName(artistDTO.getName());
         artist.setCountry(artistDTO.getCountry());
         artist.setDebutDate(artistDTO.getDebutDate());
         artist.setEnterprise(artistDTO.getEnterprise());
@@ -34,6 +38,7 @@ public class ArtistServiceImpl implements IArtistService {
     public ArtistDTO entityToDTO(Artist artist) {
         ArtistDTO artistDTO = new ArtistDTO();
         artistDTO.setArtistID(artist.getArtistID());
+        artistDTO.setName(artist.getName());
         artistDTO.setCountry(artist.getCountry());
         artistDTO.setDebutDate(artist.getDebutDate());
         artistDTO.setEnterprise(artist.getEnterprise());
@@ -64,17 +69,34 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
-    public String saveArtist(ArtistDTO artistDTO) {
-        artistRepository.save(dtoToEntity(artistDTO));
-        return "Ok";
+    public ArtistDTO saveArtist(ArtistDTO artistDTO) {
+        return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
+
     }
     @Override
-    public ArtistDTO updateArtist(ArtistDTO artistDTO) {
-        return null;
+    public ArtistDTO updateArtist(ArtistDTO artistDTO, String artistID) {
+        Optional<Artist> response = artistRepository.findById(artistID);
+        if (response.isEmpty()) {
+            throw new ExceptionsHandler("Artist not found", HttpStatus.NOT_FOUND);
+        }
+        ArtistDTO oldArtistDTO = entityToDTO(response.get());
+        oldArtistDTO.setName(artistDTO.getName());
+        oldArtistDTO.setCountry(artistDTO.getCountry());
+        oldArtistDTO.setDebutDate(artistDTO.getDebutDate());
+        oldArtistDTO.setEnterprise(artistDTO.getEnterprise());
+        oldArtistDTO.setType(artistDTO.getType());
+        oldArtistDTO.setAlbums(artistDTO.getAlbums());
+
+        return entityToDTO(artistRepository.save(dtoToEntity(oldArtistDTO)));
     }
 
     @Override
-    public String deleteArtist(String idArtist) {
-        return null;
+    public String deleteArtist(String artistID) {
+        Optional<Artist> response = artistRepository.findById(artistID);
+        if (response.isEmpty()) {
+            throw new ExceptionsHandler("Artist not found", HttpStatus.NOT_FOUND);
+        }
+        artistRepository.deleteById(artistID);
+        return ("The artist with ID: " +artistID+ " has been deleted.");
     }
 }
