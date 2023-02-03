@@ -22,4 +22,8 @@ public interface ISongService {
 
     String deleteSong(String idSong);
 
+    List<SongDTO> findSongsByAlbumId (String titleAlbum);
+
+    List<SongDTO> findMostPlayedSongs (int limit);
+
 }

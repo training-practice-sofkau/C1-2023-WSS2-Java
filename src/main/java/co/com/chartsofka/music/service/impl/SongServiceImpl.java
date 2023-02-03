@@ -42,7 +42,11 @@ public class SongServiceImpl implements ISongService {
 
         Optional<Song> s = songRepository.findById(idSong);
 
-        return s.map(this::entityToDTO).orElse(null);
+        if(s.isEmpty()) return null;
+
+        s.get().setPlayed(s.get().getPlayed()+1);
+
+        return entityToDTO(songRepository.save(s.get()));
 
     }
 
@@ -78,6 +82,21 @@ public class SongServiceImpl implements ISongService {
         songRepository.delete(s.get());
 
         return "Song "+s.get().getName()+" was deleted";
+    }
+
+    @Override
+    public List<SongDTO> findSongsByAlbumId(String titleAlbum) {
+
+        Optional<Album> album = albumRepository.findByTitle(titleAlbum);
+
+        if(album.isEmpty()) return null;
+
+        return songRepository.findAllByAlbumID(album.get()).stream().map(this::entityToDTO).toList();
+    }
+
+    @Override
+    public List<SongDTO> findMostPlayedSongs(int limit) {
+        return null;
     }
 
 }

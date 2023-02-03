@@ -22,6 +22,13 @@ public class SongController {
         return ResponseEntity.ok(songService.getSongs());
     }
 
+    @GetMapping("/songs/filter")
+    private ResponseEntity<List<SongDTO>> obtenerCancionesPorAlbum(@RequestParam String titleAlbum){
+        List<SongDTO> s =  songService.findSongsByAlbumId(titleAlbum);
+        return s == null ? ResponseEntity.status(404).body(null) : ResponseEntity.ok(s);
+
+    }
+
     @GetMapping("/songs/{id}")
     private ResponseEntity<SongDTO> obtenerCancionPorId(@PathVariable("id") String idSong){
         SongDTO s = songService.findSongById(idSong);

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -72,5 +73,10 @@ public class ArtistServiceImpl implements IArtistService {
         artistRepository.delete(a.get());
 
         return "Artis "+a.get().getName()+" was deleted from our system";
+    }
+
+    @Override
+    public List<ArtistDTO> findArtistsByType(String type) {
+        return artistRepository.findAll().stream().filter(s-> s.getType().equalsIgnoreCase(type)).map(this::entityToDTO).toList();
     }
 }
