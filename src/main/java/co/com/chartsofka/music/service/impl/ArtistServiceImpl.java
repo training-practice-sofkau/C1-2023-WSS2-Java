@@ -60,6 +60,6 @@ public class ArtistServiceImpl implements IArtistService {
             artistRepository.delete(d.get());
             return "Artist deleted";
         }
-        else return "Artist non-existent";
+        else return null;
     }
 }

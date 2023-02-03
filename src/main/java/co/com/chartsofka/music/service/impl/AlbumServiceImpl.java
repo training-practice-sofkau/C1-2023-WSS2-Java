@@ -63,7 +63,7 @@ public class AlbumServiceImpl implements IAlbumService {
             albumRepository.delete(d.get());
             return "Album deleted";
         }
-        else return "Album non-existent";
+        else return null;
 
     }
 }
