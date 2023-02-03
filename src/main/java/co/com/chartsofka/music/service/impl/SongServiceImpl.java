@@ -1,5 +1,7 @@
 package co.com.chartsofka.music.service.impl;
 
+import co.com.chartsofka.music.entity.Album;
+import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.utils.DTOToEntity;
 import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +21,9 @@ public class SongServiceImpl implements ISongService {
 
     @Autowired
     SongRepository songRepository;
+
+    @Autowired
+    AlbumRepository albumRepository;
 
     @Override
     public Song dtoToEntity(SongDTO songDTO) {
@@ -45,7 +51,10 @@ public class SongServiceImpl implements ISongService {
 
     @Override
     public SongDTO saveSong(SongDTO songDTO) {
-        return entityToDTO(songRepository.save(dtoToEntity(songDTO)));
+        Optional<Album> album = albumRepository.findById(songDTO.getAlbumDTO().getAlbumID());
+        if(album.isEmpty())return new SongDTO();
+        Song r = dtoToEntity(songDTO);
+        return entityToDTO(songRepository.save(r));
     }
 
     @Override
