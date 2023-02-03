@@ -11,30 +11,39 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/charts")
+@RequestMapping("/charts/albums")
 public class AlbumController {
     @Autowired
     AlbumServiceImpl albumService;
 
-    @GetMapping("/albums")
-    private ResponseEntity<List<AlbumDTO>> obtenerAlbumnes(){
+    @GetMapping
+    private ResponseEntity<List<AlbumDTO>> getAlbums() {
         return albumService.getAlbums().isEmpty() ?
                 ResponseEntity.status(204).body(Collections.emptyList()) :
                 //ResponseEntity.noContent().build():
                 ResponseEntity.ok(albumService.getAlbums());
     }
 
-    @GetMapping("/albums/{id}")
-    private ResponseEntity<AlbumDTO> obtenerAlbumPorId(@PathVariable("id") String idAlbum){
-        var result = albumService.findAlbumById(idAlbum);
-        return result.isEmpty() ?
-                ResponseEntity.status(404).build() :
-                ResponseEntity.ok(result.get());
+    @GetMapping("{id}")
+    private ResponseEntity<AlbumDTO> getAlbum(@PathVariable("id") String albumId) {
+        AlbumDTO album = albumService.findAlbumById(albumId);
+        return album.getAlbumID() != null ? ResponseEntity.ok(album) : ResponseEntity.status(404).build();
     }
 
-    @PostMapping("/albums")
-    private ResponseEntity<AlbumDTO> guardarAlbum(@RequestBody AlbumDTO albumDTO){
-        AlbumDTO albumDTO1 = albumService.saveAlbum(albumDTO);
-        return  albumDTO1 == null ? ResponseEntity.status(400).body(albumDTO) : ResponseEntity.status(201).body(albumDTO1);
+    @PostMapping
+    private ResponseEntity<AlbumDTO> saveAlbum(@RequestBody AlbumDTO albumDTO) {
+        AlbumDTO responseAlbum = albumService.saveAlbum(albumDTO);
+        return responseAlbum.getAlbumID() != null ? ResponseEntity.status(201).body(responseAlbum) : ResponseEntity.status(400).body(albumDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<String> deleteAlbum(@PathVariable("id") String albumId) {
+        albumService.deleteAlbum(albumId);
+        return ResponseEntity.ok("Album deleted successfully");
+    }
+    @PatchMapping
+    private ResponseEntity<AlbumDTO> updateAlbum(@RequestBody AlbumDTO albumDTO) {
+        AlbumDTO responseAlbum = albumService.updateAlbum(albumDTO);
+        return responseAlbum.getAlbumID() != null ? ResponseEntity.status(201).body(responseAlbum) : ResponseEntity.status(400).body(albumDTO);
     }
 }

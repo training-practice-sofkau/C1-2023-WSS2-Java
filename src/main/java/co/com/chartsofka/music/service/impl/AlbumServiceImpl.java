@@ -39,24 +39,22 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
-    public Optional<AlbumDTO> findAlbumById(String idAlbum) {
-        //return entityToDTO(albumRepository.findById(idAlbum).orElseThrow(NoSuchElementException::new));
-        return albumRepository.findById(idAlbum).map(EntityToDTO::album);
+    public AlbumDTO findAlbumById(String idAlbum) {
+        return entityToDTO(albumRepository.findById(idAlbum).orElse(new Album()));
     }
 
     @Override
     public AlbumDTO saveAlbum(AlbumDTO albumDTO) {
-
         return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override
     public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+        return entityToDTO(albumRepository.save(dtoToEntity(albumDTO)));
     }
 
     @Override
-    public String deleteAlbum(String idAlbum) {
-        return null;
+    public void deleteAlbum(String albumId) {
+        albumRepository.deleteById(albumId);
     }
 }
