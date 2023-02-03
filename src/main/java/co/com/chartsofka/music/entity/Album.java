@@ -1,20 +1,24 @@
 package co.com.chartsofka.music.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "albums")
+@Table(name = "album")
 public class Album {
+
     @GenericGenerator(name="UUID",
             strategy = "co.com.chartsofka.music.utils.UUIDGeneratorTruncated")
     @GeneratedValue(generator = "UUID")
@@ -33,13 +37,13 @@ public class Album {
     @Column
     private String genre;
 
-    /*@Column
-    private String artistID;*/
-
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Artist.class)
-    @JoinColumn(name="artist_id", foreignKey = @ForeignKey(name = "FK_artist_id"))
+    @JoinColumn(name="artistID", foreignKey = @ForeignKey(name = "FK_artist_id"))
     @JsonBackReference
     private Artist artist;
 
-
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL,
+            targetEntity = Song.class, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Song> songs = new ArrayList<>();
 }

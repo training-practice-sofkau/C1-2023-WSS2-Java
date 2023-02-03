@@ -4,8 +4,7 @@ import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
-import co.com.chartsofka.music.utils.DTOToEntity;
-import co.com.chartsofka.music.utils.EntityToDTO;
+import co.com.chartsofka.music.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +16,17 @@ public class ArtistServiceImpl implements IArtistService {
     @Autowired
     ArtistRepository artistRepository;
 
+    @Autowired
+    private MapperUtil mapperUtil;
 
     @Override
     public Artist dtoToEntity(ArtistDTO artistDTO) {
-        return DTOToEntity.artist(artistDTO);
+        return mapperUtil.dtoToArtist().apply(artistDTO);
     }
 
     @Override
     public ArtistDTO entityToDTO(Artist artist) {
-        return EntityToDTO.artist(artist);
+        return mapperUtil.artistToDTO().apply(artist);
     }
 
     @Override
@@ -47,11 +48,29 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO) {
+        Artist update = dtoToEntity(artistDTO);
+        Artist toUpdate = artistRepository.findById(update.getArtistID()).orElse(null);
+        if(toUpdate != null){
+            toUpdate.setName(update.getName());
+            toUpdate.setType(update.getType());
+            toUpdate.setCountry(update.getCountry());
+            toUpdate.setEnterprise(update.getEnterprise());
+            toUpdate.setDebutDate(update.getDebutDate());
+            return entityToDTO(artistRepository.save(toUpdate));
+        }
         return null;
     }
 
     @Override
-    public String deleteArtist(String idArtist) {
-        return null;
+    public void deleteArtist(String idArtist) {
+        artistRepository.deleteById(idArtist);
+    }
+
+    @Override
+    public List<ArtistDTO> getArtistByType(String type) {
+        return artistRepository.findAllByType(type)
+                .stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
     }
 }

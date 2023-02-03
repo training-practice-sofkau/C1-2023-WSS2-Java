@@ -1,11 +1,13 @@
 package co.com.chartsofka.music.controller;
 
+import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.service.impl.ArtistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,10 +27,29 @@ public class ArtistController {
         return artistService.findArtistById(idArtist) == null ? ResponseEntity.status(404).body(new ArtistDTO()) : ResponseEntity.ok(artistService.findArtistById(idArtist));
     }
 
+    @GetMapping("/artists/byType/{type}")
+    private ResponseEntity<List<ArtistDTO>> getArtistByType(@PathVariable("type") String type){
+        return artistService.getArtistByType(type) == null ?
+                ResponseEntity.status(404).body(new ArrayList<>()) :
+                ResponseEntity.ok(artistService.getArtistByType(type));
+    }
+
     @PostMapping("/artists")
     private ResponseEntity<ArtistDTO> guardarArtista(@RequestBody ArtistDTO artistDTO){
         ArtistDTO artistSaved = artistService.saveArtist(artistDTO);
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
+    }
+
+    @PutMapping("/artists")
+    private ResponseEntity<ArtistDTO> updateAlbum(@RequestBody ArtistDTO artistDTO){
+        return artistService.findArtistById(artistDTO.getArtistID()) == null ? ResponseEntity.status(204).body(artistDTO) :
+                ResponseEntity.ok().body(artistService.updateArtist(artistDTO));
+    }
+
+    @DeleteMapping("/artists/{id}")
+    private ResponseEntity<ArtistDTO> deleteAlbum(@PathVariable("id") String idArtist){
+        return artistService.findArtistById(idArtist) == null ? ResponseEntity.status(204).build():
+                ResponseEntity.status(200).build();
     }
 
 }
