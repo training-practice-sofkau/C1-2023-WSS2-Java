@@ -1,11 +1,14 @@
 package co.com.chartsofka.music.service.impl;
 
+import co.com.chartsofka.music.configuration.ModelMapperConfig;
 import co.com.chartsofka.music.dto.AlbumDTO;
+import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Album;
 import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.service.IAlbumService;
 import co.com.chartsofka.music.utils.ExceptionsHandler;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +20,11 @@ import java.util.stream.Collectors;
 public class AlbumServiceImpl implements IAlbumService {
 
     private AlbumRepository albumRepository;
+    private ModelMapper modelMapper;
 
-    public AlbumServiceImpl(AlbumRepository albumRepository) {
+    public AlbumServiceImpl(AlbumRepository albumRepository, ModelMapper modelMapper) {
         this.albumRepository = albumRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -33,7 +38,8 @@ public class AlbumServiceImpl implements IAlbumService {
         album.setGenre(albumDTO.getGenre());
         album.setArtist(albumDTO.getArtist());
         album.setSongs(albumDTO.getSongs());
-        return album;
+        //return album;
+        return modelMapper.map(albumDTO, Album.class);
     }
 
     @Override
@@ -47,7 +53,8 @@ public class AlbumServiceImpl implements IAlbumService {
         albumDTO.setGenre(album.getGenre());
         albumDTO.setArtist(album.getArtist());
         albumDTO.setSongs(album.getSongs());
-        return albumDTO;
+        //return albumDTO;
+        return modelMapper.map(album, AlbumDTO.class);
     }
 
     @Override

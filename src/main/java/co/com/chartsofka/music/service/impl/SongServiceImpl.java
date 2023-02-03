@@ -1,10 +1,12 @@
 package co.com.chartsofka.music.service.impl;
 
 import co.com.chartsofka.music.dto.SongDTO;
+import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.repository.SongRepository;
 import co.com.chartsofka.music.service.ISongService;
 import co.com.chartsofka.music.utils.ExceptionsHandler;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,14 @@ import java.util.stream.Collectors;
 public class SongServiceImpl implements ISongService {
 
     private SongRepository songRepository;
+    private ModelMapper modelMapper;
 
-    public SongServiceImpl(SongRepository songRepository) {
+    public SongServiceImpl(SongRepository songRepository, ModelMapper modelMapper) {
+
         this.songRepository = songRepository;
+        this.modelMapper = modelMapper;
     }
+    
 
     @Override
     public Song dtoToEntity(SongDTO songDTO) {
@@ -29,7 +35,9 @@ public class SongServiceImpl implements ISongService {
         song.setDuration(songDTO.getDuration());
         song.setPlayed(songDTO.getPlayed());
         song.setAlbum(songDTO.getAlbum());
-        return song;
+        //return song;
+        return modelMapper.map(songDTO, Song.class);
+
     }
 
     @Override
@@ -40,7 +48,8 @@ public class SongServiceImpl implements ISongService {
         songDTO.setDuration(song.getDuration());
         songDTO.setPlayed(song.getPlayed());
         songDTO.setAlbum(song.getAlbum());
-        return songDTO;
+        //return songDTO;
+        return modelMapper.map(song, SongDTO.class);
     }
 
     @Override

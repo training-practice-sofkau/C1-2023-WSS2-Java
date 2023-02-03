@@ -1,10 +1,12 @@
 package co.com.chartsofka.music.service.impl;
 
+import co.com.chartsofka.music.dto.AlbumDTO;
 import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.repository.ArtistRepository;
 import co.com.chartsofka.music.service.IArtistService;
 import co.com.chartsofka.music.utils.ExceptionsHandler;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,11 @@ public class ArtistServiceImpl implements IArtistService {
 
 
     private ArtistRepository artistRepository;
+    private ModelMapper modelMapper;
 
-    public ArtistServiceImpl(ArtistRepository repository) {
+    public ArtistServiceImpl(ArtistRepository repository, ModelMapper modelMapper) {
         this.artistRepository = repository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -31,7 +35,8 @@ public class ArtistServiceImpl implements IArtistService {
         artist.setDebutDate(artistDTO.getDebutDate());
         artist.setEnterprise(artistDTO.getEnterprise());
         artist.setType(artistDTO.getType());
-        return artist;
+        //return artist;
+        return modelMapper.map(artistDTO, Artist.class);
     }
 
     @Override
@@ -43,7 +48,8 @@ public class ArtistServiceImpl implements IArtistService {
         artistDTO.setDebutDate(artist.getDebutDate());
         artistDTO.setEnterprise(artist.getEnterprise());
         artistDTO.setType(artist.getType());
-        return artistDTO;
+        //return artistDTO;
+        return modelMapper.map(artist, ArtistDTO.class);
     }
 
     @Override
