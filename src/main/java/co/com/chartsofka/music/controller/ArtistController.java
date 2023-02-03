@@ -31,4 +31,16 @@ public class ArtistController {
         return  artistSaved == null ? ResponseEntity.status(400).body(artistDTO) : ResponseEntity.status(201).body(artistSaved);
     }
 
+    @PutMapping("/artists")
+    private ResponseEntity<ArtistDTO> actualizarArtista(@RequestBody ArtistDTO artistDTO){
+        ArtistDTO artistSaved = artistService.updateArtist(artistDTO);
+        return artistSaved == null? ResponseEntity.status(404).body(artistDTO) : ResponseEntity.ok(artistService.updateArtist(artistDTO));
+    }
+
+    @DeleteMapping("/artists/{id}")
+    private ResponseEntity<String> eliminarArtista(@PathVariable("id") String idArtist){
+        String msg = artistService.deleteArtist(idArtist);
+        return msg == null? ResponseEntity.status(404).body("Album non-existent"): ResponseEntity.status(201).body(msg);
+    }
+
 }
