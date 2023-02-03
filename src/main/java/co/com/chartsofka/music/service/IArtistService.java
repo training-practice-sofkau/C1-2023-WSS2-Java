@@ -17,10 +17,11 @@ public interface IArtistService {
     List<ArtistDTO> getArtists();
 
     ArtistDTO findArtistById(String idArtist);
+    List<ArtistDTO> findArtistByType(String typeArtist);
 
     ArtistDTO saveArtist(ArtistDTO artistDTO);
 
-    ArtistDTO updateArtist(ArtistDTO artistDTO);
+    ArtistDTO updateArtist(String idArtist, ArtistDTO artistDTO);
 
-    String deleteArtist(String idArtist);
+    ArtistDTO deleteArtist(String idArtist);
 }

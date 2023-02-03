@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,18 +41,37 @@ public class ArtistServiceImpl implements IArtistService {
         return entityToDTO(artistRepository.findById(idArtist).orElse(new Artist()));
     }
 
+    public List<ArtistDTO> findArtistByType(String typeArtist){
+        return artistRepository.findAll()
+                .stream()
+                .filter(artist -> Objects.equals(artist.getType(), typeArtist))
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public ArtistDTO saveArtist(ArtistDTO artistDTO) {
         return entityToDTO(artistRepository.save(dtoToEntity(artistDTO)));
     }
 
     @Override
-    public ArtistDTO updateArtist(ArtistDTO artistDTO) {
-        return null;
+    public ArtistDTO updateArtist(String idArtist, ArtistDTO artistDTO) {
+        var artistBody = artistRepository.findById(idArtist)
+                .map(artist -> {
+                    artist.setName(artistDTO.getName());
+                    artist.setCountry(artistDTO.getCountry());
+                    artist.setDebutDate(artistDTO.getDebutDate());
+                    artist.setEnterprise(artistDTO.getEnterprise());
+                    artist.setType(artistDTO.getType());
+                    return artistRepository.save(artist);
+                }).orElse(new Artist());
+        return entityToDTO(artistBody);
     }
 
     @Override
-    public String deleteArtist(String idArtist) {
-        return null;
+    public ArtistDTO deleteArtist(String idArtist) {
+        var artist = artistRepository.findById(idArtist).orElse(new Artist());
+        artistRepository.delete(artist);
+        return entityToDTO(artist);
     }
 }

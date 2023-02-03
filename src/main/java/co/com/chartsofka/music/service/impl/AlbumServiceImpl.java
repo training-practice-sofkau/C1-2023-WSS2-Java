@@ -1,7 +1,10 @@
 package co.com.chartsofka.music.service.impl;
 
+import co.com.chartsofka.music.controller.ItemNotFoundException;
 import co.com.chartsofka.music.dto.AlbumDTO;
+import co.com.chartsofka.music.dto.ArtistDTO;
 import co.com.chartsofka.music.entity.Album;
+import co.com.chartsofka.music.entity.Artist;
 import co.com.chartsofka.music.repository.AlbumRepository;
 import co.com.chartsofka.music.service.IAlbumService;
 import co.com.chartsofka.music.utils.DTOToEntity;
@@ -28,6 +31,7 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDTO entityToDTO(Album album) {
+
         return EntityToDTO.album(album);
     }
 
@@ -51,12 +55,25 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
-    public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
-        return null;
+    public AlbumDTO updateAlbum(String idAlbum, AlbumDTO albumDTO) {
+        var albumBody = albumRepository.findById(idAlbum)
+                .map(this::entityToDTO)
+                .map(album -> {
+                    album.setTitle(albumDTO.getTitle());
+                    album.setTotalSongs(albumDTO.getTotalSongs());
+                    album.setYearRelease(albumDTO.getYearRelease());
+                    album.setGenre(albumDTO.getGenre());
+                    album.setArtistDTO(albumDTO.getArtistDTO());
+                    return dtoToEntity(album);
+                }).orElseThrow(() -> new ItemNotFoundException(idAlbum));
+        albumRepository.save(albumBody);
+        return entityToDTO(albumBody);
     }
 
     @Override
-    public String deleteAlbum(String idAlbum) {
-        return null;
+    public AlbumDTO deleteAlbum(String idAlbum) {
+        var album = albumRepository.findById(idAlbum).orElseThrow(() -> new ItemNotFoundException(idAlbum));
+        albumRepository.delete(album);
+        return entityToDTO(album);
     }
 }

@@ -19,8 +19,8 @@ public interface IAlbumService {
 
     AlbumDTO saveAlbum(AlbumDTO albumDTO);
 
-    AlbumDTO updateAlbum(AlbumDTO albumDTO);
+    AlbumDTO updateAlbum(String idArtist, AlbumDTO albumDTO);
 
-    String deleteAlbum(String idAlbum);
+    AlbumDTO deleteAlbum(String idAlbum);
 
 }
