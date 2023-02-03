@@ -1,6 +1,8 @@
 package co.com.chartsofka.music.controller;
 
 import co.com.chartsofka.music.dto.AlbumDTO;
+import co.com.chartsofka.music.dto.SongDTO;
+import co.com.chartsofka.music.entity.Song;
 import co.com.chartsofka.music.service.impl.AlbumServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,16 @@ public class AlbumController implements Serializable {
     @GetMapping("/albums")
     public List<AlbumDTO> getAlbums(){
         return service.getAlbums();
+    }
+
+    @GetMapping("/albums/{albumID}")
+    public AlbumDTO getAlbumByID(@PathVariable String albumID){
+        return service.getAlbumById(albumID);
+    }
+
+    @GetMapping("/albums/songs/{albumID}")
+    public List<Song> getAlbumsSongs(@PathVariable String albumID){
+        return service.getAlbumsSongs(albumID);
     }
 
     @PostMapping("/albums")

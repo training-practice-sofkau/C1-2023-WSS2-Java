@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumDTO implements Serializable {
+public class AlbumDTO  {
     private String albumID;
     private String name;
     private Integer totalSongs;
