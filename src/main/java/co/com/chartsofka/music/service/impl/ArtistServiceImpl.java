@@ -47,11 +47,21 @@ public class ArtistServiceImpl implements IArtistService {
 
     @Override
     public ArtistDTO updateArtist(ArtistDTO artistDTO) {
+        Artist update = DTOToEntity.artist(artistDTO);
+        Artist toUpdate = artistRepository.findById(update.getArtistID()).orElse(null);
+        if(toUpdate != null){
+            toUpdate.setName(update.getName());
+            toUpdate.setType(update.getType());
+            toUpdate.setCountry(update.getCountry());
+            toUpdate.setEnterprise(update.getEnterprise());
+            toUpdate.setDebutDate(update.getDebutDate());
+            return EntityToDTO.artist(artistRepository.save(toUpdate));
+        }
         return null;
     }
 
     @Override
-    public String deleteArtist(String idArtist) {
-        return null;
+    public void deleteArtist(String idArtist) {
+        artistRepository.deleteById(idArtist);
     }
 }

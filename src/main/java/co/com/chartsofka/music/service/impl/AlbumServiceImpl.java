@@ -7,11 +7,9 @@ import co.com.chartsofka.music.service.IAlbumService;
 import co.com.chartsofka.music.utils.DTOToEntity;
 import co.com.chartsofka.music.utils.EntityToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,11 +50,21 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDTO updateAlbum(AlbumDTO albumDTO) {
+        Album update = DTOToEntity.album(albumDTO);
+        Album toUpdate = albumRepository.findById(update.getAlbumID()).orElse(null);
+        if(toUpdate != null){
+            toUpdate.setTitle(update.getTitle());
+            toUpdate.setGenre(update.getGenre());
+            toUpdate.setArtist(update.getArtist());
+            toUpdate.setYearRelease(update.getYearRelease());
+            toUpdate.setTotalSongs(update.getTotalSongs());
+            return EntityToDTO.album(albumRepository.save(toUpdate));
+        }
         return null;
     }
 
     @Override
-    public String deleteAlbum(String idAlbum) {
-        return null;
+    public void deleteAlbum(String idAlbum) {
+        albumRepository.deleteById(idAlbum);
     }
 }

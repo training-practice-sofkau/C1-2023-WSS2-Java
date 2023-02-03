@@ -34,7 +34,7 @@ public class EntityToDTO {
         return r;
     }
 
-    public static SongDTO entityToDTO(Song song) {
+    public static SongDTO song(Song song) {
         SongDTO result = new SongDTO();
         result.setSongID(song.getSongID());
         result.setAlbumID(song.getAlbumID());

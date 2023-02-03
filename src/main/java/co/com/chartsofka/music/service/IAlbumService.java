@@ -21,6 +21,6 @@ public interface IAlbumService {
 
     AlbumDTO updateAlbum(AlbumDTO albumDTO);
 
-    String deleteAlbum(String idAlbum);
+    void deleteAlbum(String idAlbum);
 
 }
