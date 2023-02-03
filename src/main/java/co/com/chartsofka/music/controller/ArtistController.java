@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.*;
 
 @RestController
-@RequestMapping("/artists")
+@RequestMapping("api/artists")
 public class ArtistController {
     @Autowired
     ArtistServiceImpl artistService;
