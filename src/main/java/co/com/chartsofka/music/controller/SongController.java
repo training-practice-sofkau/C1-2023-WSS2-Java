@@ -22,6 +22,11 @@ public class SongController {
     public ResponseEntity<SongDTO> getSongById(@PathVariable("id") String artistID) {
         return new ResponseEntity<>(songServiceImpl.getSongById(artistID), HttpStatus.OK);
     }
+
+    @GetMapping("/toptensongs")
+    public ResponseEntity<List<SongDTO>> getTopTenSongs(){
+        return new ResponseEntity<>(songServiceImpl.getTopTenSongs(), HttpStatus.OK);
+    }
     @GetMapping
     public ResponseEntity<List<SongDTO>> getSongs(){
         return new ResponseEntity<>(songServiceImpl.getSongs(), HttpStatus.OK);

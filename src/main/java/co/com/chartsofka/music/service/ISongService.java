@@ -22,4 +22,7 @@ public interface ISongService {
 
     void deleteSong(String songID);
 
+    //Customized operations
+    List<SongDTO> getTopTenSongs();
+
 }

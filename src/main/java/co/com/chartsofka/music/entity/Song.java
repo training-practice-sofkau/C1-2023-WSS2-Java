@@ -24,7 +24,7 @@ public class Song {
     private Integer played;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Album.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Album.class)
     @JoinColumn(name="album_id", foreignKey = @ForeignKey(name = "FK_album_id"))
     private Album album;
 }

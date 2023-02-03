@@ -2,7 +2,6 @@ package co.com.chartsofka.music.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import co.com.chartsofka.music.dto.SongDTO;
 import co.com.chartsofka.music.entity.Song;
@@ -43,8 +42,21 @@ public class SongServiceImpl implements ISongService {
     }
 
     @Override
+    public List<SongDTO> getTopTenSongs() {
+        return songRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .sorted((song1, song2)->song2.getPlayed().compareTo(song1.getPlayed()))
+                .limit(10)
+                .toList();
+    }
+
+    @Override
     public List<SongDTO> getSongs() {
-        return songRepository.findAll().stream().map(this::entityToDTO).collect(Collectors.toList());
+        return songRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .toList();
     }
 
     @Override
