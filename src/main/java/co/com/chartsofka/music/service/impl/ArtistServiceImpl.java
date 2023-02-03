@@ -63,4 +63,8 @@ public class ArtistServiceImpl implements IArtistService {
         artistRepository.delete(artistToDelete);
         return idArtist;
     }
+
+    public List<ArtistDTO> getArtistByType(String type){
+        return artistRepository.findByType(type).stream().map(EntityToDTO::artist).toList();
+    }
 }

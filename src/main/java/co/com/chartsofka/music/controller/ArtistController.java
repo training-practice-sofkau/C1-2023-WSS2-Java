@@ -27,6 +27,11 @@ public class ArtistController {
         return artistService.findArtistById(idArtist) == null ? ResponseEntity.status(404).body(EntityToDTO.artist(new Artist())) : ResponseEntity.ok(artistService.findArtistById(idArtist));
     }
 
+    @GetMapping("/type/{type}")
+    private ResponseEntity<List<ArtistDTO>> obtenerArtistaPorTipo(@PathVariable("type") String type){
+        return artistService.getArtistByType(type) == null ? ResponseEntity.status(404).body(Collections.emptyList()) : ResponseEntity.ok(artistService.getArtistByType(type));
+    }
+
     @PostMapping("/")
     private ResponseEntity<ArtistDTO> guardarArtista(@RequestBody ArtistDTO artistDTO){
         ArtistDTO artistSaved = artistService.saveArtist(artistDTO);
