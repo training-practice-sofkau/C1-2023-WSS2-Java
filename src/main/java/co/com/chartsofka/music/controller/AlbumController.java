@@ -17,7 +17,7 @@ public class AlbumController {
     AlbumServiceImpl albumService;
 
     @GetMapping("/albums")
-    private ResponseEntity<List<AlbumDTO>> obtenerAlbumnes(){
+    private ResponseEntity<List<AlbumDTO>> obtenerAlbumes(){
         return albumService.getAlbums().isEmpty() ?
                 ResponseEntity.status(204).body(Collections.emptyList()) :
                 //ResponseEntity.noContent().build():
@@ -34,7 +34,19 @@ public class AlbumController {
 
     @PostMapping("/albums")
     private ResponseEntity<AlbumDTO> guardarAlbum(@RequestBody AlbumDTO albumDTO){
-        AlbumDTO albumDTO1 = albumService.saveAlbum(albumDTO);
-        return  albumDTO1 == null ? ResponseEntity.status(400).body(albumDTO) : ResponseEntity.status(201).body(albumDTO1);
+        AlbumDTO albumSaved = albumService.saveAlbum(albumDTO);
+        return  albumSaved == null ? ResponseEntity.status(400).body(albumDTO) : ResponseEntity.status(201).body(albumSaved);
+    }
+
+    @PutMapping("/albums/{id}")
+    private ResponseEntity<AlbumDTO> actualizarAlbum(@RequestBody AlbumDTO albumDTO){
+        AlbumDTO albumSaved = albumService.updateAlbum(albumDTO);
+        return  albumSaved == null? ResponseEntity.status(400).body(albumDTO) : ResponseEntity.status(200).body(albumSaved);
+    }
+
+    @DeleteMapping("/albums/{id}")
+    private ResponseEntity<String> eliminarAlbum(@PathVariable("id") String idAlbum){
+        String msg = albumService.deleteAlbum(idAlbum);
+        return  msg == null? ResponseEntity.status(400).body("Album non-existent"): ResponseEntity.status(201).body(msg);
     }
 }
