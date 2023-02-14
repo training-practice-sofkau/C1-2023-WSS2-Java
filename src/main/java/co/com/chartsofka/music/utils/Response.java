@@ -5,7 +5,6 @@ public class Response {
 
 
     public Boolean error;
-
     public String message;
 
     public Object data;

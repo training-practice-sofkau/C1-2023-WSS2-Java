@@ -33,6 +33,10 @@ public class Artist {
     private String enterprise;
     @Column
     private String type;
+    @Column
+    private Integer age;
+    @Column
+    private String pic_url;
 
     @OneToMany(mappedBy = "artist", targetEntity = Album.class, cascade = CascadeType.ALL)
     @JsonManagedReference

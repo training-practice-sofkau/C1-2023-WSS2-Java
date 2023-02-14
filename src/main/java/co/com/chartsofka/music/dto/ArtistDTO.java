@@ -1,6 +1,7 @@
 package co.com.chartsofka.music.dto;
 
 import co.com.chartsofka.music.entity.Album;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ public class ArtistDTO {
     private String country;
     private LocalDate debutDate;
     private String enterprise;
+    private Integer age;
     private String type;
+    private String pic_url;
     private List<Album> albums = new ArrayList<>();
 }
